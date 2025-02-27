@@ -8,6 +8,8 @@ public class MenuManager : MonoBehaviour
     public bool isInMenu = false;
     public bool isInInventory = false;
 
+    PlayerActions actions;
+
     [SerializeField] private GameObject pauseMenuCanvas;
     [SerializeField] private GameObject inventoryCanvas;
     [SerializeField] FirstPersonController playerController;
@@ -16,6 +18,7 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         pauseMenuCanvas.SetActive(false);
+        actions = FindAnyObjectByType<PlayerActions>();
     }
 
     // Update is called once per frame
@@ -54,6 +57,7 @@ public class MenuManager : MonoBehaviour
     public void SetActivePause(bool state)
     {
         playerController.enabled = !state;
+        actions.canInteract = !state;
         Time.timeScale = state ? 0.0f : 1.0f;
         isPaused = state;
     }

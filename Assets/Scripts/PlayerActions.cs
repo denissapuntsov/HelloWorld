@@ -2,15 +2,10 @@ using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
 {
+    public bool canInteract = true;
     public Transform playerCamera;
     public float interactionDistance;
 
-    MenuManager menuManager;
-
-    private void Start()
-    {
-        menuManager = FindAnyObjectByType<MenuManager>();
-    }
 
     private void Update()
     {
@@ -19,7 +14,7 @@ public class PlayerActions : MonoBehaviour
 
     public void HandleInteraction()
     {
-        if (!menuManager.isPaused)
+        if (canInteract)
         {
             RaycastHit hit;
             Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, interactionDistance);
@@ -31,8 +26,7 @@ public class PlayerActions : MonoBehaviour
             //check if looking at interactable object
             if (hit.transform.GetComponent<Interaction>() != null)
             {
-                //TODO: process observation
-                Debug.Log("looking at" + hit.transform.gameObject.name);
+                //process observation
                 hit.transform.GetComponent<Interaction>().Observe();
                 //process interaction
                 if (Input.GetKeyDown(KeyCode.E))
