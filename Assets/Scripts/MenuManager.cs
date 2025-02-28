@@ -38,6 +38,14 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    public void SetActivePause(bool state)
+        {
+            playerController.enabled = !state;
+            actions.canInteract = !state;
+            Time.timeScale = state ? 0.0f : 1.0f;
+            isPaused = state;
+        }
+
     private void TogglePauseMenu()
     {
         if (!isPaused && !isInInventory)
@@ -52,14 +60,6 @@ public class MenuManager : MonoBehaviour
             isInMenu = false;
             pauseMenuCanvas.SetActive(false);
         }
-    }
-
-    public void SetActivePause(bool state)
-    {
-        playerController.enabled = !state;
-        actions.canInteract = !state;
-        Time.timeScale = state ? 0.0f : 1.0f;
-        isPaused = state;
     }
 
     void ToggleInventory(bool state)

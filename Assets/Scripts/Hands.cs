@@ -7,22 +7,27 @@ public class Hands : MonoBehaviour
     [SerializeField] public bool handsFull = false;
 
     PlayerActions actions;
+    MenuManager menuManager;
 
     private void Start()
     {
         actions = FindAnyObjectByType<PlayerActions>();
+        menuManager = FindAnyObjectByType<MenuManager>();
     }
 
     private void Update()
     {
-        if (handsFull && Input.GetKeyDown(KeyCode.E))
+        if (!menuManager.isPaused && !menuManager.isInInventory)
         {
-            RemoveHeldObject();
-        }
+            if (handsFull && Input.GetKeyDown(KeyCode.E))
+            {
+                RemoveHeldObject();
+            }
 
-        if (!handsFull && Input.GetKeyUp(KeyCode.E))
-        {
-            actions.canInteract = true;
+            if (!handsFull && Input.GetKeyUp(KeyCode.E))
+            {
+                actions.canInteract = true;
+            }
         }
     }
 
