@@ -3,16 +3,24 @@ using UnityEngine.Events;
 
 public class Interaction : MonoBehaviour
 {
+    public bool canBeInteractedWith = true;
+
     public UnityEvent onObserve;
     public UnityEvent onInteract;
 
     public void Observe()
     {
-        onObserve?.Invoke();
+        if (canBeInteractedWith)
+        {
+            onObserve?.Invoke();
+        }
     }
 
     public void Interact()
     {
-        onInteract?.Invoke();
+        if (canBeInteractedWith)
+        {
+            onInteract?.Invoke();
+        }
     }
 }
