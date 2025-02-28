@@ -7,6 +7,7 @@ public class Interaction : MonoBehaviour
 
     public UnityEvent onObserve;
     public UnityEvent onInteract;
+    public UnityEvent onStopInteraction;
 
     public void Observe()
     {
@@ -22,5 +23,10 @@ public class Interaction : MonoBehaviour
         {
             onInteract?.Invoke();
         }
+    }
+
+    public void StopInteraction()
+    {
+        onStopInteraction?.Invoke();
     }
 }
