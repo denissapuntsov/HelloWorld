@@ -34,7 +34,7 @@ public class PlayerActions : MonoBehaviour
                     hit.transform.GetComponent<Interaction>().Interact();
                 }
 
-                if(Input.GetKeyUp(KeyCode.E))
+                if (Input.GetKeyUp(KeyCode.E))
                 {
                     hit.transform.GetComponent<Interaction>().StopInteraction();
                 }

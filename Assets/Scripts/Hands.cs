@@ -56,15 +56,18 @@ public class Hands : MonoBehaviour
 
     public void RemoveHeldObject()
     {
-        heldObject.layer = 0;
-        heldObject.GetComponent<Rigidbody>().useGravity = true;
-        heldObject.GetComponent<Rigidbody>().isKinematic = false;
-        heldObject.GetComponent<BoxCollider>().enabled = true;
+        if (heldObject != null)
+        {
+            heldObject.layer = 0;
+            heldObject.GetComponent<Rigidbody>().useGravity = true;
+            heldObject.GetComponent<Rigidbody>().isKinematic = false;
+            heldObject.GetComponent<BoxCollider>().enabled = true;
 
-        heldObject.transform.SetParent(null, true);
-        heldObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            heldObject.transform.SetParent(null, true);
+            heldObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
-        heldObject = null;
-        handsFull = false;
+            heldObject = null;
+            handsFull = false;
+        }
     }
 }
