@@ -3,9 +3,13 @@ using UnityEngine.Events;
 
 public class Interaction : MonoBehaviour
 {
+    [SerializeField] bool includesRegularInteractionInFirst = true;
+    
     public bool canBeInteractedWith = true;
+    bool isFirstInteraction = true;
 
     public UnityEvent onObserve;
+    public UnityEvent onTriggerFirstInteraction;
     public UnityEvent onInteract;
     public UnityEvent onStopInteraction;
 
@@ -21,7 +25,21 @@ public class Interaction : MonoBehaviour
     {
         if (canBeInteractedWith)
         {
-            onInteract?.Invoke();
+            if (isFirstInteraction)
+            {
+                // do a special single-time interaction
+                Debug.Log($"First interaction with {gameObject.name} done, switching to onInteract");
+                onTriggerFirstInteraction?.Invoke();
+                
+                // do the regular interaction
+                if (includesRegularInteractionInFirst) { onInteract?.Invoke(); }
+                isFirstInteraction = false;
+            }
+            else
+            {
+                // process interactions as normal
+                onInteract?.Invoke();
+            }
         }
     }
 

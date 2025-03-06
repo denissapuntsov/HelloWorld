@@ -32,7 +32,7 @@ public class MenuManager : MonoBehaviour
         {
             ToggleInventory(true);
         }
-        if (isInInventory && Input.GetKeyDown(KeyCode.Escape))
+        if (isInInventory && Input.GetKeyDown(KeyCode.I))
         {
             ToggleInventory(false);
         }

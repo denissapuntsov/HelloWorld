@@ -4,7 +4,10 @@ public class Hands : MonoBehaviour
 {
     public GameObject heldObject;
     public Vector3 heldOffset;
-    [SerializeField] public bool handsFull = false;
+    public Transform playerCamera;
+
+    [field: SerializeField] 
+    public bool HandsFull { get; set; } = false;
 
     PlayerActions actions;
     MenuManager menuManager;
@@ -13,18 +16,27 @@ public class Hands : MonoBehaviour
     {
         actions = FindAnyObjectByType<PlayerActions>();
         menuManager = FindAnyObjectByType<MenuManager>();
+        playerCamera = Camera.main.transform;
     }
 
     private void Update()
     {
         if (!menuManager.isPaused && !menuManager.isInInventory)
         {
-            if (handsFull && Input.GetKeyDown(KeyCode.E))
+            if (HandsFull && Input.GetKeyDown(KeyCode.E))
             {
+                RaycastHit hit;
+                // 7 is the index of Block Dropping Items layer mask 
+                Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, actions.interactionDistance / 2, 7);
+                if (hit.transform != null) 
+                {
+                    return; 
+                }
+
                 RemoveHeldObject();
             }
 
-            if (!handsFull && Input.GetKeyUp(KeyCode.E))
+            if (!HandsFull && Input.GetKeyUp(KeyCode.E))
             {
                 actions.canInteract = true;
             }
@@ -33,18 +45,16 @@ public class Hands : MonoBehaviour
 
     public void AssignHeldObject(GameObject newObject)
     {
-        if (!handsFull)
+        if (!HandsFull)
         {
+
             heldObject = newObject;
             heldObject.layer = 3;
             heldObject.transform.localPosition = heldOffset;
-
-            heldObject.GetComponent<Rigidbody>().useGravity = false;
-            heldObject.GetComponent<Rigidbody>().isKinematic = true;
-            heldObject.GetComponent<BoxCollider>().enabled = false;
+            SetPhysics(false);
 
             heldObject.transform.SetParent(transform, false);
-            handsFull = true;
+            HandsFull = true;
 
             actions.canInteract = false;
         }
@@ -54,20 +64,26 @@ public class Hands : MonoBehaviour
         }
     }
 
+    private void SetPhysics(bool state)
+    {
+        heldObject.GetComponent<Rigidbody>().useGravity = state;
+        heldObject.GetComponent<Rigidbody>().isKinematic = !state;
+        heldObject.GetComponent<BoxCollider>().enabled = state;
+    }
+
     public void RemoveHeldObject()
     {
         if (heldObject != null)
         {
+
             heldObject.layer = 0;
-            heldObject.GetComponent<Rigidbody>().useGravity = true;
-            heldObject.GetComponent<Rigidbody>().isKinematic = false;
-            heldObject.GetComponent<BoxCollider>().enabled = true;
+            SetPhysics(true);
 
             heldObject.transform.SetParent(null, true);
             heldObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
             heldObject = null;
-            handsFull = false;
+            HandsFull = false;
         }
     }
 }
