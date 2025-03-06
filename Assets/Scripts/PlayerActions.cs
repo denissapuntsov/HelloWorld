@@ -14,30 +14,37 @@ public class PlayerActions : MonoBehaviour
 
     public void HandleInteraction()
     {
-        if (canInteract)
+
+
+        if (!canInteract)
         {
-            RaycastHit hit;
-            Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, interactionDistance);
+            return;
+        }
 
-            if (hit.transform == null)
+        RaycastHit hit;
+        Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, interactionDistance);
+
+        if (hit.transform == null)
+        {
+            return;
+        }
+
+        //check if looking at interactable object
+        Interaction interaction = hit.transform.GetComponent<Interaction>();
+
+        if (interaction != null)
+        {
+            //process observation
+            interaction.Observe();
+            //process interaction
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                return;
+                interaction.Interact();
             }
-            //check if looking at interactable object
-            if (hit.transform.GetComponent<Interaction>() != null)
-            {
-                //process observation
-                hit.transform.GetComponent<Interaction>().Observe();
-                //process interaction
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    hit.transform.GetComponent<Interaction>().Interact();
-                }
 
-                if (Input.GetKeyUp(KeyCode.E))
-                {
-                    hit.transform.GetComponent<Interaction>().StopInteraction();
-                }
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                interaction.StopInteraction();
             }
         }
     }
