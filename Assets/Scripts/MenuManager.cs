@@ -39,12 +39,17 @@ public class MenuManager : MonoBehaviour
     }
 
     public void SetActivePause(bool state)
-        {
-            playerController.enabled = !state;
-            actions.canInteract = !state;
-            Time.timeScale = state ? 0.0f : 1.0f;
-            isPaused = state;
-        }
+    {
+        playerController.enabled = !state;
+        actions.canInteract = !state;
+        Time.timeScale = state ? 0.0f : 1.0f;
+        isPaused = state;
+
+        // Set Cursor parameters
+        Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = state;
+
+    }
 
     private void TogglePauseMenu()
     {
