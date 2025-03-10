@@ -15,7 +15,6 @@ public class Menu : MonoBehaviour
         {
             if (Input.GetKeyDown(key))
             {
-                Debug.Log("got close key");
                 Close();
             }
         }
