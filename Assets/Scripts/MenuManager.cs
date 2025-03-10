@@ -4,42 +4,43 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    public bool isPaused = false;
-    public bool isInMenu = false;
-    public bool isInInventory = false;
-
+    
+    // for pausing all movement in game
+    [SerializeField] FirstPersonController playerController;
     PlayerActions actions;
 
-    [SerializeField] private GameObject pauseMenuCanvas;
-    [SerializeField] private GameObject inventoryCanvas;
-    [SerializeField] FirstPersonController playerController;
+    //
+    public bool isInMenu = false;
+    public bool isPaused;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Menu references
+    [SerializeField] GameObject pause, inventory;
+
     void Start()
     {
-        pauseMenuCanvas.SetActive(false);
         actions = FindAnyObjectByType<PlayerActions>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (!isInInventory && Input.GetKeyDown(KeyCode.Escape))
+        if (isInMenu) { return; }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TogglePauseMenu();
+            pause.SetActive(true);
+            SetGamePause(true);
         }
-        if (!isInMenu && Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            ToggleInventory(true);
-        }
-        if (isInInventory && Input.GetKeyDown(KeyCode.I))
-        {
-            ToggleInventory(false);
+            inventory.SetActive(true);
+            SetGamePause(true);
         }
     }
 
-    public void SetActivePause(bool state)
+    public void SetGamePause(bool state)
     {
+        isInMenu = state;
+
         playerController.enabled = !state;
         actions.canInteract = !state;
         Time.timeScale = state ? 0.0f : 1.0f;
@@ -48,41 +49,6 @@ public class MenuManager : MonoBehaviour
         // Set Cursor parameters
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = state;
-
     }
-
-    private void TogglePauseMenu()
-    {
-        if (!isPaused && !isInInventory)
-        {
-            SetActivePause(true);
-            isInMenu = true;
-            pauseMenuCanvas.SetActive(true);
-        }
-        else
-        {
-            SetActivePause(false);
-            isInMenu = false;
-            pauseMenuCanvas.SetActive(false);
-        }
-    }
-
-    void ToggleInventory(bool state)
-    {
-        if (state == true)
-        {
-            if (!isPaused && !isInInventory)
-            {
-                SetActivePause(true);
-                isInInventory = true;
-                inventoryCanvas.SetActive(true);
-            }
-        }
-        if (state == false)
-        {
-            SetActivePause(false);
-            isInInventory = false;
-            inventoryCanvas.SetActive(false);
-        }
-    }
+    
 }

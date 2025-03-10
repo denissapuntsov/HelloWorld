@@ -21,25 +21,22 @@ public class Hands : MonoBehaviour
 
     private void Update()
     {
-        if (!menuManager.isPaused && !menuManager.isInInventory)
+        if (menuManager.isInMenu) { return; }
+
+        if (HandsFull && Input.GetKeyDown(KeyCode.E))
         {
-            if (HandsFull && Input.GetKeyDown(KeyCode.E))
-            {
-                RaycastHit hit;
-                // 7 is the index of Block Dropping Items layer mask 
-                Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, actions.interactionDistance / 2, 7);
-                if (hit.transform != null) 
-                {
-                    return; 
-                }
+            RaycastHit hit;
 
-                RemoveHeldObject();
-            }
+            // 7 is the index of Block Dropping Items layer mask 
+            Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, actions.interactionDistance / 2, 7);
+            if (hit.transform != null) { return; }
 
-            if (!HandsFull && Input.GetKeyUp(KeyCode.E))
-            {
-                actions.canInteract = true;
-            }
+            RemoveHeldObject();
+        }
+
+        if (!HandsFull && Input.GetKeyUp(KeyCode.E))
+        {
+            actions.canInteract = true;
         }
     }
 
