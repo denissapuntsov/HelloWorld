@@ -20,7 +20,7 @@ public class Menu : MonoBehaviour
         }
     }
 
-    protected virtual void Close()
+    public virtual void Close()
     {
         menuManager.SetGamePause(false);
         gameObject.SetActive(false);

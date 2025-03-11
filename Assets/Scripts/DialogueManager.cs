@@ -46,7 +46,7 @@ public class DialogueManager : MonoBehaviour
         return null;
     }
 
-    private void Clear()
+    public void Clear()
     {
         caption.text = "";
     }

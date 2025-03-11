@@ -1,4 +1,3 @@
-using Mono.Cecil.Cil;
 using StarterAssets;
 using UnityEngine;
 
@@ -53,7 +52,6 @@ public class MenuManager : MonoBehaviour
 
         // Set Cursor parameters
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = state;
+        Cursor.visible = state; 
     }
-    
 }
