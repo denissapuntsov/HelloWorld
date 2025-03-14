@@ -6,12 +6,14 @@ public class SpeedModArea : MonoBehaviour
 {
     [SerializeField] float moveSpeedModifier = 0.5f;
     FirstPersonController playerController;
+    ScoreManager scoreManager;
     float normalSpeed;
 
     private void Start()
     {
         playerController = FindAnyObjectByType<FirstPersonController>();
         normalSpeed = playerController.MoveSpeed;
+        scoreManager = FindAnyObjectByType<ScoreManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,6 +34,7 @@ public class SpeedModArea : MonoBehaviour
 
     public void CheckForChildren()
     {
+        scoreManager.AddPoints(1);
         if (GetComponentsInChildren<Interaction>().Length != 0) { return; }
         SetPlayerSpeed(normalSpeed);
         Destroy(gameObject);

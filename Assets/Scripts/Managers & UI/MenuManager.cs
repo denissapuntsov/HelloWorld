@@ -32,11 +32,13 @@ public class MenuManager : MonoBehaviour
                 pauseUI.SetActive(true);
                 SetGamePause(true);
             }
-            if (Input.GetKeyDown(KeyCode.I) && inventoryManager.polaroids.Count != 0)
+            if (Input.GetKeyDown(KeyCode.Tab) && inventoryManager.polaroids.Count != 0)
             {
                 inventoryUI.SetActive(true);
                 inventoryManager.DisplayPolaroid(0);
                 SetGamePause(true);
+                Time.timeScale = 1;
+                isPaused = false;
             }
         }
     }

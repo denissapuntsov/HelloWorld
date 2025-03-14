@@ -28,7 +28,7 @@ public class Hands : MonoBehaviour
             RaycastHit hit;
 
             // 7 is the index of Block Dropping Items layer mask 
-            Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, actions.interactionDistance / 2, 7);
+            Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, 3, 7);
             if (hit.transform != null) { return; }
 
             RemoveHeldObject();

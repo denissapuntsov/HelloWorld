@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SnapArea : MonoBehaviour
 {
-    [SerializeField] GameObject objectToSnap;
+    [SerializeField] GameObject objectToCheckFor, objectToShow;
     [SerializeField] int scoreCount = 0;
 
     Hands hands;
@@ -16,7 +16,7 @@ public class SnapArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Holdable") && other.gameObject == objectToSnap)
+        if (other.CompareTag("Holdable") && other.gameObject == objectToCheckFor)
         {
             SnapObject(other);
         }
@@ -25,14 +25,8 @@ public class SnapArea : MonoBehaviour
     private void SnapObject(Collider other)
     {
         hands.RemoveHeldObject();
-        other.gameObject.GetComponent<Interaction>().canBeInteractedWith = false;
-        other.gameObject.GetComponent<Collider>().enabled = false;
-        other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        other.gameObject.GetComponent<Rigidbody>().useGravity = false;
-        other.transform.position = transform.position;
-
-        other.transform.rotation = transform.rotation;
-
+        Destroy(other.gameObject);
+        objectToShow.SetActive(true);
         scoreManager.AddPoints(scoreCount);
     }
 }
