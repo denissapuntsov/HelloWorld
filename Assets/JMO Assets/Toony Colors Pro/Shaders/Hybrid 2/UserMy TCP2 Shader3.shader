@@ -27,6 +27,11 @@ Shader "Toony Colors Pro 2/User/My TCP2 Shader3"
 		[Space]
 		[TCP2Separator]
 		
+		[TCP2HeaderHelp(Specular)]
+		[TCP2ColorNoAlpha] _SpecularColor ("Specular Color", Color) = (0.5,0.5,0.5,1)
+		_SpecularSmoothness ("Smoothness", Float) = 0.2
+		[TCP2Separator]
+		
 		[TCP2HeaderHelp(Rim Lighting)]
 		[TCP2ColorNoAlpha] _RimColor ("Rim Color", Color) = (0.8,0.8,0.8,0.5)
 		_RimMin ("Rim Min", Range(0,2)) = 0.5
@@ -51,20 +56,20 @@ Shader "Toony Colors Pro 2/User/My TCP2 Shader3"
 		[TCP2HeaderHelp(MATERIAL LAYERS)]
 
 		[TCP2Separator]
-		[TCP2Header(Material Layer)]
-		[NoScaleOffset] _layer_materialLayer ("Source Texture", 2D) = "white" {}
-		[MainTexture] [NoScaleOffset] _BaseMap_materialLayer ("Albedo", 2D) = "white" {}
-		_BaseColor_materialLayer ("Color", Color) = (1,1,1,1)
-		_RampThreshold_materialLayer ("Threshold", Range(0.01,1)) = 0.5
-		_RampSmoothing_materialLayer ("Smoothing", Range(0.001,1)) = 0.5
-		[IntRange] _BandsCount_materialLayer ("Bands Count", Range(1,20)) = 4
-		_BandsSmoothing_materialLayer ("Bands Smoothing", Range(0.001,1)) = 0.1
-		[TCP2ColorNoAlpha] _DiffuseTint_materialLayer ("Diffuse Tint", Color) = (1,0.5,0,1)
-		_RampSmoothingOtherLights_materialLayer ("Smoothing", Range(0.001,1)) = 0.5
-		[IntRange] _BandsCountOtherLights_materialLayer ("Bands Count", Range(1,20)) = 4
-		_BandsSmoothingOtherLights_materialLayer ("Bands Smoothing", Range(0.001,1)) = 0.1
-		[TCP2ColorNoAlpha] _SColor_materialLayer ("Shadow Color", Color) = (0.2,0.2,0.2,1)
-		[TCP2ColorNoAlpha] _HColor_materialLayer ("Highlight Color", Color) = (0.75,0.75,0.75,1)
+		[TCP2Header(Texture Layer )]
+		[NoScaleOffset] _layer_textureLayer ("Source Texture", 2D) = "white" {}
+		[MainTexture] [NoScaleOffset] _BaseMap_textureLayer ("Albedo", 2D) = "white" {}
+		_BaseColor_textureLayer ("Color", Color) = (1,1,1,1)
+		_RampThreshold_textureLayer ("Threshold", Range(0.01,1)) = 0.5
+		_RampSmoothing_textureLayer ("Smoothing", Range(0.001,1)) = 0.5
+		[IntRange] _BandsCount_textureLayer ("Bands Count", Range(1,20)) = 4
+		_BandsSmoothing_textureLayer ("Bands Smoothing", Range(0.001,1)) = 0.1
+		[TCP2ColorNoAlpha] _DiffuseTint_textureLayer ("Diffuse Tint", Color) = (1,0.5,0,1)
+		_RampSmoothingOtherLights_textureLayer ("Smoothing", Range(0.001,1)) = 0.5
+		[IntRange] _BandsCountOtherLights_textureLayer ("Bands Count", Range(1,20)) = 4
+		_BandsSmoothingOtherLights_textureLayer ("Bands Smoothing", Range(0.001,1)) = 0.1
+		[TCP2ColorNoAlpha] _SColor_textureLayer ("Shadow Color", Color) = (0.2,0.2,0.2,1)
+		[TCP2ColorNoAlpha] _HColor_textureLayer ("Highlight Color", Color) = (0.75,0.75,0.75,1)
 
 		[ToggleOff(_RECEIVE_SHADOWS_OFF)] _ReceiveShadowsOff ("Receive Shadows", Float) = 1
 
@@ -110,46 +115,55 @@ Shader "Toony Colors Pro 2/User/My TCP2 Shader3"
 		// Shader Properties
 		TCP2_TEX2D_WITH_SAMPLER(_BumpMap);
 		TCP2_TEX2D_WITH_SAMPLER(_BaseMap);
-		TCP2_TEX2D_WITH_SAMPLER(_BaseMap_materialLayer);
-		TCP2_TEX2D_WITH_SAMPLER(_layer_materialLayer);
+		TCP2_TEX2D_WITH_SAMPLER(_BaseMap_textureLayer);
+		TCP2_TEX2D_WITH_SAMPLER(_layer_textureLayer);
 
 		CBUFFER_START(UnityPerMaterial)
 			
 			// Shader Properties
 			float4 _BaseMap_ST;
-			float4 _BaseMap_materialLayer_ST;
+			float4 _BaseMap_textureLayer_ST;
 			fixed4 _BaseColor;
-			fixed4 _BaseColor_materialLayer;
+			fixed4 _BaseColor_textureLayer;
 			float _RampThreshold;
-			float _RampThreshold_materialLayer;
+			float _RampThreshold_textureLayer;
 			float _RampSmoothing;
-			float _RampSmoothing_materialLayer;
+			float _RampSmoothing_textureLayer;
 			float _BandsCount;
-			float _BandsCount_materialLayer;
+			float _BandsCount_textureLayer;
 			float _BandsSmoothing;
-			float _BandsSmoothing_materialLayer;
+			float _BandsSmoothing_textureLayer;
 			fixed4 _DiffuseTint;
-			fixed4 _DiffuseTint_materialLayer;
+			fixed4 _DiffuseTint_textureLayer;
 			float _RimMin;
 			float _RimMax;
 			fixed4 _RimColor;
+			float _SpecularSmoothness;
+			fixed4 _SpecularColor;
 			float _RampThresholdOtherLights;
 			float _RampSmoothingOtherLights;
-			float _RampSmoothingOtherLights_materialLayer;
+			float _RampSmoothingOtherLights_textureLayer;
 			float _BandsCountOtherLights;
-			float _BandsCountOtherLights_materialLayer;
+			float _BandsCountOtherLights_textureLayer;
 			float _BandsSmoothingOtherLights;
-			float _BandsSmoothingOtherLights_materialLayer;
+			float _BandsSmoothingOtherLights_textureLayer;
 			float _SubsurfaceDistortion;
 			float _SubsurfacePower;
 			float _SubsurfaceScale;
 			fixed4 _SubsurfaceColor;
 			fixed4 _SColor;
-			fixed4 _SColor_materialLayer;
+			fixed4 _SColor_textureLayer;
 			fixed4 _HColor;
-			fixed4 _HColor_materialLayer;
+			fixed4 _HColor_textureLayer;
 		CBUFFER_END
 
+		//Specular help functions (from UnityStandardBRDF.cginc)
+		inline float3 SpecSafeNormalize(float3 inVec)
+		{
+			half dp3 = max(0.001f, dot(inVec, inVec));
+			return inVec * rsqrt(dp3);
+		}
+		
 		// Built-in renderer (CG) to SRP (HLSL) bindings
 		#define UnityObjectToClipPos TransformObjectToHClip
 		#define _WorldSpaceLightPos0 _MainLightPosition
@@ -287,55 +301,57 @@ Shader "Toony Colors Pro 2/User/My TCP2 Shader3"
 				// Shader Properties Sampling
 				float4 __normalMap = ( TCP2_TEX2D_SAMPLE(_BumpMap, _BumpMap, input.pack2.xy).rgba );
 				float4 __albedo = ( TCP2_TEX2D_SAMPLE(_BaseMap, _BaseMap, input.pack2.xy).rgba );
-				float4 __albedo_materialLayer = ( TCP2_TEX2D_SAMPLE(_BaseMap_materialLayer, _BaseMap_materialLayer, input.pack2.xy).rgba );
+				float4 __albedo_textureLayer = ( TCP2_TEX2D_SAMPLE(_BaseMap_textureLayer, _BaseMap_textureLayer, input.pack2.xy).rgba );
 				float4 __mainColor = ( _BaseColor.rgba );
-				float4 __mainColor_materialLayer = ( _BaseColor_materialLayer.rgba );
+				float4 __mainColor_textureLayer = ( _BaseColor_textureLayer.rgba );
 				float __alpha = ( __albedo.a * __mainColor.a );
 				float __ambientIntensity = ( 1.0 );
 				float __rampThreshold = ( _RampThreshold );
-				float __rampThreshold_materialLayer = ( _RampThreshold_materialLayer );
+				float __rampThreshold_textureLayer = ( _RampThreshold_textureLayer );
 				float __rampSmoothing = ( _RampSmoothing );
-				float __rampSmoothing_materialLayer = ( _RampSmoothing_materialLayer );
+				float __rampSmoothing_textureLayer = ( _RampSmoothing_textureLayer );
 				float __bandsCount = ( _BandsCount );
-				float __bandsCount_materialLayer = ( _BandsCount_materialLayer );
+				float __bandsCount_textureLayer = ( _BandsCount_textureLayer );
 				float __bandsSmoothing = ( _BandsSmoothing );
-				float __bandsSmoothing_materialLayer = ( _BandsSmoothing_materialLayer );
+				float __bandsSmoothing_textureLayer = ( _BandsSmoothing_textureLayer );
 				float3 __diffuseTint = ( _DiffuseTint.rgb );
-				float3 __diffuseTint_materialLayer = ( _DiffuseTint_materialLayer.rgb );
+				float3 __diffuseTint_textureLayer = ( _DiffuseTint_textureLayer.rgb );
 				float __rimMin = ( _RimMin );
 				float __rimMax = ( _RimMax );
 				float3 __rimColor = ( _RimColor.rgb );
 				float __rimStrength = ( 1.0 );
+				float __specularSmoothness = ( _SpecularSmoothness );
+				float3 __specularColor = ( _SpecularColor.rgb );
 				float __rampThresholdOtherLights = ( _RampThresholdOtherLights );
 				float __rampSmoothingOtherLights = ( _RampSmoothingOtherLights );
-				float __rampSmoothingOtherLights_materialLayer = ( _RampSmoothingOtherLights_materialLayer );
+				float __rampSmoothingOtherLights_textureLayer = ( _RampSmoothingOtherLights_textureLayer );
 				float __bandsCountOtherLights = ( _BandsCountOtherLights );
-				float __bandsCountOtherLights_materialLayer = ( _BandsCountOtherLights_materialLayer );
+				float __bandsCountOtherLights_textureLayer = ( _BandsCountOtherLights_textureLayer );
 				float __bandsSmoothingOtherLights = ( _BandsSmoothingOtherLights );
-				float __bandsSmoothingOtherLights_materialLayer = ( _BandsSmoothingOtherLights_materialLayer );
+				float __bandsSmoothingOtherLights_textureLayer = ( _BandsSmoothingOtherLights_textureLayer );
 				float __subsurfaceDistortion = ( _SubsurfaceDistortion );
 				float __subsurfacePower = ( _SubsurfacePower );
 				float __subsurfaceScale = ( _SubsurfaceScale );
 				float3 __subsurfaceColor = ( _SubsurfaceColor.rgb );
 				float3 __shadowColor = ( _SColor.rgb );
-				float3 __shadowColor_materialLayer = ( _SColor_materialLayer.rgb );
+				float3 __shadowColor_textureLayer = ( _SColor_textureLayer.rgb );
 				float3 __highlightColor = ( _HColor.rgb );
-				float3 __highlightColor_materialLayer = ( _HColor_materialLayer.rgb );
-				float __layer_materialLayer = saturate( TCP2_TEX2D_SAMPLE(_layer_materialLayer, _layer_materialLayer, input.pack2.xy).r );
+				float3 __highlightColor_textureLayer = ( _HColor_textureLayer.rgb );
+				float __layer_textureLayer = saturate( TCP2_TEX2D_SAMPLE(_layer_textureLayer, _layer_textureLayer, input.pack2.xy).r );
 
 				// Material Layers Blending
-				 __albedo = lerp(__albedo, __albedo_materialLayer, __layer_materialLayer);
-				 __mainColor = lerp(__mainColor, __mainColor_materialLayer, __layer_materialLayer);
-				 __rampThreshold = lerp(__rampThreshold, __rampThreshold_materialLayer, __layer_materialLayer);
-				 __rampSmoothing = lerp(__rampSmoothing, __rampSmoothing_materialLayer, __layer_materialLayer);
-				 __bandsCount = lerp(__bandsCount, __bandsCount_materialLayer, __layer_materialLayer);
-				 __bandsSmoothing = lerp(__bandsSmoothing, __bandsSmoothing_materialLayer, __layer_materialLayer);
-				 __diffuseTint = lerp(__diffuseTint, __diffuseTint_materialLayer, __layer_materialLayer);
-				 __rampSmoothingOtherLights = lerp(__rampSmoothingOtherLights, __rampSmoothingOtherLights_materialLayer, __layer_materialLayer);
-				 __bandsCountOtherLights = lerp(__bandsCountOtherLights, __bandsCountOtherLights_materialLayer, __layer_materialLayer);
-				 __bandsSmoothingOtherLights = lerp(__bandsSmoothingOtherLights, __bandsSmoothingOtherLights_materialLayer, __layer_materialLayer);
-				 __shadowColor = lerp(__shadowColor, __shadowColor_materialLayer, __layer_materialLayer);
-				 __highlightColor = lerp(__highlightColor, __highlightColor_materialLayer, __layer_materialLayer);
+				 __albedo = lerp(__albedo, __albedo_textureLayer, __layer_textureLayer);
+				 __mainColor = lerp(__mainColor, __mainColor_textureLayer, __layer_textureLayer);
+				 __rampThreshold = lerp(__rampThreshold, __rampThreshold_textureLayer, __layer_textureLayer);
+				 __rampSmoothing = lerp(__rampSmoothing, __rampSmoothing_textureLayer, __layer_textureLayer);
+				 __bandsCount = lerp(__bandsCount, __bandsCount_textureLayer, __layer_textureLayer);
+				 __bandsSmoothing = lerp(__bandsSmoothing, __bandsSmoothing_textureLayer, __layer_textureLayer);
+				 __diffuseTint = lerp(__diffuseTint, __diffuseTint_textureLayer, __layer_textureLayer);
+				 __rampSmoothingOtherLights = lerp(__rampSmoothingOtherLights, __rampSmoothingOtherLights_textureLayer, __layer_textureLayer);
+				 __bandsCountOtherLights = lerp(__bandsCountOtherLights, __bandsCountOtherLights_textureLayer, __layer_textureLayer);
+				 __bandsSmoothingOtherLights = lerp(__bandsSmoothingOtherLights, __bandsSmoothingOtherLights_textureLayer, __layer_textureLayer);
+				 __shadowColor = lerp(__shadowColor, __shadowColor_textureLayer, __layer_textureLayer);
+				 __highlightColor = lerp(__highlightColor, __highlightColor_textureLayer, __layer_textureLayer);
 
 				half4 normalMap = __normalMap;
 				half3 normalTS = UnpackNormal(normalMap);
@@ -428,6 +444,17 @@ Shader "Toony Colors Pro 2/User/My TCP2 Shader3"
 				half3 accumulatedRamp = ramp * max(lightColor.r, max(lightColor.g, lightColor.b));
 				half3 accumulatedColors = ramp * lightColor.rgb;
 
+				half3 halfDir = SpecSafeNormalize(float3(lightDir) + float3(viewDirWS));
+				
+				//Blinn-Phong Specular
+				float ndh = max(0, dot (normalWS, halfDir));
+				float spec = pow(ndh, 1e-4h + __specularSmoothness * 128.0);
+				spec *= ndl;
+				spec *= atten;
+				
+				//Apply specular
+				emission.rgb += spec * lightColor.rgb * __specularColor;
+
 				// Additional lights loop
 			#ifdef _ADDITIONAL_LIGHTS
 				uint pixelLightCount = GetAdditionalLightsCount();
@@ -484,6 +511,17 @@ Shader "Toony Colors Pro 2/User/My TCP2 Shader3"
 							accumulatedRamp += ramp * max(lightColor.r, max(lightColor.g, lightColor.b));
 							accumulatedColors += ramp * lightColor.rgb;
 
+							half3 halfDir = SpecSafeNormalize(float3(lightDir) + float3(viewDirWS));
+							
+							//Blinn-Phong Specular
+							float ndh = max(0, dot (normalWS, halfDir));
+							float spec = pow(ndh, 1e-4h + __specularSmoothness * 128.0);
+							spec *= ndl;
+							spec *= atten;
+							
+							//Apply specular
+							emission.rgb += spec * lightColor.rgb * __specularColor;
+							
 							//Subsurface Scattering for additional lights
 							half3 ssLight = lightDir + normalWS * __subsurfaceDistortion;
 							half ssDot = pow(saturate(dot(viewDirWS, -ssLight)), __subsurfacePower) * __subsurfaceScale;
@@ -547,6 +585,17 @@ Shader "Toony Colors Pro 2/User/My TCP2 Shader3"
 					accumulatedRamp += ramp * max(lightColor.r, max(lightColor.g, lightColor.b));
 					accumulatedColors += ramp * lightColor.rgb;
 
+					half3 halfDir = SpecSafeNormalize(float3(lightDir) + float3(viewDirWS));
+					
+					//Blinn-Phong Specular
+					float ndh = max(0, dot (normalWS, halfDir));
+					float spec = pow(ndh, 1e-4h + __specularSmoothness * 128.0);
+					spec *= ndl;
+					spec *= atten;
+					
+					//Apply specular
+					emission.rgb += spec * lightColor.rgb * __specularColor;
+					
 					//Subsurface Scattering for additional lights
 					half3 ssLight = lightDir + normalWS * __subsurfaceDistortion;
 					half ssDot = pow(saturate(dot(viewDirWS, -ssLight)), __subsurfacePower) * __subsurfaceScale;
@@ -682,15 +731,15 @@ Shader "Toony Colors Pro 2/User/My TCP2 Shader3"
 
 				// Shader Properties Sampling
 				float4 __albedo = ( TCP2_TEX2D_SAMPLE(_BaseMap, _BaseMap, input.pack1.xy).rgba );
-				float4 __albedo_materialLayer = ( TCP2_TEX2D_SAMPLE(_BaseMap_materialLayer, _BaseMap_materialLayer, input.pack1.xy).rgba );
+				float4 __albedo_textureLayer = ( TCP2_TEX2D_SAMPLE(_BaseMap_textureLayer, _BaseMap_textureLayer, input.pack1.xy).rgba );
 				float4 __mainColor = ( _BaseColor.rgba );
-				float4 __mainColor_materialLayer = ( _BaseColor_materialLayer.rgba );
+				float4 __mainColor_textureLayer = ( _BaseColor_textureLayer.rgba );
 				float __alpha = ( __albedo.a * __mainColor.a );
-				float __layer_materialLayer = saturate( TCP2_TEX2D_SAMPLE(_layer_materialLayer, _layer_materialLayer, input.pack1.xy).r );
+				float __layer_textureLayer = saturate( TCP2_TEX2D_SAMPLE(_layer_textureLayer, _layer_textureLayer, input.pack1.xy).r );
 
 				// Material Layers Blending
-				 __albedo = lerp(__albedo, __albedo_materialLayer, __layer_materialLayer);
-				 __mainColor = lerp(__mainColor, __mainColor_materialLayer, __layer_materialLayer);
+				 __albedo = lerp(__albedo, __albedo_textureLayer, __layer_textureLayer);
+				 __mainColor = lerp(__mainColor, __mainColor_textureLayer, __layer_textureLayer);
 
 				half3 viewDirWS = GetWorldSpaceNormalizeViewDir(positionWS);
 				half ndv = abs(dot(viewDirWS, normalWS));
@@ -816,5 +865,5 @@ Shader "Toony Colors Pro 2/User/My TCP2 Shader3"
 	CustomEditor "ToonyColorsPro.ShaderGenerator.MaterialInspector_SG2"
 }
 
-/* TCP_DATA u config(ver:"2.9.16";unity:"6000.0.32f1";tmplt:"SG2_Template_URP";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","UNITY_2019_1","UNITY_2019_2","UNITY_2019_3","UNITY_2019_4","UNITY_2020_1","UNITY_2021_1","UNITY_2021_2","UNITY_2022_2","ENABLE_DEPTH_NORMALS_PASS","ENABLE_FORWARD_PLUS","RAMP_BANDS","RAMP_MAIN_OTHER","RAMP_SEPARATED","WRAPPED_LIGHTING_HALF","RIM","DIFFUSE_TINT","TEMPLATE_LWRP","SUBSURFACE_SCATTERING","BUMP"];flags:list[];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0",RIM_LABEL="Rim Lighting"];shaderProperties:list[sp(name:"Albedo";imps:list[imp_mp_texture(uto:True;tov:"";tov_lbl:"";gto:True;sbt:False;scr:False;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;sin_anm:False;sin_anmv:"";sin_anmv_lbl:"";gsin:False;notile:False;triplanar_local:False;def:"white";locked_uv:False;uv:0;cc:4;chan:"RGBA";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:False;uv_type:Texcoord;uv_chan:"XZ";tpln_scale:1;uv_shaderproperty:__NULL__;uv_cmp:__NULL__;sep_sampler:__NULL__;prop:"_BaseMap";md:"[MainTexture]";gbv:False;custom:False;refs:"";pnlock:False;guid:"c7b343be-7508-4a03-92b1-fc3dc7ab2665";op:Multiply;lbl:"Albedo";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Main Color";imps:list[imp_mp_color(def:RGBA(1, 1, 1, 1);hdr:False;cc:4;chan:"RGBA";prop:"_BaseColor";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"21a800f6-f817-4ffd-b37c-83edf7103fb0";op:Multiply;lbl:"Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),,,sp(name:"Ramp Threshold";imps:list[imp_mp_range(def:0.5;min:0.01;max:1;prop:"_RampThreshold";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"eed1e367-e89e-404a-a456-8e6e12dadd51";op:Multiply;lbl:"Threshold";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Ramp Smoothing";imps:list[imp_mp_range(def:0.5;min:0.001;max:1;prop:"_RampSmoothing";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"daf37ac2-d607-4a26-a68f-5f4cc12e7c2d";op:Multiply;lbl:"Smoothing";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Bands Count";imps:list[imp_mp_range(def:4;min:1;max:20;prop:"_BandsCount";md:"[IntRange]";gbv:False;custom:False;refs:"";pnlock:False;guid:"7d23db0f-b99d-47bc-9ff8-5f1351e9fce4";op:Multiply;lbl:"Bands Count";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Bands Smoothing";imps:list[imp_mp_range(def:0.1;min:0.001;max:1;prop:"_BandsSmoothing";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"23715d20-7a7d-43d3-88c8-b9a9e8f4a138";op:Multiply;lbl:"Bands Smoothing";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),,sp(name:"Ramp Smoothing Other Lights";imps:list[imp_mp_range(def:0.5;min:0.001;max:1;prop:"_RampSmoothingOtherLights";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"37205664-f32a-4928-b62f-e387b8756e12";op:Multiply;lbl:"Smoothing";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Bands Count Other Lights";imps:list[imp_mp_range(def:4;min:1;max:20;prop:"_BandsCountOtherLights";md:"[IntRange]";gbv:False;custom:False;refs:"";pnlock:False;guid:"b7a5f60d-429e-4576-be9b-af86e85ea3be";op:Multiply;lbl:"Bands Count";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Bands Smoothing Other Lights";imps:list[imp_mp_range(def:0.1;min:0.001;max:1;prop:"_BandsSmoothingOtherLights";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"fd534272-0d21-490a-bb97-20ee6e00fdd2";op:Multiply;lbl:"Bands Smoothing";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Highlight Color";imps:list[imp_mp_color(def:RGBA(0.75, 0.75, 0.75, 1);hdr:False;cc:3;chan:"RGB";prop:"_HColor";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"ef1e2c5f-cc81-4cf0-909a-f10e59d79248";op:Multiply;lbl:"Highlight Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Shadow Color";imps:list[imp_mp_color(def:RGBA(0.2, 0.2, 0.2, 1);hdr:False;cc:3;chan:"RGB";prop:"_SColor";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"29def1ce-5d5c-4c25-a01e-4f58367914c6";op:Multiply;lbl:"Shadow Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),,,,,,sp(name:"Diffuse Tint";imps:list[imp_mp_color(def:RGBA(1, 0.5, 0, 1);hdr:False;cc:3;chan:"RGB";prop:"_DiffuseTint";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"7876565e-8ffa-4adb-840b-b8204b36865c";op:Multiply;lbl:"Diffuse Tint";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False)];customTextures:list[];codeInjection:codeInjection(injectedFiles:list[];mark:False);matLayers:list[ml(uid:"4cee88";name:"Material Layer";src:sp(name:"layer_4cee88";imps:list[imp_mp_texture(uto:False;tov:"";tov_lbl:"";gto:False;sbt:False;scr:False;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;sin_anm:False;sin_anmv:"";sin_anmv_lbl:"";gsin:False;notile:False;triplanar_local:False;def:"white";locked_uv:False;uv:0;cc:1;chan:"R";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:False;uv_type:Texcoord;uv_chan:"XZ";tpln_scale:1;uv_shaderproperty:__NULL__;uv_cmp:__NULL__;sep_sampler:__NULL__;prop:"_layer_4cee88";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"4e57b446-75bf-4434-b5e5-b67853717221";op:Multiply;lbl:"Source Texture";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False);use_contrast:False;ctrst:__NULL__;use_noise:False;noise:__NULL__)]) */
-/* TCP_HASH f919cda98c8b4911a5f8d8631040fbfc */
+/* TCP_DATA u config(ver:"2.9.16";unity:"6000.0.32f1";tmplt:"SG2_Template_URP";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","UNITY_2019_1","UNITY_2019_2","UNITY_2019_3","UNITY_2019_4","UNITY_2020_1","UNITY_2021_1","UNITY_2021_2","UNITY_2022_2","ENABLE_DEPTH_NORMALS_PASS","ENABLE_FORWARD_PLUS","RAMP_BANDS","RAMP_MAIN_OTHER","RAMP_SEPARATED","WRAPPED_LIGHTING_HALF","RIM","DIFFUSE_TINT","SUBSURFACE_SCATTERING","BUMP","TEMPLATE_LWRP","SPEC_LEGACY","SPECULAR"];flags:list[];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0",RIM_LABEL="Rim Lighting"];shaderProperties:list[sp(name:"Albedo";imps:list[imp_mp_texture(uto:True;tov:"";tov_lbl:"";gto:True;sbt:False;scr:False;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;sin_anm:False;sin_anmv:"";sin_anmv_lbl:"";gsin:False;notile:False;triplanar_local:False;def:"white";locked_uv:False;uv:0;cc:4;chan:"RGBA";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:False;uv_type:Texcoord;uv_chan:"XZ";tpln_scale:1;uv_shaderproperty:__NULL__;uv_cmp:__NULL__;sep_sampler:__NULL__;prop:"_BaseMap";md:"[MainTexture]";gbv:False;custom:False;refs:"";pnlock:False;guid:"c7b343be-7508-4a03-92b1-fc3dc7ab2665";op:Multiply;lbl:"Albedo";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Main Color";imps:list[imp_mp_color(def:RGBA(1, 1, 1, 1);hdr:False;cc:4;chan:"RGBA";prop:"_BaseColor";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"21a800f6-f817-4ffd-b37c-83edf7103fb0";op:Multiply;lbl:"Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),,,sp(name:"Ramp Threshold";imps:list[imp_mp_range(def:0.5;min:0.01;max:1;prop:"_RampThreshold";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"eed1e367-e89e-404a-a456-8e6e12dadd51";op:Multiply;lbl:"Threshold";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Ramp Smoothing";imps:list[imp_mp_range(def:0.5;min:0.001;max:1;prop:"_RampSmoothing";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"daf37ac2-d607-4a26-a68f-5f4cc12e7c2d";op:Multiply;lbl:"Smoothing";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Bands Count";imps:list[imp_mp_range(def:4;min:1;max:20;prop:"_BandsCount";md:"[IntRange]";gbv:False;custom:False;refs:"";pnlock:False;guid:"7d23db0f-b99d-47bc-9ff8-5f1351e9fce4";op:Multiply;lbl:"Bands Count";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Bands Smoothing";imps:list[imp_mp_range(def:0.1;min:0.001;max:1;prop:"_BandsSmoothing";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"23715d20-7a7d-43d3-88c8-b9a9e8f4a138";op:Multiply;lbl:"Bands Smoothing";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),,sp(name:"Ramp Smoothing Other Lights";imps:list[imp_mp_range(def:0.5;min:0.001;max:1;prop:"_RampSmoothingOtherLights";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"37205664-f32a-4928-b62f-e387b8756e12";op:Multiply;lbl:"Smoothing";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Bands Count Other Lights";imps:list[imp_mp_range(def:4;min:1;max:20;prop:"_BandsCountOtherLights";md:"[IntRange]";gbv:False;custom:False;refs:"";pnlock:False;guid:"b7a5f60d-429e-4576-be9b-af86e85ea3be";op:Multiply;lbl:"Bands Count";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Bands Smoothing Other Lights";imps:list[imp_mp_range(def:0.1;min:0.001;max:1;prop:"_BandsSmoothingOtherLights";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"fd534272-0d21-490a-bb97-20ee6e00fdd2";op:Multiply;lbl:"Bands Smoothing";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Highlight Color";imps:list[imp_mp_color(def:RGBA(0.75, 0.75, 0.75, 1);hdr:False;cc:3;chan:"RGB";prop:"_HColor";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"ef1e2c5f-cc81-4cf0-909a-f10e59d79248";op:Multiply;lbl:"Highlight Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Shadow Color";imps:list[imp_mp_color(def:RGBA(0.2, 0.2, 0.2, 1);hdr:False;cc:3;chan:"RGB";prop:"_SColor";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"29def1ce-5d5c-4c25-a01e-4f58367914c6";op:Multiply;lbl:"Shadow Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False),,,,,,,,,,,,sp(name:"Diffuse Tint";imps:list[imp_mp_color(def:RGBA(1, 0.5, 0, 1);hdr:False;cc:3;chan:"RGB";prop:"_DiffuseTint";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"7876565e-8ffa-4adb-840b-b8204b36865c";op:Multiply;lbl:"Diffuse Tint";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["4cee88"];unlocked:list[];layer_blend:dict[4cee88=LinearInterpolation];custom_blend:dict[4cee88="lerp(a, b, s)"];clones:dict[];isClone:False)];customTextures:list[];codeInjection:codeInjection(injectedFiles:list[];mark:False);matLayers:list[ml(uid:"4cee88";name:"Texture Layer ";src:sp(name:"layer_4cee88";imps:list[imp_mp_texture(uto:False;tov:"";tov_lbl:"";gto:False;sbt:False;scr:False;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;sin_anm:False;sin_anmv:"";sin_anmv_lbl:"";gsin:False;notile:False;triplanar_local:False;def:"white";locked_uv:False;uv:0;cc:1;chan:"R";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:False;uv_type:Texcoord;uv_chan:"XZ";tpln_scale:1;uv_shaderproperty:__NULL__;uv_cmp:__NULL__;sep_sampler:__NULL__;prop:"_layer_4cee88";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"4e57b446-75bf-4434-b5e5-b67853717221";op:Multiply;lbl:"Source Texture";gpu_inst:True;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False);use_contrast:False;ctrst:__NULL__;use_noise:False;noise:__NULL__)]) */
+/* TCP_HASH 2b784292a1c4a3287e864481e60cb5c3 */

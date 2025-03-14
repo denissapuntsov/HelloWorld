@@ -10,7 +10,8 @@
         "LIGHTING",
         "STYLIZATION",
         "THIRD PARTY PLUGINS",
-        "OPTIONS"
+        "OPTIONS",
+        "SPECIAL EFFECTS"
     ],
     "UseCustomFont": true,
     "CustomFont": {
