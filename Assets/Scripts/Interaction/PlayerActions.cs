@@ -1,37 +1,44 @@
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
+// collider center (0, 0, 0.9), size (0.4, 0.56, 1.35)
+
 public class PlayerActions : MonoBehaviour
 {
     public bool canInteract = true;
     public Transform playerCamera;
     public float interactionDistance;
+    Hands hands;
 
+    [SerializeField] public Interaction interaction;
+    private void Start()
+    {
+        hands = FindAnyObjectByType<Hands>();
+    }
 
     private void Update()
     {
         HandleInteraction();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<Interaction>() == null || hands.HandsFull) { return; }
+        Debug.Log(other);
+        interaction = other.gameObject.GetComponent<Interaction>();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<Interaction>() != null)
+        {
+            Debug.Log(other);
+            interaction = null;
+        }
+    }
+
     public void HandleInteraction()
     {
-
-
-        if (!canInteract)
-        {
-            return;
-        }
-
-        RaycastHit hit;
-        Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, interactionDistance);
-
-        if (hit.transform == null)
-        {
-            return;
-        }
-
-        //check if looking at interactable object
-        Interaction interaction = hit.transform.GetComponent<Interaction>();
-
         if (interaction != null)
         {
             //process observation

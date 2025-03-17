@@ -7,11 +7,13 @@ public class Polaroid : MonoBehaviour
     [SerializeField] public Texture textureToSet;
     MenuManager menuManager;
     InventoryManager inventoryManager;
+    PlayerActions actions;
 
     private void Start()
     {
         menuManager = FindAnyObjectByType<MenuManager>();
         inventoryManager = FindAnyObjectByType<InventoryManager>();
+        actions = FindAnyObjectByType<PlayerActions>();
     }
 
     public void StartInteraction()
@@ -24,5 +26,6 @@ public class Polaroid : MonoBehaviour
         inventoryManager.AddPolaroid(gameObject);
 
         gameObject.SetActive(false);
+        actions.interaction = null;
     }
 }
