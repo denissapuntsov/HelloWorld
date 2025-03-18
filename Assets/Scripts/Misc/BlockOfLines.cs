@@ -4,5 +4,6 @@ using UnityEngine;
 public class BlockOfLines : ScriptableObject
 {
     public string id;
+    public AudioClip clip;
     public Line[] lines;
 }

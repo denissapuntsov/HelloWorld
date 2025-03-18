@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Model/BathRoom Assets.meta
 guid: 9476d593e31311b4c8150af15bc524dd
 folderAsset: yes
+========
+guid: 254a742dbeb9722419c65065880d2b59
+>>>>>>>> 245da859a255df9d00ddf923bcf23688e3b85198:Assets/Scenes/MainMenu.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
