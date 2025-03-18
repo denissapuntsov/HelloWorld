@@ -1,7 +1,7 @@
 ﻿// Toony Colors Pro+Mobile 2
 // (c) 2014-2023 Jean Moreno
 
-Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
+Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured Opacity"
 {
 	Properties
 	{
@@ -15,6 +15,7 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 		_Shadow_HSV_V ("Value", Range(-1,1)) = 0
 		[HideInInspector] __EndGroup ("Shadow HSV", Float) = 0
 		[MainTexture] _BaseMap ("Albedo", 2D) = "white" {}
+		 _Albedo ("Albedo", Color) = (1,1,1,1)
 		_Alpha ("Alpha", Float) = 1
 		[TCP2Separator]
 
@@ -39,7 +40,6 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 
 		[TCP2HeaderHelp(Emission)]
 		[TCP2ColorNoAlpha] [HDR] _Emission ("Emission Color", Color) = (0,0,0,1)
-		 [NoScaleOffset] _Emission1 ("Emission Texture", 2D) = "white" {}
 		[TCP2Separator]
 		
 		[TCP2HeaderHelp(Rim Lighting)]
@@ -74,6 +74,18 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 		[TCP2MaterialKeywordEnumNoPrefix(Full XYZ, TCP2_UV_NORMALS_FULL, Compressed XY, _, Compressed ZW, TCP2_UV_NORMALS_ZW)]
 		_NormalsUVType ("UV Data Type", Float) = 0
 		[TCP2Separator]
+		
+		[TCP2Separator]
+		[TCP2HeaderHelp(MATERIAL LAYERS)]
+
+		[TCP2Separator]
+		[TCP2Header(Material Layer)]
+		[NoScaleOffset] _layer_materialLayer ("Source Texture", 2D) = "white" {}
+		[MainTexture] [NoScaleOffset] _BaseMap_materialLayer ("Albedo", 2D) = "white" {}
+		 _Albedo_materialLayer ("Albedo", Color) = (1,1,1,1)
+		_Alpha_materialLayer ("Alpha", Float) = 1
+		_Color_materialLayer ("Color", Color) = (1,1,1,1)
+		[TCP2ColorNoAlpha] [HDR] _Emission_materialLayer ("Emission Color", Color) = (0,0,0,1)
 
 		[ToggleOff(_RECEIVE_SHADOWS_OFF)] _ReceiveShadowsOff ("Receive Shadows", Float) = 1
 
@@ -119,7 +131,8 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 		// Shader Properties
 		TCP2_TEX2D_WITH_SAMPLER(_BumpMap);
 		TCP2_TEX2D_WITH_SAMPLER(_BaseMap);
-		TCP2_TEX2D_WITH_SAMPLER(_Emission1);
+		TCP2_TEX2D_WITH_SAMPLER(_BaseMap_materialLayer);
+		TCP2_TEX2D_WITH_SAMPLER(_layer_materialLayer);
 		sampler2D _ReflectionTex;
 
 		CBUFFER_START(UnityPerMaterial)
@@ -130,9 +143,15 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 			fixed4 _OutlineColorVertex;
 			float _BumpScale;
 			float4 _BaseMap_ST;
+			fixed4 _Albedo;
+			float4 _BaseMap_materialLayer_ST;
+			fixed4 _Albedo_materialLayer;
 			float _Alpha;
+			float _Alpha_materialLayer;
 			fixed4 _Color;
+			fixed4 _Color_materialLayer;
 			half4 _Emission;
+			half4 _Emission_materialLayer;
 			float _LightWrapFactor;
 			float _RampThreshold;
 			float _RampSmoothing;
@@ -516,11 +535,15 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 				// Shader Properties Sampling
 				float4 __normalMap = ( TCP2_TEX2D_SAMPLE(_BumpMap, _BumpMap, input.pack3.xy).rgba );
 				float __bumpScale = ( _BumpScale );
-				float4 __albedo = ( TCP2_TEX2D_SAMPLE(_BaseMap, _BaseMap, input.pack3.xy).rgba );
+				float4 __albedo = ( TCP2_TEX2D_SAMPLE(_BaseMap, _BaseMap, input.pack3.xy).rgba * _Albedo.rgba );
+				float4 __albedo_materialLayer = ( TCP2_TEX2D_SAMPLE(_BaseMap_materialLayer, _BaseMap_materialLayer, input.pack3.xy).rgba * _Albedo_materialLayer.rgba );
 				float __alpha = ( _Alpha );
+				float __alpha_materialLayer = ( _Alpha_materialLayer );
 				float4 __mainColor = ( _Color.rgba );
+				float4 __mainColor_materialLayer = ( _Color_materialLayer.rgba );
 				float __ambientIntensity = ( 1.0 );
-				float3 __emission = ( _Emission.rgb * TCP2_TEX2D_SAMPLE(_Emission1, _Emission1, input.pack3.xy).rgb );
+				float3 __emission = ( _Emission.rgb );
+				float3 __emission_materialLayer = ( _Emission_materialLayer.rgb );
 				float __lightWrapFactor = ( _LightWrapFactor );
 				float __rampThreshold = ( _RampThreshold );
 				float __rampSmoothing = ( _RampSmoothing );
@@ -544,6 +567,13 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 				float __fresnelMin = ( _FresnelMin );
 				float __fresnelMax = ( _FresnelMax );
 				float3 __reflectionColor = ( _ReflectionColor.rgb );
+				float __layer_materialLayer = saturate( TCP2_TEX2D_SAMPLE(_layer_materialLayer, _layer_materialLayer, input.pack3.xy).r );
+
+				// Material Layers Blending
+				 __albedo = lerp(__albedo, __albedo_materialLayer, __layer_materialLayer);
+				 __alpha = lerp(__alpha, __alpha_materialLayer, __layer_materialLayer);
+				 __mainColor = lerp(__mainColor, __mainColor_materialLayer, __layer_materialLayer);
+				 __emission = lerp(__emission, __emission_materialLayer, __layer_materialLayer);
 
 				half4 normalMap = __normalMap;
 				half3 normalTS = UnpackNormalScale(normalMap, __bumpScale);
@@ -865,6 +895,7 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 			{
 				float4 vertex   : POSITION;
 				float3 normal   : NORMAL;
+				float4 texcoord0 : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -877,6 +908,7 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 			#endif
 				float4 screenPosition : TEXCOORD1;
 				float3 pack1 : TEXCOORD2; /* pack1.xyz = positionWS */
+				float2 pack2 : TEXCOORD3; /* pack2.xy = texcoord0 */
 			#if defined(DEPTH_ONLY_PASS)
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
@@ -913,6 +945,9 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 				#endif
 
 				float3 worldNormalUv = mul(UNITY_MATRIX_M, float4(input.normal, 1.0)).xyz;
+
+				// Texture Coordinates
+				output.pack2.xy = input.texcoord0.xy;
 
 				float3 worldPos = mul(UNITY_MATRIX_M, input.vertex).xyz;
 				VertexPositionInputs vertexInput = GetVertexPositionInputs(input.vertex.xyz);
@@ -954,6 +989,11 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 
 				// Shader Properties Sampling
 				float __alpha = ( _Alpha );
+				float __alpha_materialLayer = ( _Alpha_materialLayer );
+				float __layer_materialLayer = saturate( TCP2_TEX2D_SAMPLE(_layer_materialLayer, _layer_materialLayer, input.pack2.xy).r );
+
+				// Material Layers Blending
+				 __alpha = lerp(__alpha, __alpha_materialLayer, __layer_materialLayer);
 
 				half3 viewDirWS = GetWorldSpaceNormalizeViewDir(positionWS);
 				half ndv = abs(dot(viewDirWS, normalWS));
@@ -1079,5 +1119,5 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 	CustomEditor "ToonyColorsPro.ShaderGenerator.MaterialInspector_SG2"
 }
 
-/* TCP_DATA u config(ver:"2.9.16";unity:"6000.0.32f1";tmplt:"SG2_Template_URP";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","UNITY_2019_1","UNITY_2019_2","UNITY_2019_3","UNITY_2019_4","UNITY_2020_1","UNITY_2021_1","UNITY_2021_2","UNITY_2022_2","ENABLE_DEPTH_NORMALS_PASS","ENABLE_FORWARD_PLUS","RAMP_MAIN_OTHER","RAMP_SEPARATED","WRAPPED_LIGHTING_CUSTOM","SPEC_LEGACY","SPECULAR","RIM","BUMP","BUMP_SCALE","RAMP_BANDS_CRISP","ENABLE_LIGHTMAP","SHADOW_HSV","OUTLINE","PLANAR_REFLECTION","REFLECTION_SHADER_FEATURE","REFLECTION_FRESNEL","SKETCH_SHADER_FEATURE","OUTLINE_ZSMOOTH","OUTLINE_LIGHTING_WRAP","RIM_SHADER_FEATURE","EMISSION","TEMPLATE_LWRP"];flags:list[];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0",RIM_LABEL="Rim Lighting"];shaderProperties:list[,sp(name:"Main Color";imps:list[imp_mp_color(def:RGBA(1, 1, 1, 1);hdr:False;cc:4;chan:"RGBA";prop:"_Color";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"df6029d6-669d-4ffd-9a6e-1080d7112935";op:Multiply;lbl:"Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False),sp(name:"Alpha";imps:list[imp_mp_float(def:1;prop:"_Alpha";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"c45dc92a-cacd-448b-93f8-89bd04e59839";op:Multiply;lbl:"Alpha";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list["1d7310"];layer_blend:dict[1d7310=Add];custom_blend:dict[1d7310="lerp(a, b, s)"];clones:dict[1d7310=sp(name:"Alpha_1d7310";imps:list[imp_mp_float(def:1;prop:"_Alpha_1d7310";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"00000000-0000-0000-0000-000000000000";op:Multiply;lbl:"Alpha";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:True)];isClone:False),,,,,,,,,,,,,,,,,,,,,,,sp(name:"Emission";imps:list[imp_mp_color(def:RGBA(0, 0, 0, 1);hdr:True;cc:3;chan:"RGB";prop:"_Emission";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"47cd869f-6718-40a9-b1ad-8a8cb2729a37";op:Multiply;lbl:"Emission Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0),imp_mp_texture(uto:False;tov:"";tov_lbl:"";gto:False;sbt:False;scr:False;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;sin_anm:False;sin_anmv:"";sin_anmv_lbl:"";gsin:False;notile:False;triplanar_local:False;def:"white";locked_uv:False;uv:0;cc:3;chan:"RGB";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:False;uv_type:Texcoord;uv_chan:"XZ";tpln_scale:1;uv_shaderproperty:__NULL__;uv_cmp:__NULL__;sep_sampler:__NULL__;prop:"_Emission1";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"3e2b807e-0620-4efe-9586-bcd5392be8d8";op:Multiply;lbl:"Emission Texture";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];layer_blend:dict[1d7310=LinearInterpolation];custom_blend:dict[1d7310="lerp(a, b, s)"];clones:dict[];isClone:False),,,,,,sp(name:"Outline Width";imps:list[imp_mp_range(def:1;min:0.001;max:4;prop:"_OutlineWidth";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"ffbaab38-f570-4eea-ae7f-a88e34edf03a";op:Multiply;lbl:"Width";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False)];customTextures:list[];codeInjection:codeInjection(injectedFiles:list[];mark:False);matLayers:list[]) */
-/* TCP_HASH fdf2cb8d3c393455809848e6ea8861d0 */
+/* TCP_DATA u config(ver:"2.9.16";unity:"6000.0.32f1";tmplt:"SG2_Template_URP";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","UNITY_2019_1","UNITY_2019_2","UNITY_2019_3","UNITY_2019_4","UNITY_2020_1","UNITY_2021_1","UNITY_2021_2","UNITY_2022_2","ENABLE_DEPTH_NORMALS_PASS","ENABLE_FORWARD_PLUS","RAMP_MAIN_OTHER","RAMP_SEPARATED","WRAPPED_LIGHTING_CUSTOM","SPEC_LEGACY","SPECULAR","RIM","BUMP","BUMP_SCALE","RAMP_BANDS_CRISP","ENABLE_LIGHTMAP","SHADOW_HSV","OUTLINE","PLANAR_REFLECTION","REFLECTION_SHADER_FEATURE","REFLECTION_FRESNEL","SKETCH_SHADER_FEATURE","OUTLINE_ZSMOOTH","OUTLINE_LIGHTING_WRAP","RIM_SHADER_FEATURE","EMISSION","TEMPLATE_LWRP"];flags:list[];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0",RIM_LABEL="Rim Lighting"];shaderProperties:list[sp(name:"Albedo";imps:list[imp_mp_texture(uto:True;tov:"";tov_lbl:"";gto:True;sbt:False;scr:False;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;sin_anm:False;sin_anmv:"";sin_anmv_lbl:"";gsin:False;notile:False;triplanar_local:False;def:"white";locked_uv:False;uv:0;cc:4;chan:"RGBA";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:False;uv_type:Texcoord;uv_chan:"XZ";tpln_scale:1;uv_shaderproperty:__NULL__;uv_cmp:__NULL__;sep_sampler:__NULL__;prop:"_BaseMap";md:"[MainTexture]";gbv:False;custom:False;refs:"";pnlock:False;guid:"fb75bf63-247f-4402-b748-b691c0fb811e";op:Multiply;lbl:"Albedo";gpu_inst:False;dots_inst:False;locked:False;impl_index:0),imp_mp_color(def:RGBA(1, 1, 1, 1);hdr:False;cc:4;chan:"RGBA";prop:"_Albedo";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"33a10f3a-1f27-41b2-8278-f85aa2c81cb9";op:Multiply;lbl:"Albedo";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list["1d7310"];unlocked:list[];layer_blend:dict[1d7310=LinearInterpolation];custom_blend:dict[1d7310="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Main Color";imps:list[imp_mp_color(def:RGBA(1, 1, 1, 1);hdr:False;cc:4;chan:"RGBA";prop:"_Color";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"df6029d6-669d-4ffd-9a6e-1080d7112935";op:Multiply;lbl:"Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["1d7310"];unlocked:list[];layer_blend:dict[1d7310=LinearInterpolation];custom_blend:dict[1d7310="lerp(a, b, s)"];clones:dict[];isClone:False),sp(name:"Alpha";imps:list[imp_mp_float(def:1;prop:"_Alpha";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"c45dc92a-cacd-448b-93f8-89bd04e59839";op:Multiply;lbl:"Alpha";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list["1d7310"];unlocked:list[];layer_blend:dict[1d7310=LinearInterpolation];custom_blend:dict[1d7310="lerp(a, b, s)"];clones:dict[];isClone:False),,,,,,,,,,,,,,,,,,,,,,,sp(name:"Emission";imps:list[imp_mp_color(def:RGBA(0, 0, 0, 1);hdr:True;cc:3;chan:"RGB";prop:"_Emission";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"47cd869f-6718-40a9-b1ad-8a8cb2729a37";op:Multiply;lbl:"Emission Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list["1d7310"];unlocked:list[];layer_blend:dict[1d7310=LinearInterpolation];custom_blend:dict[1d7310="lerp(a, b, s)"];clones:dict[];isClone:False),,,,,,sp(name:"Outline Width";imps:list[imp_mp_range(def:1;min:0.001;max:4;prop:"_OutlineWidth";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"ffbaab38-f570-4eea-ae7f-a88e34edf03a";op:Multiply;lbl:"Width";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False)];customTextures:list[];codeInjection:codeInjection(injectedFiles:list[];mark:False);matLayers:list[ml(uid:"1d7310";name:"Material Layer";src:sp(name:"layer_1d7310";imps:list[imp_mp_texture(uto:False;tov:"";tov_lbl:"";gto:False;sbt:False;scr:False;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;sin_anm:False;sin_anmv:"";sin_anmv_lbl:"";gsin:False;notile:False;triplanar_local:False;def:"white";locked_uv:False;uv:0;cc:1;chan:"R";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:False;uv_type:Texcoord;uv_chan:"XZ";tpln_scale:1;uv_shaderproperty:__NULL__;uv_cmp:__NULL__;sep_sampler:__NULL__;prop:"_layer_1d7310";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"562eb76c-f98d-4b65-90f7-403dbacd7d78";op:Multiply;lbl:"Source Texture";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False);use_contrast:False;ctrst:__NULL__;use_noise:False;noise:__NULL__)]) */
+/* TCP_HASH d7970f45f73baff2547d85bde9f5434d */
