@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Wall_Frame
+  m_Name: Small Frame
   m_Shader: {fileID: 4800000, guid: 11d9674291655b448a5e1ec652a81d2d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -26,11 +26,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: d12cf06ffe9a72348bcde4fc1ab29b71, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9375709a93e738c4d99e674d17d461b7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 5d8d8b2bddd471941a41947f85bdaebe, type: 3}
+        m_Texture: {fileID: 2800000, guid: b5f345a98c491e54ebf76608ae63a7e3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -109,14 +109,14 @@ Material:
     - _NormalsSource: 0
     - _NormalsUVType: 0
     - _OcclusionStrength: 1
-    - _OutlineWidth: 1
+    - _OutlineWidth: 0.25
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RampSmoothing: 0.5
-    - _RampSmoothingOtherLights: 0.232
+    - _RampSmoothingOtherLights: 0.5
     - _RampThreshold: 0.5
-    - _RampThresholdOtherLights: 0.537
+    - _RampThresholdOtherLights: 0.568
     - _ReceiveShadows: 1
     - _ReceiveShadowsOff: 1
     - _RimMax: 1
