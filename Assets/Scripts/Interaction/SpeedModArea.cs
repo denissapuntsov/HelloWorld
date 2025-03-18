@@ -18,7 +18,7 @@ public class SpeedModArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Feet"))
         {
             SetPlayerSpeed(normalSpeed + moveSpeedModifier);
         }
@@ -26,16 +26,26 @@ public class SpeedModArea : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Feet"))
         {
             SetPlayerSpeed(normalSpeed);
-         }
+        }
     }
 
-    public void CheckForChildren()
+    public void DestroyFirstChild()
+    {
+        Transform[] childArray = GetComponentsInChildren<Transform>();
+        if (childArray.Length != 0)
+        {
+            Destroy(childArray[childArray.Length - 1].gameObject);
+        }
+        CheckForChildren();
+    }
+
+    private void CheckForChildren()
     {
         scoreManager.AddPoints(1);
-        if (GetComponentsInChildren<Interaction>().Length != 0) { return; }
+        if (GetComponentsInChildren<Transform>().Length != 0) { return; }
         SetPlayerSpeed(normalSpeed);
         Destroy(gameObject);
     }
