@@ -34,20 +34,16 @@ public class SpeedModArea : MonoBehaviour
 
     public void DestroyFirstChild()
     {
-        Transform[] childArray = GetComponentsInChildren<Transform>();
-        if (childArray.Length != 0)
+        if (transform.childCount >= 0)
         {
-            Destroy(childArray[childArray.Length - 1].gameObject);
-        }
-        CheckForChildren();
-    }
+            Destroy(transform.GetChild(0).gameObject);
 
-    private void CheckForChildren()
-    {
-        scoreManager.AddPoints(1);
-        if (GetComponentsInChildren<Transform>().Length != 0) { return; }
-        SetPlayerSpeed(normalSpeed);
-        Destroy(gameObject);
+            if (transform.childCount == 1)
+            {
+                SetPlayerSpeed(normalSpeed);
+                Destroy(gameObject);
+            }
+        }
     }
 
     void SetPlayerSpeed(float speed)
