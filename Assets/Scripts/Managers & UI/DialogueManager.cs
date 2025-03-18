@@ -18,16 +18,18 @@ public class DialogueManager : MonoBehaviour
         Clear();
     }
 
-    public void PlayBlock(string blockId)
+    public void PlayBlock(VoiceTriggerData voiceTriggerData)
     {
         Clear();
-        StartCoroutine(TypeBlock(blockId));
+        BlockOfLines blockToType = GetBlockWithId(voiceTriggerData.blockId);
+        voiceTriggerData.source.clip = blockToType.clip;
+        voiceTriggerData.source.Play();
+        StartCoroutine(TypeBlock(blockToType));
     }
-    IEnumerator TypeBlock(string blockId)
-    {
-        BlockOfLines blockToType = GetBlockWithId(blockId);
 
-        foreach (Line line in blockToType.lines)
+    IEnumerator TypeBlock(BlockOfLines block)
+    {
+        foreach (Line line in block.lines)
         {
             caption.text = line.text;
             yield return new WaitForSeconds(line.timeToDisappear);
