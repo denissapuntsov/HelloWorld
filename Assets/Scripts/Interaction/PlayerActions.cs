@@ -8,12 +8,14 @@ public class PlayerActions : MonoBehaviour
     public bool canInteract = true;
     public Transform playerCamera;
     public float interactionDistance;
+    Telephone telephone;
     Hands hands;
 
     [SerializeField] public Interaction interaction;
     private void Start()
     {
         hands = FindAnyObjectByType<Hands>();
+        telephone = FindAnyObjectByType<Telephone>();
     }
 
     private void Update()
@@ -23,6 +25,9 @@ public class PlayerActions : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // if telephone is ringing for the first time, limit interaction to telephone only
+        if (telephone.firstCallPlaying && other.gameObject.GetComponent<Telephone>() == null) { return; }
+
         if (other.gameObject.GetComponent<Interaction>() == null || hands.HandsFull) { return; }
         Debug.Log(other);
         interaction = other.gameObject.GetComponent<Interaction>();
