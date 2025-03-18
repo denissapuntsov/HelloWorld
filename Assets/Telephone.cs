@@ -5,7 +5,9 @@ using UnityEngine;
 public class Telephone : MonoBehaviour
 {
     [SerializeField] int timePenalty;
-    [SerializeField] GameObject phoneRingingUI;
+    [SerializeField] GameObject phoneRingingUI, invisibleWallsParent;
+
+    public bool firstCallPlaying = true;
 
     ScoreManager scoreManager;
     bool secondCallStarted = false;
@@ -19,17 +21,20 @@ public class Telephone : MonoBehaviour
 
     public void EndFirstCall()
     {
+        firstCallPlaying = false;
         GetComponent<Animator>().SetBool("isRinging", false);
         phoneText.text = " ";
+        invisibleWallsParent.gameObject.SetActive(false);
+        scoreManager.StartTimer();
+        GetComponent<AudioSource>().Stop();
     }
 
     public void EndSecondCall()
     {
-        if (secondCallStarted)
-        {
-            GetComponent<Animator>().SetBool("isRingingSecondTime", false);
-            phoneText.text = " ";
-        }
+        if (!secondCallStarted) { return; }
+        GetComponent<Animator>().SetBool("isRingingSecondTime", false);
+        phoneText.text = " ";
+        GetComponent<AudioSource>().Stop();
     }
 
     public void StartSecondCall()
@@ -37,14 +42,7 @@ public class Telephone : MonoBehaviour
         secondCallStarted = true;
         GetComponent<Animator>().SetBool("isRingingSecondTime", true);
         phoneText.text = "Someone's calling the phone again!";
-    }
-
-    public void FailFirstCall()
-    {
-        EndFirstCall();
-        scoreManager.SkipTime((int)(scoreManager.timeLimit / 2));
-        scoreManager.StartTimer();
-        phoneText.text = "";
+        GetComponent<AudioSource>().Play();
     }
 
     public void FailSecondCall()

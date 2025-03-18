@@ -17,7 +17,7 @@ public class Footsteps : MonoBehaviour
     float playerStartingSpeed;
     [SerializeField] float stepThreshold = 0.01f;
     [SerializeField] AudioClip[] floorFootstepClips, rugFootstepClips, tileFootstepClips;
-    AudioClip[] activeClipPool;
+    public AudioClip[] activeClipPool;
     public bool isMoving = false;
     
 
@@ -53,12 +53,15 @@ public class Footsteps : MonoBehaviour
         {
             case 0:
                 activeClipPool = floorFootstepClips;
+                Debug.Log("on floor");
                 break;
             case 1:
                 activeClipPool = rugFootstepClips;
+                Debug.Log("on rug");
                 break;
             case 2:
                 activeClipPool = tileFootstepClips;
+                Debug.Log("on tile");
                 break;
         }
     }
