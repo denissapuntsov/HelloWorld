@@ -10,12 +10,6 @@ public class FloorSoundModZone : MonoBehaviour
 
     Footsteps footsteps;
 
-
-    private void Update()
-    {
-        Debug.Log((int)floorType);
-    }
-
     private void Start()
     {
         footsteps = FindAnyObjectByType<Footsteps>();
