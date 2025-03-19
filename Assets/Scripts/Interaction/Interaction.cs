@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 [RequireComponent(typeof(VoiceTriggerData))]
+[RequireComponent(typeof(Rigidbody))]
 
 public class Interaction : MonoBehaviour
 {

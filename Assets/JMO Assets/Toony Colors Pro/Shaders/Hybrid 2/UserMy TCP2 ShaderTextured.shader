@@ -15,7 +15,6 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 		_Shadow_HSV_V ("Value", Range(-1,1)) = 0
 		[HideInInspector] __EndGroup ("Shadow HSV", Float) = 0
 		[MainTexture] _BaseMap ("Albedo", 2D) = "white" {}
-		 _Albedo ("Albedo", Color) = (1,1,1,1)
 		_Alpha ("Alpha", Float) = 1
 		[TCP2Separator]
 
@@ -37,11 +36,26 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 		[TCP2ColorNoAlpha] _SpecularColor ("Specular Color", Color) = (0.5,0.5,0.5,1)
 		_SpecularSmoothness ("Smoothness", Float) = 0.2
 		[TCP2Separator]
+
+		[TCP2HeaderHelp(Emission)]
+		[TCP2ColorNoAlpha] [HDR] _Emission ("Emission Color", Color) = (0,0,0,1)
+		 [NoScaleOffset] _Emission1 ("Emission Texture", 2D) = "white" {}
+		[TCP2Separator]
 		
 		[TCP2HeaderHelp(Rim Lighting)]
+		[Toggle(TCP2_RIM_LIGHTING)] _UseRim ("Enable Rim Lighting", Float) = 0
 		[TCP2ColorNoAlpha] _RimColor ("Rim Color", Color) = (0.8,0.8,0.8,0.5)
 		_RimMin ("Rim Min", Range(0,2)) = 0.5
 		_RimMax ("Rim Max", Range(0,2)) = 1
+		[TCP2Separator]
+
+		[TCP2HeaderHelp(Reflections)]
+		[Toggle(TCP2_REFLECTIONS)] _UseReflections ("Enable Reflections", Float) = 0
+		[TCP2ColorNoAlpha] _ReflectionColor ("Color", Color) = (1,1,1,1)
+		_PlanarNormalsInfluence ("Reflection Normal Influence", Range(0,1)) = 0.1
+		[HideInInspector] _ReflectionTex ("Planar Reflection RenderTexture", 2D) = "white" {}
+		_FresnelMin ("Fresnel Min", Range(0,2)) = 0
+		_FresnelMax ("Fresnel Max", Range(0,2)) = 1.5
 		[TCP2Separator]
 		
 		[TCP2HeaderHelp(Normal Mapping)]
@@ -52,6 +66,8 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 		[TCP2HeaderHelp(Outline)]
 		_OutlineWidth ("Width", Range(0.001,4)) = 1
 		_OutlineColorVertex ("Color", Color) = (0,0,0,1)
+		[Space]
+		_OutlineZSmooth ("Z Correction", Range(-3,3)) = 0
 		// Outline Normals
 		[TCP2MaterialKeywordEnumNoPrefix(Regular, _, Vertex Colors, TCP2_COLORS_AS_NORMALS, Tangents, TCP2_TANGENT_AS_NORMALS, UV1, TCP2_UV1_AS_NORMALS, UV2, TCP2_UV2_AS_NORMALS, UV3, TCP2_UV3_AS_NORMALS, UV4, TCP2_UV4_AS_NORMALS)]
 		_NormalsSource ("Outline Normals Source", Float) = 0
@@ -103,17 +119,20 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 		// Shader Properties
 		TCP2_TEX2D_WITH_SAMPLER(_BumpMap);
 		TCP2_TEX2D_WITH_SAMPLER(_BaseMap);
+		TCP2_TEX2D_WITH_SAMPLER(_Emission1);
+		sampler2D _ReflectionTex;
 
 		CBUFFER_START(UnityPerMaterial)
 			
 			// Shader Properties
+			float _OutlineZSmooth;
 			float _OutlineWidth;
 			fixed4 _OutlineColorVertex;
 			float _BumpScale;
 			float4 _BaseMap_ST;
-			fixed4 _Albedo;
 			float _Alpha;
 			fixed4 _Color;
+			half4 _Emission;
 			float _LightWrapFactor;
 			float _RampThreshold;
 			float _RampSmoothing;
@@ -131,6 +150,10 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 			float _Shadow_HSV_V;
 			fixed4 _SColor;
 			fixed4 _HColor;
+			float _PlanarNormalsInfluence;
+			float _FresnelMin;
+			float _FresnelMax;
+			fixed4 _ReflectionColor;
 		CBUFFER_END
 
 		//--------------------------------
@@ -211,9 +234,10 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 		struct v2f_outline
 		{
 			float4 vertex : SV_POSITION;
-			float4 vcolor : TEXCOORD0;
-			float3 pack1 : TEXCOORD1; /* pack1.xyz = worldNormal */
+			float4 screenPosition : TEXCOORD0;
+			float4 vcolor : TEXCOORD1;
 			float3 pack2 : TEXCOORD2; /* pack2.xyz = worldPos */
+			float3 pack3 : TEXCOORD3; /* pack3.xyz = worldNormal */
 			UNITY_VERTEX_INPUT_INSTANCE_ID
 			UNITY_VERTEX_OUTPUT_STEREO
 		};
@@ -228,12 +252,13 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 
 			float3 worldNormalUv = mul(UNITY_MATRIX_M, float4(v.normal, 1.0)).xyz;
 			// Shader Properties Sampling
+			float __outlineZsmooth = ( _OutlineZSmooth );
 			float __outlineWidth = ( _OutlineWidth );
 			float4 __outlineColorVertex = ( _OutlineColorVertex.rgba );
 
 			float3 worldPos = mul(UNITY_MATRIX_M, v.vertex).xyz;
 			output.pack2.xyz = worldPos;
-			output.pack1.xyz = worldNormalUv;
+			output.pack3.xyz = worldNormalUv;
 		
 		#ifdef TCP2_COLORS_AS_NORMALS
 			//Vertex Color for Normals
@@ -284,6 +309,11 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 			normal = UnityObjectToViewPos(normal);
 			normal.z = -_ZSmooth;
 		#endif
+		
+			//Z correction in view space
+			normal = mul(UNITY_MATRIX_V, float4(normal, 0)).xyz;
+			normal.z += __outlineZsmooth;
+			normal = mul(float4(normal, 0), UNITY_MATRIX_V).xyz;
 			float size = 1;
 		
 		#if !defined(SHADOWCASTER_PASS)
@@ -293,6 +323,11 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 		#endif
 		
 			output.vcolor.xyzw = __outlineColorVertex;
+			float4 clipPos = output.vertex;
+
+			// Screen Position
+			float4 screenPos = ComputeScreenPos(clipPos);
+			output.screenPosition = screenPos;
 
 			return output;
 		}
@@ -357,6 +392,11 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 			#pragma vertex Vertex
 			#pragma fragment Fragment
 
+			//--------------------------------------
+			// Toony Colors Pro 2 keywords
+			#pragma shader_feature_local_fragment TCP2_RIM_LIGHTING
+			#pragma shader_feature_local_fragment TCP2_REFLECTIONS
+
 			// vertex input
 			struct Attributes
 			{
@@ -394,9 +434,10 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 				#define staticLightmapUV lightmapUV.xy
 				#define dynamicLightmapUV lightmapUV.xy
 			#endif
-				float3 pack0 : TEXCOORD4; /* pack0.xyz = tangent */
-				float3 pack1 : TEXCOORD5; /* pack1.xyz = bitangent */
-				float2 pack2 : TEXCOORD6; /* pack2.xy = texcoord0 */
+				float4 screenPosition : TEXCOORD4;
+				float3 pack1 : TEXCOORD5; /* pack1.xyz = tangent */
+				float3 pack2 : TEXCOORD6; /* pack2.xyz = bitangent */
+				float2 pack3 : TEXCOORD7; /* pack3.xy = texcoord0 */
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -419,7 +460,7 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
 				// Texture Coordinates
-				output.pack2.xy.xy = input.texcoord0.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				output.pack3.xy.xy = input.texcoord0.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 				#if defined(LIGHTMAP_ON)
 					output.staticLightmapUV = input.texcoord1.xy * unity_LightmapST.xy + unity_LightmapST.zw;
 				#endif
@@ -432,6 +473,10 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 			#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
 				output.shadowCoord = GetShadowCoord(vertexInput);
 			#endif
+				float4 clipPos = vertexInput.positionCS;
+
+				float4 screenPos = ComputeScreenPos(clipPos);
+				output.screenPosition.xyzw = screenPos;
 
 				VertexNormalInputs vertexNormalInput = GetVertexNormalInputs(input.normal, input.tangent);
 			#ifdef _ADDITIONAL_LIGHTS_VERTEX
@@ -446,8 +491,8 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 				output.normal = normalize(vertexNormalInput.normalWS);
 
 				// tangent
-				output.pack0.xyz = vertexNormalInput.tangentWS;
-				output.pack1.xyz = vertexNormalInput.bitangentWS;
+				output.pack1.xyz = vertexNormalInput.tangentWS;
+				output.pack2.xyz = vertexNormalInput.bitangentWS;
 
 				// clip position
 				output.positionCS = vertexInput.positionCS;
@@ -464,17 +509,18 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 				float3 positionWS = input.worldPosAndFog.xyz;
 				float3 normalWS = normalize(input.normal);
 				half3 viewDirWS = GetWorldSpaceNormalizeViewDir(positionWS);
-				half3 tangentWS = input.pack0.xyz;
-				half3 bitangentWS = input.pack1.xyz;
+				half3 tangentWS = input.pack1.xyz;
+				half3 bitangentWS = input.pack2.xyz;
 				half3x3 tangentToWorldMatrix = half3x3(tangentWS.xyz, bitangentWS.xyz, normalWS.xyz);
 
 				// Shader Properties Sampling
-				float4 __normalMap = ( TCP2_TEX2D_SAMPLE(_BumpMap, _BumpMap, input.pack2.xy).rgba );
+				float4 __normalMap = ( TCP2_TEX2D_SAMPLE(_BumpMap, _BumpMap, input.pack3.xy).rgba );
 				float __bumpScale = ( _BumpScale );
-				float4 __albedo = ( TCP2_TEX2D_SAMPLE(_BaseMap, _BaseMap, input.pack2.xy).rgba * _Albedo.rgba );
+				float4 __albedo = ( TCP2_TEX2D_SAMPLE(_BaseMap, _BaseMap, input.pack3.xy).rgba );
 				float __alpha = ( _Alpha );
 				float4 __mainColor = ( _Color.rgba );
 				float __ambientIntensity = ( 1.0 );
+				float3 __emission = ( _Emission.rgb * TCP2_TEX2D_SAMPLE(_Emission1, _Emission1, input.pack3.xy).rgb );
 				float __lightWrapFactor = ( _LightWrapFactor );
 				float __rampThreshold = ( _RampThreshold );
 				float __rampSmoothing = ( _RampSmoothing );
@@ -494,6 +540,10 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 				float __shadowValue = ( _Shadow_HSV_V );
 				float3 __shadowColor = ( _SColor.rgb );
 				float3 __highlightColor = ( _HColor.rgb );
+				float __planarNormalsInfluence = ( _PlanarNormalsInfluence );
+				float __fresnelMin = ( _FresnelMin );
+				float __fresnelMax = ( _FresnelMax );
+				float3 __reflectionColor = ( _ReflectionColor.rgb );
 
 				half4 normalMap = __normalMap;
 				half3 normalTS = UnpackNormalScale(normalMap, __bumpScale);
@@ -559,6 +609,7 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 
 				half3 indirectDiffuse = bakedGI;
 				indirectDiffuse *= occlusion * albedo * __ambientIntensity;
+				emission += __emission;
 
 				half3 lightDir = mainLight.direction;
 				half3 lightColor = mainLight.color.rgb;
@@ -586,6 +637,7 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 
 				half3 color = half3(0,0,0);
 				// Rim Lighting
+				#if defined(TCP2_RIM_LIGHTING)
 				half rim = 1 - ndvRaw;
 				rim = ( rim );
 				half rimMin = __rimMin;
@@ -594,6 +646,7 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 				half3 rimColor = __rimColor;
 				half rimStrength = __rimStrength;
 				emission.rgb += rim * rimColor * rimStrength;
+				#endif
 				half3 accumulatedRamp = ramp * max(lightColor.r, max(lightColor.g, lightColor.b));
 				half3 accumulatedColors = ramp * lightColor.rgb;
 
@@ -753,6 +806,18 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 				// apply ambient
 				color += indirectDiffuse;
 
+				half3 reflections = half3(0, 0, 0);
+				#if defined(TCP2_REFLECTIONS)
+				float2 planarReflectionCoords = (input.screenPosition.xyzw.xy + (normalTS.xy * __planarNormalsInfluence)) / input.screenPosition.xyzw.w;
+				reflections.rgb += tex2D(_ReflectionTex, planarReflectionCoords).rgb;
+				#endif
+				half fresnelMin = __fresnelMin;
+				half fresnelMax = __fresnelMax;
+				half fresnelTerm = smoothstep(fresnelMin, fresnelMax, 1 - ndvRaw);
+				reflections *= fresnelTerm;
+				reflections *= __reflectionColor;
+				color.rgb += reflections;
+
 				color += emission;
 
 				return half4(color, alpha);
@@ -768,6 +833,7 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 			{
 			}
 			Cull Front
+			Offset 0,0
 
 			HLSLPROGRAM
 
@@ -809,7 +875,8 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 			#if defined(DEPTH_NORMALS_PASS)
 				float3 normalWS : TEXCOORD0;
 			#endif
-				float3 pack0 : TEXCOORD1; /* pack0.xyz = positionWS */
+				float4 screenPosition : TEXCOORD1;
+				float3 pack1 : TEXCOORD2; /* pack1.xyz = positionWS */
 			#if defined(DEPTH_ONLY_PASS)
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
@@ -849,8 +916,12 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 
 				float3 worldPos = mul(UNITY_MATRIX_M, input.vertex).xyz;
 				VertexPositionInputs vertexInput = GetVertexPositionInputs(input.vertex.xyz);
+
+				// Screen Space UV
+				float4 screenPos = ComputeScreenPos(vertexInput.positionCS);
+				output.screenPosition.xyzw = screenPos;
 				output.normal = normalize(worldNormalUv);
-				output.pack0.xyz = vertexInput.positionWS;
+				output.pack1.xyz = vertexInput.positionWS;
 
 				#if defined(DEPTH_ONLY_PASS)
 					output.positionCS = TransformObjectToHClip(input.vertex.xyz);
@@ -878,7 +949,7 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 					UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
 				#endif
 
-				float3 positionWS = input.pack0.xyz;
+				float3 positionWS = input.pack1.xyz;
 				float3 normalWS = normalize(input.normal);
 
 				// Shader Properties Sampling
@@ -1008,5 +1079,5 @@ Shader "Toony Colors Pro 2/User/My TCP2 ShaderTextured"
 	CustomEditor "ToonyColorsPro.ShaderGenerator.MaterialInspector_SG2"
 }
 
-/* TCP_DATA u config(ver:"2.9.16";unity:"6000.0.32f1";tmplt:"SG2_Template_URP";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","UNITY_2019_1","UNITY_2019_2","UNITY_2019_3","UNITY_2019_4","UNITY_2020_1","UNITY_2021_1","UNITY_2021_2","UNITY_2022_2","ENABLE_DEPTH_NORMALS_PASS","ENABLE_FORWARD_PLUS","RAMP_MAIN_OTHER","RAMP_SEPARATED","WRAPPED_LIGHTING_CUSTOM","SPEC_LEGACY","SPECULAR","RIM","BUMP","BUMP_SCALE","RAMP_BANDS_CRISP","ENABLE_LIGHTMAP","SHADOW_HSV","OUTLINE","TEMPLATE_LWRP"];flags:list[];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0",RIM_LABEL="Rim Lighting"];shaderProperties:list[sp(name:"Albedo";imps:list[imp_mp_texture(uto:True;tov:"";tov_lbl:"";gto:True;sbt:False;scr:False;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;sin_anm:False;sin_anmv:"";sin_anmv_lbl:"";gsin:False;notile:False;triplanar_local:False;def:"white";locked_uv:False;uv:0;cc:4;chan:"RGBA";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:False;uv_type:Texcoord;uv_chan:"XZ";tpln_scale:1;uv_shaderproperty:__NULL__;uv_cmp:__NULL__;sep_sampler:__NULL__;prop:"_BaseMap";md:"[MainTexture]";gbv:False;custom:False;refs:"";pnlock:False;guid:"fb75bf63-247f-4402-b748-b691c0fb811e";op:Multiply;lbl:"Albedo";gpu_inst:False;dots_inst:False;locked:False;impl_index:0),imp_mp_color(def:RGBA(1, 1, 1, 1);hdr:False;cc:4;chan:"RGBA";prop:"_Albedo";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"33a10f3a-1f27-41b2-8278-f85aa2c81cb9";op:Multiply;lbl:"Albedo";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False),sp(name:"Main Color";imps:list[imp_mp_color(def:RGBA(1, 1, 1, 1);hdr:False;cc:4;chan:"RGBA";prop:"_Color";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"df6029d6-669d-4ffd-9a6e-1080d7112935";op:Multiply;lbl:"Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False),sp(name:"Alpha";imps:list[imp_mp_float(def:1;prop:"_Alpha";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"c45dc92a-cacd-448b-93f8-89bd04e59839";op:Multiply;lbl:"Alpha";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False),,,,,,,,,,,,,,,,,,,,,,,,sp(name:"Outline Width";imps:list[imp_mp_range(def:1;min:0.001;max:4;prop:"_OutlineWidth";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"ffbaab38-f570-4eea-ae7f-a88e34edf03a";op:Multiply;lbl:"Width";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False)];customTextures:list[];codeInjection:codeInjection(injectedFiles:list[];mark:False);matLayers:list[ml(uid:"1d7310";name:"Material Layer";src:sp(name:"layer_1d7310";imps:list[imp_mp_texture(uto:False;tov:"";tov_lbl:"";gto:False;sbt:False;scr:False;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;sin_anm:False;sin_anmv:"";sin_anmv_lbl:"";gsin:False;notile:False;triplanar_local:False;def:"white";locked_uv:False;uv:0;cc:1;chan:"R";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:False;uv_type:Texcoord;uv_chan:"XZ";tpln_scale:1;uv_shaderproperty:__NULL__;uv_cmp:__NULL__;sep_sampler:__NULL__;prop:"_layer_1d7310";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"562eb76c-f98d-4b65-90f7-403dbacd7d78";op:Multiply;lbl:"Source Texture";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False);use_contrast:False;ctrst:__NULL__;use_noise:False;noise:__NULL__)]) */
-/* TCP_HASH ba4ecbd0cde772918f4e73441f64fc1d */
+/* TCP_DATA u config(ver:"2.9.16";unity:"6000.0.32f1";tmplt:"SG2_Template_URP";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","UNITY_2019_1","UNITY_2019_2","UNITY_2019_3","UNITY_2019_4","UNITY_2020_1","UNITY_2021_1","UNITY_2021_2","UNITY_2022_2","ENABLE_DEPTH_NORMALS_PASS","ENABLE_FORWARD_PLUS","RAMP_MAIN_OTHER","RAMP_SEPARATED","WRAPPED_LIGHTING_CUSTOM","SPEC_LEGACY","SPECULAR","RIM","BUMP","BUMP_SCALE","RAMP_BANDS_CRISP","ENABLE_LIGHTMAP","SHADOW_HSV","PLANAR_REFLECTION","REFLECTION_SHADER_FEATURE","REFLECTION_FRESNEL","SKETCH_SHADER_FEATURE","OUTLINE_ZSMOOTH","OUTLINE_LIGHTING_WRAP","RIM_SHADER_FEATURE","EMISSION","TEMPLATE_LWRP","OUTLINE"];flags:list[];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0",RIM_LABEL="Rim Lighting"];shaderProperties:list[,sp(name:"Main Color";imps:list[imp_mp_color(def:RGBA(1, 1, 1, 1);hdr:False;cc:4;chan:"RGBA";prop:"_Color";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"df6029d6-669d-4ffd-9a6e-1080d7112935";op:Multiply;lbl:"Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False),sp(name:"Alpha";imps:list[imp_mp_float(def:1;prop:"_Alpha";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"c45dc92a-cacd-448b-93f8-89bd04e59839";op:Multiply;lbl:"Alpha";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list["1d7310"];layer_blend:dict[1d7310=Add];custom_blend:dict[1d7310="lerp(a, b, s)"];clones:dict[1d7310=sp(name:"Alpha_1d7310";imps:list[imp_mp_float(def:1;prop:"_Alpha_1d7310";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"00000000-0000-0000-0000-000000000000";op:Multiply;lbl:"Alpha";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:True)];isClone:False),,,,,,,,,,,,,,,,,,,,,,,sp(name:"Emission";imps:list[imp_mp_color(def:RGBA(0, 0, 0, 1);hdr:True;cc:3;chan:"RGB";prop:"_Emission";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"47cd869f-6718-40a9-b1ad-8a8cb2729a37";op:Multiply;lbl:"Emission Color";gpu_inst:False;dots_inst:False;locked:False;impl_index:0),imp_mp_texture(uto:False;tov:"";tov_lbl:"";gto:False;sbt:False;scr:False;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;sin_anm:False;sin_anmv:"";sin_anmv_lbl:"";gsin:False;notile:False;triplanar_local:False;def:"white";locked_uv:False;uv:0;cc:3;chan:"RGB";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:False;uv_type:Texcoord;uv_chan:"XZ";tpln_scale:1;uv_shaderproperty:__NULL__;uv_cmp:__NULL__;sep_sampler:__NULL__;prop:"_Emission1";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"3e2b807e-0620-4efe-9586-bcd5392be8d8";op:Multiply;lbl:"Emission Texture";gpu_inst:False;dots_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];layer_blend:dict[1d7310=LinearInterpolation];custom_blend:dict[1d7310="lerp(a, b, s)"];clones:dict[];isClone:False),,,,,,,,,,,,,,,,,,,,sp(name:"Outline Width";imps:list[imp_mp_range(def:1;min:0.001;max:4;prop:"_OutlineWidth";md:"";gbv:False;custom:False;refs:"";pnlock:False;guid:"ffbaab38-f570-4eea-ae7f-a88e34edf03a";op:Multiply;lbl:"Width";gpu_inst:False;dots_inst:False;locked:False;impl_index:0)];layers:list[];unlocked:list[];layer_blend:dict[];custom_blend:dict[];clones:dict[];isClone:False)];customTextures:list[];codeInjection:codeInjection(injectedFiles:list[];mark:False);matLayers:list[]) */
+/* TCP_HASH 76dc2f48bfb8d3984432befb493a6e32 */

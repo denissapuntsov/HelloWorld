@@ -3,18 +3,19 @@ using UnityEngine;
 using System.Collections;
 using System.Xml;
 
+public enum FloorType
+{
+    floor,
+    rug,
+    tile
+};
+
 [RequireComponent(typeof(BoxCollider))]
 public class FloorSoundModZone : MonoBehaviour
 {
     public FloorType floorType = new FloorType();
 
     Footsteps footsteps;
-
-
-    private void Update()
-    {
-        Debug.Log((int)floorType);
-    }
 
     private void Start()
     {
@@ -34,10 +35,3 @@ public class FloorSoundModZone : MonoBehaviour
         footsteps.SetActiveClipPool(0);
     }
 }
-
-public enum FloorType
-{
-    floor,
-    rug,
-    tile
-};

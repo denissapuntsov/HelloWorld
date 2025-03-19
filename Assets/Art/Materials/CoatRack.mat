@@ -134,8 +134,8 @@ Material:
     - _RampThresholdOtherLights: 0.602
     - _ReceiveShadows: 1
     - _ReceiveShadowsOff: 1
-    - _RimMax: 1
-    - _RimMin: 0.5
+    - _RimMax: 1.386
+    - _RimMin: 0.527
     - _Shadow_HSV_H: 0
     - _Shadow_HSV_S: 0
     - _Shadow_HSV_V: 0

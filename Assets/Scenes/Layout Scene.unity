@@ -1797,6 +1797,7 @@ GameObject:
   - component: {fileID: 145968997}
   - component: {fileID: 145968996}
   - component: {fileID: 145968995}
+  - component: {fileID: 145969002}
   m_Layer: 0
   m_Name: BlueCube
   m_TagString: Holdable
@@ -1967,6 +1968,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1275547143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &145969002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145968994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3741be1ed4decce448fe6e471f558f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: 
+  source: {fileID: 0}
 --- !u!1 &154736687 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8581366332346248874, guid: 73808c5f103e520498831037aaae1cc4, type: 3}
@@ -9520,6 +9535,7 @@ GameObject:
   - component: {fileID: 642186253}
   - component: {fileID: 642186252}
   - component: {fileID: 642186251}
+  - component: {fileID: 642186259}
   m_Layer: 0
   m_Name: PinkTrash
   m_TagString: Untagged
@@ -9704,6 +9720,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1275547143}
   m_LocalEulerAnglesHint: {x: 0, y: -48.379, z: 0}
+--- !u!114 &642186259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642186250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3741be1ed4decce448fe6e471f558f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: 
+  source: {fileID: 0}
 --- !u!1 &647267146 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2043281331877354887, guid: a9ba1d8ee8556a2479b6cdf568823ef7, type: 3}
@@ -20772,7 +20802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1253607794
 Transform:
   m_ObjectHideFlags: 0
@@ -21625,6 +21655,7 @@ GameObject:
   - component: {fileID: 1322576207}
   - component: {fileID: 1322576206}
   - component: {fileID: 1322576205}
+  - component: {fileID: 1322576212}
   m_Layer: 0
   m_Name: RedCube
   m_TagString: Holdable
@@ -21795,6 +21826,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1275547143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1322576212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322576204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3741be1ed4decce448fe6e471f558f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: 
+  source: {fileID: 0}
 --- !u!1001 &1331183092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32352,6 +32397,7 @@ GameObject:
   - component: {fileID: 1950180411}
   - component: {fileID: 1950180410}
   - component: {fileID: 1950180409}
+  - component: {fileID: 1950180415}
   m_Layer: 0
   m_Name: YellowPolaroid
   m_TagString: Untagged
@@ -32496,6 +32542,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1275547143}
   m_LocalEulerAnglesHint: {x: 0, y: 41.516, z: 0}
+--- !u!114 &1950180415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950180408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3741be1ed4decce448fe6e471f558f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: 
+  source: {fileID: 0}
 --- !u!1 &1956831497 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9095148712217069589, guid: a52412f4e74b2084c9af2d4bb5996188, type: 3}
@@ -35515,6 +35575,7 @@ GameObject:
   - component: {fileID: 2047477662353248587}
   - component: {fileID: 1576749312862472692}
   - component: {fileID: 682639668830434540}
+  - component: {fileID: 6027897096823432641}
   m_Layer: 0
   m_Name: GreenTrash
   m_TagString: Untagged
@@ -36000,6 +36061,7 @@ GameObject:
   - component: {fileID: 1806450391583478441}
   - component: {fileID: 2531336593527777462}
   - component: {fileID: 1102392808732367410}
+  - component: {fileID: 5418236658345761199}
   m_Layer: 0
   m_Name: PurplePolaroid
   m_TagString: Untagged
@@ -36161,6 +36223,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3814514898562818546}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &5418236658345761199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3814514898562818546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3741be1ed4decce448fe6e471f558f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: 
+  source: {fileID: 0}
 --- !u!23 &6027897096823432640
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -36206,6 +36282,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6027897096823432641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389615158517934786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3741be1ed4decce448fe6e471f558f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: 
+  source: {fileID: 0}
 --- !u!1001 &6854469882466091718
 PrefabInstance:
   m_ObjectHideFlags: 0
