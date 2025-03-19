@@ -1,9 +1,14 @@
 using UnityEngine;
+using UnityEngine.Events;
+
+[RequireComponent(typeof(BoxCollider))]
 
 public class SnapArea : MonoBehaviour
 {
     [SerializeField] GameObject objectToCheckFor, objectToShow;
     [SerializeField] int scoreCount = 0;
+
+    public UnityEvent onSnap;
 
     Hands hands;
     ScoreManager scoreManager;
@@ -12,6 +17,7 @@ public class SnapArea : MonoBehaviour
     {
         hands = FindAnyObjectByType<Hands>();
         scoreManager = FindAnyObjectByType<ScoreManager>();
+        GetComponent<BoxCollider>().isTrigger = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,5 +34,7 @@ public class SnapArea : MonoBehaviour
         Destroy(other.gameObject);
         objectToShow.SetActive(true);
         scoreManager.AddPoints(scoreCount);
+
+        onSnap?.Invoke();
     }
 }

@@ -8,6 +8,8 @@ public class Hands : MonoBehaviour
     public Vector3 heldOffset;
     public Transform playerCamera;
 
+    CollisionCheck checker;
+
     [field: SerializeField] 
     public bool HandsFull { get; set; } = false;
 
@@ -21,6 +23,7 @@ public class Hands : MonoBehaviour
         actions = FindAnyObjectByType<PlayerActions>();
         menuManager = FindAnyObjectByType<MenuManager>();
         playerCamera = Camera.main.transform;
+        checker = FindAnyObjectByType<CollisionCheck>();
     }
 
     private void Update()
@@ -45,24 +48,14 @@ public class Hands : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        isFacingObstacles = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        isFacingObstacles = false;
-    }
-
     public void AssignHeldObject(GameObject newObject)
     {
         if (!HandsFull)
         {
-
+            checker.gameObject.SetActive(true);
             heldObject = newObject;
             heldObject.layer = 2;
-            heldObject.transform.localPosition = heldOffset;
+            heldObject.transform.localPosition = heldObject.GetComponent<Holdable>().heldOffset;
             SetPhysics(false);
 
             heldObject.transform.SetParent(transform, false);
@@ -88,13 +81,13 @@ public class Hands : MonoBehaviour
     {
         if (heldObject != null)
         {
-
             heldObject.layer = 0;
             SetPhysics(true);
-
+            heldObject.transform.position = checker.gameObject.transform.position;
+            heldObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
             heldObject.transform.SetParent(null, true);
-            heldObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
+            checker.gameObject.SetActive(false);
             heldObject = null;
             HandsFull = false;
             dropEnabled = false;
