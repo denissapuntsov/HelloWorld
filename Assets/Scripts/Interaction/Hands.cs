@@ -8,7 +8,7 @@ public class Hands : MonoBehaviour
     public Vector3 heldOffset;
     public Transform playerCamera;
 
-    CollisionCheck checker;
+    public CollisionCheck checker;
 
     [field: SerializeField] 
     public bool HandsFull { get; set; } = false;
@@ -52,16 +52,19 @@ public class Hands : MonoBehaviour
     {
         if (!HandsFull)
         {
-            checker.gameObject.SetActive(true);
+            //checker.gameObject.SetActive(true);
+
             heldObject = newObject;
             heldObject.layer = 2;
             heldObject.transform.localPosition = heldObject.GetComponent<Holdable>().heldOffset;
+            heldObject.transform.rotation = heldObject.GetComponent<Holdable>().heldOffsetRotation;
             SetPhysics(false);
 
             heldObject.transform.SetParent(transform, false);
             HandsFull = true;
 
             actions.canInteract = false;
+            actions.interaction = null;
             StartCoroutine(DelayItemDrop());
         }
         else
@@ -87,7 +90,7 @@ public class Hands : MonoBehaviour
             heldObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
             heldObject.transform.SetParent(null, true);
 
-            checker.gameObject.SetActive(false);
+            //checker.gameObject.SetActive(false);
             heldObject = null;
             HandsFull = false;
             dropEnabled = false;
