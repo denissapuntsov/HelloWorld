@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 31d613a382f03c344b6168bd5897dbc7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24677
+  packageName: Electric Guitar
+  packageVersion: 1.0
+  assetPath: Assets/ElectricGuitars/ElectricGuitar_st/Materials/ElectricGuitar_st.mat
+  uploadId: 39596
