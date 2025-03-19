@@ -22,16 +22,16 @@ public class SnapArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Holdable") && other.gameObject == objectToCheckFor)
+        if (other.GetComponent<CollisionCheck>() && hands.heldObject == objectToCheckFor)
         {
-            SnapObject(other);
+            SnapObject(hands.heldObject);
         }
     }
 
-    private void SnapObject(Collider other)
+    private void SnapObject(GameObject obj)
     {
         hands.RemoveHeldObject();
-        Destroy(other.gameObject);
+        Destroy(obj);
         objectToShow.SetActive(true);
         scoreManager.AddPoints(scoreCount);
 
