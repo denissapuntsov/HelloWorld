@@ -6,12 +6,17 @@ using UnityEngine.Splines.Interpolators;
 
 public class CollisionCheck : MonoBehaviour
 {
-    [SerializeField] GameObject obstacle;
+    public GameObject obstacle;
     Hands hands;
 
     private void Start()
     {
         hands = FindAnyObjectByType<Hands>();
+    }
+
+    private void Update()
+    {
+        if (obstacle == null) { obstacle = null; }
     }
 
     private void OnTriggerStay(Collider other)
