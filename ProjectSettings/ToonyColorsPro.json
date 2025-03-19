@@ -3,15 +3,15 @@
     "SubFolders": true,
     "OverwriteConfig": false,
     "LoadAllShaders": false,
-    "CustomOutputPath": "JMO Assets/Toony Colors Pro/Shaders/Hybrid 2",
+    "CustomOutputPath": "\\JMO Assets\\Toony Colors Pro\\Shaders\\Hybrid 2",
     "LastImplementationExportImportPath": "C:/Users/raasiq.shaikh/Documents/RaasiqProjects/Git/HelloWorld/Assets",
     "OpenedFoldouts": [
-        "SURFACE",
-        "LIGHTING",
         "STYLIZATION",
         "THIRD PARTY PLUGINS",
-        "OPTIONS",
-        "SPECIAL EFFECTS"
+        "SPECIAL EFFECTS",
+        "SURFACE",
+        "LIGHTING",
+        "TRANSPARENCY/BLENDING"
     ],
     "UseCustomFont": true,
     "CustomFont": {

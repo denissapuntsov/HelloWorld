@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
+[RequireComponent(typeof(VoiceTriggerData))]
+[RequireComponent(typeof(Rigidbody))]
 
 public class Interaction : MonoBehaviour
 {
@@ -28,7 +30,6 @@ public class Interaction : MonoBehaviour
             if (isFirstInteraction)
             {
                 // do a special single-time interaction
-                Debug.Log($"First interaction with {gameObject.name} done, switching to onInteract");
                 onTriggerFirstInteraction?.Invoke();
                 
                 // do the regular interaction

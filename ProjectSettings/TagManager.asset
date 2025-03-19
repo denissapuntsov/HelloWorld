@@ -6,6 +6,8 @@ TagManager:
   tags:
   - CinemachineTarget
   - Holdable
+  - Feet
+  - IgnoreCollisionChecker
   layers:
   - Default
   - TransparentFX
@@ -15,10 +17,10 @@ TagManager:
   - UI
   - Ground
   - Block Dropping Items
-  - 
-  - 
-  - 
-  - 
+  - Rug
+  - Tile
+  - Feet
+  - Directional
   - 
   - 
   - 

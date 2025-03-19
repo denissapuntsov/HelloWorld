@@ -125,7 +125,7 @@ Material:
     - _NormalsSource: 0
     - _NormalsUVType: 0
     - _OcclusionStrength: 1
-    - _OutlineWidth: 1
+    - _OutlineWidth: 0.45
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _RampSmoothing: 0.5
@@ -134,8 +134,8 @@ Material:
     - _RampThresholdOtherLights: 0.581
     - _ReceiveShadows: 1
     - _ReceiveShadowsOff: 1
-    - _RimMax: 1
-    - _RimMin: 0.5
+    - _RimMax: 1.207
+    - _RimMin: 0.746
     - _Shadow_HSV_H: 0
     - _Shadow_HSV_S: 0
     - _Shadow_HSV_V: 0
