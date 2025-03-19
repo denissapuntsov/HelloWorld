@@ -132,7 +132,7 @@ Material:
     - _NormalsSource: 0
     - _NormalsUVType: 0
     - _OcclusionStrength: 1
-    - _OutlineWidth: 0.01
+    - _OutlineWidth: 0.03
     - _OutlineZSmooth: 0
     - _Parallax: 0.005
     - _PlanarNormalsInfluence: 0.1
