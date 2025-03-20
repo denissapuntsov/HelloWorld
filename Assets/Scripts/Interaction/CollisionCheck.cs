@@ -16,19 +16,24 @@ public class CollisionCheck : MonoBehaviour
 
     private void Update()
     {
-        if (obstacle == null) { obstacle = null; }
+        if (obstacle == null) { obstacle = null; hands.isFacingObstacles = false; return; }
+        hands.isFacingObstacles = true;
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("IgnoreCollisionChecker") || other.gameObject.CompareTag("Feet")) { return; }
         obstacle = other.gameObject;
-        hands.isFacingObstacles = true;
+        //hands.isFacingObstacles = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
         obstacle = null;
-        hands.isFacingObstacles = false;
+    }
+
+    public void ClearObstacle()
+    {
+        obstacle = null;
     }
 }
