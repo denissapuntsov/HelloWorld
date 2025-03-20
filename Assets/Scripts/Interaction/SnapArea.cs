@@ -32,7 +32,7 @@ public class SnapArea : MonoBehaviour
     {
         hands.RemoveHeldObject();
         Destroy(obj);
-        objectToShow.SetActive(true);
+        if (objectToShow != null) { objectToShow.SetActive(true); }
         scoreManager.AddPoints(scoreCount);
 
         onSnap?.Invoke();

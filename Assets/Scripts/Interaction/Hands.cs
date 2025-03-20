@@ -56,6 +56,11 @@ public class Hands : MonoBehaviour
 
             heldObject = newObject;
             heldObject.layer = 2;
+            foreach (Transform child in heldObject.transform)
+            {
+                child.gameObject.layer = 2;
+            }
+
             heldObject.transform.localPosition = heldObject.GetComponent<Holdable>().heldOffset;
             heldObject.transform.rotation = heldObject.GetComponent<Holdable>().heldOffsetRotation;
             SetPhysics(false);
@@ -85,6 +90,11 @@ public class Hands : MonoBehaviour
         if (heldObject != null)
         {
             heldObject.layer = 0;
+            foreach (Transform child in heldObject.transform)
+            {
+                child.gameObject.layer = 0;
+            }
+
             SetPhysics(true);
             heldObject.transform.position = checker.gameObject.transform.position;
             heldObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
