@@ -31,4 +31,10 @@ public class CollisionCheck : MonoBehaviour
         obstacle = null;
         hands.isFacingObstacles = false;
     }
+
+    public void ClearObstacle()
+    {
+        obstacle = null;
+        hands.isFacingObstacles = false;
+    }
 }
