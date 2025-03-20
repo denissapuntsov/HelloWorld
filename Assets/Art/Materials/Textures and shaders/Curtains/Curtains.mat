@@ -210,7 +210,7 @@ Material:
     - _OutlinePixelSizeType: 0
     - _OutlineTextureLOD: 5
     - _OutlineTextureType: 0
-    - _OutlineWidth: 0.05
+    - _OutlineWidth: 0.01
     - _OutlineZSmooth: -0.46
     - _Parallax: 0.005
     - _PlanarNormalsInfluence: 0.1
@@ -312,6 +312,7 @@ Material:
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColorVertex: {r: 0.2830189, g: 0.2830189, b: 0.10412955, a: 1}
+    - _OutlineOffset: {r: 0, g: 0, b: 0, a: 0}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 0.85627085, b: 0.5113207, a: 0.5}
     - _SColor: {r: 0, g: 0, b: 0, a: 1}
