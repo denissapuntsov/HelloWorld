@@ -5,9 +5,10 @@ using System.Xml;
 
 public enum FloorType
 {
-    floor,
     rug,
-    tile
+    tile,
+    concrete,
+    stairs
 };
 
 [RequireComponent(typeof(BoxCollider))]

@@ -4,7 +4,6 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Animator))]
 public class Footsteps : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class Footsteps : MonoBehaviour
 
     Vector3 lastPosition;
     Animator footstepAnimator;
-    AudioSource footAudioSource;
+    [SerializeField] AudioSource footAudioSource;
     FirstPersonController controller;
     float playerStartingSpeed;
     [SerializeField] float stepThreshold = 0.01f;
@@ -23,7 +22,6 @@ public class Footsteps : MonoBehaviour
 
     private void Start()
     {
-        footAudioSource = GetComponent<AudioSource>();
         footstepAnimator = GetComponent<Animator>();
         controller = FindAnyObjectByType<FirstPersonController>();
         playerStartingSpeed = controller.MoveSpeed;
