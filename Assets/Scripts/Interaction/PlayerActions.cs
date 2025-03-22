@@ -40,6 +40,7 @@ public class PlayerActions : MonoBehaviour
         {
             Debug.Log(other);
             interaction = null;
+            crosshair.SetCrosshairMode("idle");
         }
     }
 
