@@ -8,10 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: wood
-  m_Shader: {fileID: 4800000, guid: 8c0d7db0a44134241b2a68b4fda4456b, type: 3}
+  m_Shader: {fileID: 4800000, guid: 11d9674291655b448a5e1ec652a81d2d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - TCP2_UV_NORMALS_FULL
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -119,7 +120,11 @@ Material:
     - _GlossyReflections: 0
     - _LightWrapFactor: 0.5
     - _Metallic: 0
+    - _NormalsSource: 0
+    - _NormalsUVType: 0
     - _OcclusionStrength: 1
+    - _OutlineWidth: 0.015
+    - _OutlineZSmooth: 0
     - _Parallax: 0.005
     - _PlanarNormalsInfluence: 0.1
     - _QueueOffset: 0
@@ -131,6 +136,9 @@ Material:
     - _ReceiveShadowsOff: 1
     - _RimMax: 1
     - _RimMin: 0.5
+    - _Shadow_HSV_H: 0
+    - _Shadow_HSV_S: 0
+    - _Shadow_HSV_V: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -142,6 +150,8 @@ Material:
     - _UseRim: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - __BeginGroup_ShadowHSV: 0
+    - __EndGroup: 0
     - __dummy__: 0
     - _blendOperation: 0
     m_Colors:
@@ -150,6 +160,7 @@ Material:
     - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColorVertex: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.5}
     - _SColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

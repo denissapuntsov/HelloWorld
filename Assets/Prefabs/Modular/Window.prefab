@@ -10,19 +10,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7769ac5faef276a4eaca80a27f3dedea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.135169
+      value: 9.634052
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7769ac5faef276a4eaca80a27f3dedea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.619511
+      value: 8.06151
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7769ac5faef276a4eaca80a27f3dedea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.177967
+      value: 7.1673107
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7769ac5faef276a4eaca80a27f3dedea, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7769ac5faef276a4eaca80a27f3dedea, type: 3}
       propertyPath: m_LocalRotation.x
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7769ac5faef276a4eaca80a27f3dedea, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.0000059604645
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7769ac5faef276a4eaca80a27f3dedea, type: 3}
       propertyPath: m_LocalRotation.z
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7769ac5faef276a4eaca80a27f3dedea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 359.999
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7769ac5faef276a4eaca80a27f3dedea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 7769ac5faef276a4eaca80a27f3dedea, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 759118a31d209a840ba028e81bc383b0, type: 2}
+      objectReference: {fileID: 2100000, guid: b3864afe0e1c7704c9c179f81a3de9ff, type: 2}
     - target: {fileID: 919132149155446097, guid: 7769ac5faef276a4eaca80a27f3dedea, type: 3}
       propertyPath: m_Name
       value: Window

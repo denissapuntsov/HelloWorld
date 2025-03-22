@@ -12,6 +12,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerUI, scoreUI;
     [SerializeField] Slider timerSlider;
     [SerializeField] GameObject endStateUI;
+
+    [SerializeField] Animator endStateSpriteAnimator;
     public float timer;
     public float timeLimit = 360;
 
@@ -97,7 +99,6 @@ public class ScoreManager : MonoBehaviour
 
     private void EndGame()
     {
-        menuManager.SetGamePause(true);
         endStateUI.SetActive(true);
 
         // if time ran out and we haven't crossed the point threshold, lose (Ending 1)
@@ -111,6 +112,9 @@ public class ScoreManager : MonoBehaviour
         {
             EngageWinState(false);
         }
+
+        menuManager.SetGamePause(true);
+        Time.timeScale = 1.0f;
     }
     public void EngageWinState(bool isPerfectScore)
     {
@@ -118,16 +122,19 @@ public class ScoreManager : MonoBehaviour
         {
             endStateText.text = "Achieved Ending 3: Perfect Score.";
             Debug.Log("Achieved Ending 3: Perfect Score.");
+            endStateSpriteAnimator.Play("Best_Ending");
             return;
         }
         endStateText.text = $"Achieved Ending 2 with score {score}.";
         Debug.Log($"Achieved Ending 2 with score {score}.");
+        endStateSpriteAnimator.Play("Good_Ending");
     }
 
     public void EngageLoseState()
     {
         endStateText.text = $"Achieved Ending 1: score {score} below threshold {threshold}.";
         Debug.Log($"Achieved Ending 1: score {score} below threshold {threshold}.");
+        endStateSpriteAnimator.Play("Fail_Ending");
     }
 
     public void StartTimer()

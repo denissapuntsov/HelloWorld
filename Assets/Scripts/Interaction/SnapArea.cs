@@ -12,6 +12,7 @@ public class SnapArea : MonoBehaviour
 
     Hands hands;
     ScoreManager scoreManager;
+    bool hasSnapped = false;
 
     private void Start()
     {
@@ -30,6 +31,9 @@ public class SnapArea : MonoBehaviour
 
     private void SnapObject(GameObject obj)
     {
+        if (hasSnapped) { return; }
+
+        hasSnapped = true;
         hands.RemoveHeldObject();
         Destroy(obj);
         if (objectToShow != null) { objectToShow.SetActive(true); }

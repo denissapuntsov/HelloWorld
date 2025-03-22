@@ -18,23 +18,57 @@ public class DialogueManager : MonoBehaviour
         Clear();
     }
 
-    public void PlayBlock(VoiceTriggerData voiceTriggerData)
+    public void PlayBlock(string blockId)
     {
         Clear();
-        BlockOfLines blockToType = GetBlockWithId(voiceTriggerData.blockId);
-        voiceTriggerData.source.clip = blockToType.clip;
-        voiceTriggerData.source.Play();
-        StartCoroutine(TypeBlock(blockToType));
+        List<BlockOfLines> blocksToType = new List<BlockOfLines>();
+        blocksToType.Add(GetBlockWithId(blockId));
+        StartCoroutine(TypeBlocks(blocksToType));
     }
 
-    IEnumerator TypeBlock(BlockOfLines block)
+    public float GetBlocksTotalLength(string[] blockIdArray)
     {
-        foreach (Line line in block.lines)
+        List<BlockOfLines> blocksToCheck = new List<BlockOfLines>();
+        foreach (string blockId in blockIdArray)
         {
-            caption.text = line.text;
-            yield return new WaitForSeconds(line.timeToDisappear);
+            blocksToCheck.Add(GetBlockWithId(blockId));
         }
+
+        float totalLength = 0;
+
+        foreach (BlockOfLines block in blocksToCheck)
+        {
+            foreach (Line line in block.lines)
+            {
+                totalLength += line.timeToDisappear;
+            }
+        }
+
+        return totalLength;
+    }
+
+    public void PlayBlocks(string[] blockIdArray)
+    {
         Clear();
+        List<BlockOfLines> blocksToType = new List<BlockOfLines>();
+        foreach (string blockId in blockIdArray)
+        {
+            blocksToType.Add(GetBlockWithId(blockId));
+        }
+        StartCoroutine(TypeBlocks(blocksToType));
+    }
+
+    IEnumerator TypeBlocks(List<BlockOfLines> blockList)
+    {
+        foreach (BlockOfLines block in blockList)
+        {
+            foreach (Line line in block.lines)
+            {
+                caption.text = line.text;
+                yield return new WaitForSeconds(line.timeToDisappear);
+            }
+            Clear();
+        }
     }
 
     private BlockOfLines GetBlockWithId(string blockId)

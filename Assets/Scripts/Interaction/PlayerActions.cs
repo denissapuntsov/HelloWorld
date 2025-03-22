@@ -10,10 +10,12 @@ public class PlayerActions : MonoBehaviour
     public float interactionDistance;
     Telephone telephone;
     Hands hands;
+    Crosshair crosshair;
 
     [SerializeField] public Interaction interaction;
     private void Start()
     {
+        crosshair = FindAnyObjectByType<Crosshair>();
         hands = FindAnyObjectByType<Hands>();
         telephone = FindAnyObjectByType<Telephone>();
     }
@@ -29,7 +31,6 @@ public class PlayerActions : MonoBehaviour
         if (telephone.firstCallPlaying && other.gameObject.GetComponent<Telephone>() == null) { return; }
 
         if (other.gameObject.GetComponent<Interaction>() == null || hands.HandsFull) { return; }
-        Debug.Log(other);
         interaction = other.gameObject.GetComponent<Interaction>();
     }
 
@@ -44,20 +45,27 @@ public class PlayerActions : MonoBehaviour
 
     public void HandleInteraction()
     {
-        if (interaction != null)
+        if (interaction == null)
         {
-            //process observation
-            interaction.Observe();
-            //process interaction
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                interaction.Interact();
-            }
+            crosshair.SetCrosshairMode("idle");
+            return;
+        }
 
-            if (Input.GetKeyUp(KeyCode.E))
-            {
-                interaction.StopInteraction();
-            }
+        //process observation
+        Debug.Log($"Observing {interaction}");
+        if (interaction.canBeInteractedWith)
+        {
+            interaction.Observe();
+        }
+        //process interaction
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            interaction.Interact();
+        }
+
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            interaction.StopInteraction();
         }
     }
 }

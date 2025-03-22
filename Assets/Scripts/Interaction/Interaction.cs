@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
-[RequireComponent(typeof(VoiceTriggerData))]
-[RequireComponent(typeof(Rigidbody))]
 
+[RequireComponent(typeof(Rigidbody))]
 public class Interaction : MonoBehaviour
 {
     [SerializeField] bool includesRegularInteractionInFirst = true;

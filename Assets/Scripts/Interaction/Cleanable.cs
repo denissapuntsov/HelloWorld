@@ -9,6 +9,7 @@ public class Cleanable : MonoBehaviour
     private void Start()
     {
         scoreManager = FindAnyObjectByType<ScoreManager>();
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
     }
     public void StartCleaning()
     {
@@ -25,6 +26,8 @@ public class Cleanable : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<Animator>().SetBool("IsCleaning", false);
+        GetComponent<Interaction>().canBeInteractedWith = false;
+        FindAnyObjectByType<Crosshair>().SetCrosshairMode("idle");
     }
 
     public void AwardPoints()

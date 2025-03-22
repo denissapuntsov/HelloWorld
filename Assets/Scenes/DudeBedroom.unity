@@ -1324,6 +1324,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 344417b0d4315ea4f8c6b8fa971b581f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b3864afe0e1c7704c9c179f81a3de9ff, type: 2}
     - target: {fileID: 919132149155446097, guid: 344417b0d4315ea4f8c6b8fa971b581f, type: 3}
       propertyPath: m_Name
       value: dresser (1)

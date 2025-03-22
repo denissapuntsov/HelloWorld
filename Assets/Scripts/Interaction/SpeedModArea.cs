@@ -44,6 +44,8 @@ public class SpeedModArea : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        scoreManager.AddPoints(1);
     }
 
     void SetPlayerSpeed(float speed)
