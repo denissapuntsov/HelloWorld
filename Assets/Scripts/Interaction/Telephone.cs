@@ -14,6 +14,7 @@ public class Telephone : MonoBehaviour
 
     DialogueManager dialogueManager;
     ScoreManager scoreManager;
+    MenuManager menuManager;
     bool secondCallStarted = false;
     TextMeshProUGUI phoneText;
     Crosshair crosshair;
@@ -21,6 +22,7 @@ public class Telephone : MonoBehaviour
     private void Start()
     {
         scoreManager = FindAnyObjectByType<ScoreManager>();
+        menuManager = FindAnyObjectByType<MenuManager>();
         dialogueManager = FindAnyObjectByType<DialogueManager>();
         phoneText = phoneRingingUI.GetComponent<TextMeshProUGUI>();
         crosshair = FindAnyObjectByType<Crosshair>();
@@ -28,6 +30,8 @@ public class Telephone : MonoBehaviour
 
     public void PickUpFirstCall()
     {
+        menuManager.isPlayerFrozenExternally = true;
+        menuManager.SetPlayerMovement(false);
         GetComponent<Interaction>().canBeInteractedWith = false;
         crosshair.SetCrosshairMode("idle");
 
@@ -45,10 +49,18 @@ public class Telephone : MonoBehaviour
 
     private void EndFirstCall()
     {
+        menuManager.isPlayerFrozenExternally = false;
+        menuManager.SetPlayerMovement(true);
         firstCallPlaying = false;
         phoneText.text = " ";
         invisibleWallsParent.gameObject.SetActive(false);
         scoreManager.StartTimer();
+    }
+
+    public void SkipFirstCall()
+    {
+        StopCoroutine(DelayGameStart());
+        EndFirstCall();
     }
 
     public void EndSecondCall()

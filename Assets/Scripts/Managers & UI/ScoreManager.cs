@@ -113,8 +113,8 @@ public class ScoreManager : MonoBehaviour
             EngageWinState(false);
         }
 
-        menuManager.SetGamePause(true);
-        Time.timeScale = 1.0f;
+        // Freeze player movements and camera position
+        menuManager.SetPlayerMovement(false);
     }
     public void EngageWinState(bool isPerfectScore)
     {

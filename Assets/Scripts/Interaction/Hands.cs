@@ -28,7 +28,7 @@ public class Hands : MonoBehaviour
 
     private void Update()
     {
-        if (menuManager.isInMenu) { return; }
+        if (menuManager.isPaused) { return; }
 
         if (dropEnabled && !isFacingObstacles && HandsFull && Input.GetKeyDown(KeyCode.E))
         {

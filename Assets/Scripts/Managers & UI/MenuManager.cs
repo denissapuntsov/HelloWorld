@@ -9,8 +9,8 @@ public class MenuManager : MonoBehaviour
     PlayerActions actions;
     InventoryManager inventoryManager;
 
-    //
-    public bool isInMenu = false;
+    private bool isInMenu = false;
+    public bool isPlayerFrozenExternally = false;
     public bool isPaused;
 
     // Menu references
@@ -46,14 +46,22 @@ public class MenuManager : MonoBehaviour
     public void SetGamePause(bool state)
     {
         isInMenu = state;
-
-        playerController.enabled = !state;
-        actions.canInteract = !state;
-        Time.timeScale = state ? 0.0f : 1.0f;
         isPaused = state;
+
+        //Make sure the player's movements are not unfrozen when entering pause menu from telephone call
+        if (!isPlayerFrozenExternally) { SetPlayerMovement(!state); }
+
+        //Freeze time
+        Time.timeScale = state ? 0.0f : 1.0f;
 
         // Set Cursor parameters
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = state; 
+        Cursor.visible = state;
+    }
+
+    public void SetPlayerMovement(bool state)
+    {
+        playerController.enabled = state;
+        actions.canInteract = state;
     }
 }

@@ -12,18 +12,55 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] BlockOfLines[] blocks;
 
     string activeLine;
+    MenuManager menuManager;
+
+    bool dialogueIsPlaying, skipDialogueWarningShown;
+
+    [SerializeField] GameObject skipDialogueWarningUI;
 
     private void Start()
     {
         Clear();
+        menuManager = FindAnyObjectByType<MenuManager>();
+    }
+
+    private void Update()
+    {
+        // on left click, skip to next line of dialogue, unless it's the last line
+        if (Input.GetMouseButtonDown(0) && dialogueIsPlaying && !menuManager.isPaused)
+        {
+            if (!skipDialogueWarningShown)
+            {
+                skipDialogueWarningShown = true;
+                skipDialogueWarningUI.SetActive(true);
+                return;
+            }
+
+            skipDialogueWarningUI.SetActive(false);
+            StopAllCoroutines();
+            Clear();
+            FindAnyObjectByType<Telephone>().SkipFirstCall();
+        }
     }
 
     public void PlayBlock(string blockId)
     {
+        dialogueIsPlaying = true;
         Clear();
-        List<BlockOfLines> blocksToType = new List<BlockOfLines>();
-        blocksToType.Add(GetBlockWithId(blockId));
-        StartCoroutine(TypeBlocks(blocksToType));
+        List<BlockOfLines> activeBlocks = new List<BlockOfLines>();
+        activeBlocks.Add(GetBlockWithId(blockId));
+        StartCoroutine(TypeBlocks(activeBlocks));
+    }
+    public void PlayBlocks(string[] blockIdArray)
+    {
+        dialogueIsPlaying = true;
+        Clear();
+        List<BlockOfLines> activeBlocks = new List<BlockOfLines>();
+        foreach (string blockId in blockIdArray)
+        {
+            activeBlocks.Add(GetBlockWithId(blockId));
+        }
+        StartCoroutine(TypeBlocks(activeBlocks));
     }
 
     public float GetBlocksTotalLength(string[] blockIdArray)
@@ -47,16 +84,7 @@ public class DialogueManager : MonoBehaviour
         return totalLength;
     }
 
-    public void PlayBlocks(string[] blockIdArray)
-    {
-        Clear();
-        List<BlockOfLines> blocksToType = new List<BlockOfLines>();
-        foreach (string blockId in blockIdArray)
-        {
-            blocksToType.Add(GetBlockWithId(blockId));
-        }
-        StartCoroutine(TypeBlocks(blocksToType));
-    }
+    
 
     IEnumerator TypeBlocks(List<BlockOfLines> blockList)
     {
@@ -69,6 +97,7 @@ public class DialogueManager : MonoBehaviour
             }
             Clear();
         }
+        dialogueIsPlaying = false;
     }
 
     private BlockOfLines GetBlockWithId(string blockId)
