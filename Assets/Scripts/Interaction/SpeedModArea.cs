@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpeedModArea : MonoBehaviour
 {
     [SerializeField] float moveSpeedModifier = 0.5f;
+    [SerializeField] GameObject sparkleParticles;
     FirstPersonController playerController;
     ScoreManager scoreManager;
     float normalSpeed;
@@ -36,6 +37,7 @@ public class SpeedModArea : MonoBehaviour
     {
         if (transform.childCount >= 0)
         {
+            Instantiate(sparkleParticles, transform.GetChild(0).position, transform.GetChild(0).rotation, transform.parent);
             Destroy(transform.GetChild(0).gameObject);
 
             if (transform.childCount == 1)

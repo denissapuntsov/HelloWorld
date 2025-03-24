@@ -17,11 +17,13 @@ public class Hands : MonoBehaviour
 
     PlayerActions actions;
     MenuManager menuManager;
+    ObjectiveManager objectiveManager;
 
     private void Start()
     {
         actions = FindAnyObjectByType<PlayerActions>();
         menuManager = FindAnyObjectByType<MenuManager>();
+        objectiveManager = FindAnyObjectByType<ObjectiveManager>();
         playerCamera = Camera.main.transform;
         checker = FindAnyObjectByType<CollisionCheck>();
     }
@@ -94,6 +96,8 @@ public class Hands : MonoBehaviour
             {
                 child.gameObject.layer = 0;
             }
+
+            objectiveManager.RemoveObjective(heldObject.GetComponent<Holdable>().objective);
 
             SetPhysics(true);
             heldObject.transform.position = checker.gameObject.transform.position;

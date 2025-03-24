@@ -1,15 +1,18 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class ObjectiveManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI objectiveSystem;
+    [SerializeField] TextMeshProUGUI objectiveTracker, polaroidTracker;
     [SerializeField] List<string> objectiveList;
+
+    int polaroidsCollected = 0;
 
     private void Start()
     {
-        objectiveSystem.text = "";
+        objectiveTracker.text = "";
         UpdateObjectiveSystem();
     }
 
@@ -17,17 +20,18 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (objectiveList.Count <= 0)
         {
-            objectiveSystem.text = "";
+            objectiveTracker.text = "";
         }
 
         foreach (string objective in objectiveList)
         {
-            objectiveSystem.text += $"- {objective}\n";
+            objectiveTracker.text += $"- {objective}\n";
         }
     }
 
     public void AddObjective(string newObjective)
     {
+        objectiveTracker.text = "";
         objectiveList.Add(newObjective);
         UpdateObjectiveSystem();
     }
@@ -39,10 +43,21 @@ public class ObjectiveManager : MonoBehaviour
             Debug.LogError($"No objective {objectiveToRemove} found in objective list."); 
             return; 
         }
-
+        objectiveTracker.text = "";
         objectiveList.Remove(objectiveToRemove);
         UpdateObjectiveSystem();
     }
 
+    public void AddPolaroid()
+    {
+        if (polaroidsCollected == 0)
+        {
+            polaroidTracker.gameObject.SetActive(true);
+        }
+
+        polaroidsCollected++;
+
+        polaroidTracker.text = $"Polaroids collected: {polaroidsCollected}/7";
+    }
 
 }

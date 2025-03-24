@@ -33,6 +33,7 @@ public class SnapArea : MonoBehaviour
     {
         if (hasSnapped) { return; }
 
+        obj.GetComponent<Holdable>().isSnapped = true;
         hasSnapped = true;
         hands.RemoveHeldObject();
         Destroy(obj);

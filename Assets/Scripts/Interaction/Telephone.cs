@@ -6,7 +6,7 @@ using UnityEngine;
 public class Telephone : MonoBehaviour
 {
     [SerializeField] int timePenalty;
-    [SerializeField] GameObject phoneRingingUI, invisibleWallsParent;
+    [SerializeField] GameObject invisibleWallsParent;
 
     [SerializeField] string[] firstCallLineSequence;
 
@@ -15,17 +15,23 @@ public class Telephone : MonoBehaviour
     DialogueManager dialogueManager;
     ScoreManager scoreManager;
     MenuManager menuManager;
+    ObjectiveManager objectiveManager;
     bool secondCallStarted = false;
-    TextMeshProUGUI phoneText;
+    //TextMeshProUGUI phoneText;
     Crosshair crosshair;
+
+    string telephoneObjective = "Pick up the telephone";
 
     private void Start()
     {
         scoreManager = FindAnyObjectByType<ScoreManager>();
         menuManager = FindAnyObjectByType<MenuManager>();
         dialogueManager = FindAnyObjectByType<DialogueManager>();
-        phoneText = phoneRingingUI.GetComponent<TextMeshProUGUI>();
+        objectiveManager = FindAnyObjectByType<ObjectiveManager>();
+
         crosshair = FindAnyObjectByType<Crosshair>();
+
+        objectiveManager.AddObjective(telephoneObjective);
     }
 
     public void PickUpFirstCall()
@@ -37,8 +43,10 @@ public class Telephone : MonoBehaviour
 
         GetComponent<Animator>().SetBool("isRinging", false);
         dialogueManager.PlayBlocks(firstCallLineSequence);
-        GetComponent<AudioSource>().Stop();
+        GetComponent<AudioSource>().mute = true;
         StartCoroutine(DelayGameStart());
+
+        objectiveManager.RemoveObjective(telephoneObjective);
     }
 
     IEnumerator DelayGameStart()
@@ -52,7 +60,6 @@ public class Telephone : MonoBehaviour
         menuManager.isPlayerFrozenExternally = false;
         menuManager.SetPlayerMovement(true);
         firstCallPlaying = false;
-        phoneText.text = " ";
         invisibleWallsParent.gameObject.SetActive(false);
         scoreManager.StartTimer();
     }
@@ -65,9 +72,11 @@ public class Telephone : MonoBehaviour
 
     public void EndSecondCall()
     {
+        objectiveManager.RemoveObjective(telephoneObjective);
         GetComponent<Interaction>().canBeInteractedWith = false;
         crosshair.SetCrosshairMode("idle");
         if (!secondCallStarted) { return; }
+
         GetComponent<Animator>().SetBool("isRingingSecondTime", false);
         GetComponent<AudioSource>().Stop();
     }
@@ -77,11 +86,14 @@ public class Telephone : MonoBehaviour
         GetComponent<Interaction>().canBeInteractedWith = true;
         secondCallStarted = true;
         GetComponent<Animator>().SetBool("isRingingSecondTime", true);
-        GetComponent<AudioSource>().Play();
+        GetComponent<AudioSource>().mute = false;
+        GetComponent<AudioSource>().Play(0);
+        objectiveManager.AddObjective(telephoneObjective);
     }
 
     public void FailSecondCall()
     {
+        objectiveManager.RemoveObjective(telephoneObjective);
         GetComponent<Interaction>().canBeInteractedWith = false;
         if (FindAnyObjectByType<PlayerActions>().interaction == GetComponent<Interaction>()) 
         {
@@ -89,8 +101,8 @@ public class Telephone : MonoBehaviour
         }
 
         secondCallStarted = false;
+
         GetComponent<Animator>().SetBool("isRingingSecondTime", false);
         scoreManager.SkipTime(timePenalty);
-        phoneText.text = "";
     }
 }
