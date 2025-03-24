@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] FirstPersonController playerController;
     PlayerActions actions;
     InventoryManager inventoryManager;
+    AudioManager audioManager;
 
     private bool isInMenu = false;
     public bool isPlayerFrozenExternally = false;
@@ -20,6 +21,7 @@ public class MenuManager : MonoBehaviour
     {
         actions = FindAnyObjectByType<PlayerActions>();
         inventoryManager = FindAnyObjectByType<InventoryManager>();
+        audioManager = FindAnyObjectByType<AudioManager>();
     }
 
     private void Update()
@@ -37,8 +39,6 @@ public class MenuManager : MonoBehaviour
                 inventoryUI.SetActive(true);
                 inventoryManager.DisplayPolaroid(0);
                 SetGamePause(true);
-                Time.timeScale = 1;
-                isPaused = false;
             }
         }
     }
@@ -47,6 +47,8 @@ public class MenuManager : MonoBehaviour
     {
         isInMenu = state;
         isPaused = state;
+
+        audioManager.PauseAudio(state);
 
         //Make sure the player's movements are not unfrozen when entering pause menu from telephone call
         if (!isPlayerFrozenExternally) { SetPlayerMovement(!state); }
