@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI caption;
     [SerializeField] BlockOfLines[] blocks;
+    [SerializeField] AudioSource globalAudioSource;
 
     string activeLine;
     MenuManager menuManager;
@@ -37,6 +38,8 @@ public class DialogueManager : MonoBehaviour
             }
 
             skipDialogueWarningUI.SetActive(false);
+            globalAudioSource.Stop();
+            globalAudioSource.clip = null;
             StopAllCoroutines();
             Clear();
             FindAnyObjectByType<Telephone>().SkipFirstCall();
@@ -90,6 +93,8 @@ public class DialogueManager : MonoBehaviour
     {
         foreach (BlockOfLines block in blockList)
         {
+            globalAudioSource.clip = block.clip;
+            globalAudioSource.Play();
             foreach (Line line in block.lines)
             {
                 caption.text = line.text;
