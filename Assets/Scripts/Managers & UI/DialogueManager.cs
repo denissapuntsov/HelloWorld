@@ -28,7 +28,7 @@ public class DialogueManager : MonoBehaviour
     private void Update()
     {
         // on left click, skip to next line of dialogue, unless it's the last line
-        if (Input.GetMouseButtonDown(0) && dialogueIsPlaying && !menuManager.isPaused)
+        if (Input.GetMouseButtonDown(0) && dialogueIsPlaying && !menuManager.isPaused && !FindAnyObjectByType<Telephone>().firstCallEnded)
         {
             if (!skipDialogueWarningShown)
             {
@@ -37,6 +37,8 @@ public class DialogueManager : MonoBehaviour
                 return;
             }
 
+            dialogueIsPlaying = false;
+            FindAnyObjectByType<Telephone>().firstCallPlaying = false;
             skipDialogueWarningUI.SetActive(false);
             globalAudioSource.Stop();
             globalAudioSource.clip = null;

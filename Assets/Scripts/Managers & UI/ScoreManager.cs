@@ -16,6 +16,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] Animator endStateSpriteAnimator;
     public float timer;
     public float timeLimit = 360;
+    public bool timerPaused = false;
 
     Telephone telephone;
     MenuManager menuManager;
@@ -37,7 +38,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (menuManager.isPaused || timeRanOut || finishedCleaning) { return; }
 
-        if (timeStarted)
+        if (timeStarted && !timerPaused)
         {
             CountTime();
         }
@@ -78,7 +79,7 @@ public class ScoreManager : MonoBehaviour
         score += points;
         scoreUI.text = score.ToString();
 
-        if (score >= 50 && score < 60)
+        if (score >= 50 && score < 60 && !telephone.secondCallStarted)
         {
             telephone.StartSecondCall();
         }
@@ -99,6 +100,7 @@ public class ScoreManager : MonoBehaviour
 
     private void EndGame()
     {
+        FindAnyObjectByType<MenuManager>().HideUI(true);
         endStateUI.SetActive(true);
 
         // if time ran out and we haven't crossed the point threshold, lose (Ending 1)
@@ -123,11 +125,13 @@ public class ScoreManager : MonoBehaviour
             endStateText.text = "Achieved Ending 3: Perfect Score.";
             Debug.Log("Achieved Ending 3: Perfect Score.");
             endStateSpriteAnimator.Play("Best_Ending");
+            FindAnyObjectByType<DialogueManager>().PlayBlock("bestEnding");
             return;
         }
         endStateText.text = $"Achieved Ending 2 with score {score}.";
         Debug.Log($"Achieved Ending 2 with score {score}.");
         endStateSpriteAnimator.Play("Good_Ending");
+        FindAnyObjectByType<DialogueManager>().PlayBlock("goodEnding");
     }
 
     public void EngageLoseState()
@@ -135,6 +139,7 @@ public class ScoreManager : MonoBehaviour
         endStateText.text = $"Achieved Ending 1: score {score} below threshold {threshold}.";
         Debug.Log($"Achieved Ending 1: score {score} below threshold {threshold}.");
         endStateSpriteAnimator.Play("Fail_Ending");
+        FindAnyObjectByType<DialogueManager>().PlayBlock("badEnding");
     }
 
     public void StartTimer()

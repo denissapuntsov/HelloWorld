@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 4. CatchYouLater
   m_EditorClassIdentifier: 
   id: catchYaLater
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 22853c269e939804ebfefba881b980f8, type: 3}
   lines:
   - text: Yeah, catch ya later, mom.
-    timeToDisappear: 1
+    timeToDisappear: 2.573

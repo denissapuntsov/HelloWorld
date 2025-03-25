@@ -34,9 +34,9 @@ public class AudioManager : MonoBehaviour
             foreach (AudioSource source in dialogueSources) { source.Pause(); }
             return;
         }
-        foreach (AudioSource source in musicSources) { source.Play(); }
-        foreach (AudioSource source in SFXSources) { source.Play(); }
-        foreach (AudioSource source in dialogueSources) { source.Play(); }
+        foreach (AudioSource source in musicSources) { source.UnPause(); }
+        foreach (AudioSource source in SFXSources) { source.UnPause(); }
+        foreach (AudioSource source in dialogueSources) { source.UnPause(); }
 
     }
 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 6 (Bathroom)
   m_EditorClassIdentifier: 
   id: pol6
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: cfe1185b36baed141aa9f7c19ebacbef, type: 3}
   lines:
   - text: "That\u2019s mom\u2019s fine china! He knows that cabinet\u2019s off limits.
       Tyler, you jerk..."
-    timeToDisappear: 3
+    timeToDisappear: 6.96

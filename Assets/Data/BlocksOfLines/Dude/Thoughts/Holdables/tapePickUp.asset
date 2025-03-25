@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: tapePickUp
   m_EditorClassIdentifier: 
   id: tapePickUp
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: f5d2cfd6b47487a42b38d8beb598c036, type: 3}
   lines:
   - text: "Mom and dad still watch this. It\u2019s always near the TV. "
-    timeToDisappear: 2
+    timeToDisappear: 4.167

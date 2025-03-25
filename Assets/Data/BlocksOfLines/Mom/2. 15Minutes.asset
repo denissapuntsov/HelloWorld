@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 2. 15Minutes
   m_EditorClassIdentifier: 
   id: 15minutes
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: a46c82752f62a5c46ace3dc04e98f372, type: 3}
   lines:
   - text: "Oh, it should only be about 15 minutes... What\u2019s that, dear? Oh,
       your father says he can make it there in 10!"
-    timeToDisappear: 4
+    timeToDisappear: 9.065

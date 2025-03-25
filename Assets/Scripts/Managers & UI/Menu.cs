@@ -22,6 +22,7 @@ public class Menu : MonoBehaviour
 
     public virtual void Close()
     {
+        menuManager.HideUI(false);
         menuManager.SetGamePause(false);
         gameObject.SetActive(false);
     }

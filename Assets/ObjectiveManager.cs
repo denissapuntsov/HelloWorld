@@ -38,11 +38,7 @@ public class ObjectiveManager : MonoBehaviour
 
     public void RemoveObjective(string objectiveToRemove)
     {
-        if (!objectiveList.Contains(objectiveToRemove)) 
-        { 
-            Debug.LogError($"No objective {objectiveToRemove} found in objective list."); 
-            return; 
-        }
+        if (!objectiveList.Contains(objectiveToRemove)) { return; }
         objectiveTracker.text = "";
         objectiveList.Remove(objectiveToRemove);
         UpdateObjectiveSystem();

@@ -9,6 +9,7 @@ public class Polaroid : MonoBehaviour
     MenuManager menuManager;
     ObjectiveManager objectiveManager;
     InventoryManager inventoryManager;
+    AudioManager audioManager;
     PlayerActions actions;
 
     private void Start()
@@ -16,12 +17,15 @@ public class Polaroid : MonoBehaviour
         menuManager = FindAnyObjectByType<MenuManager>();
         inventoryManager = FindAnyObjectByType<InventoryManager>();
         objectiveManager = FindAnyObjectByType<ObjectiveManager>();
+        audioManager = FindAnyObjectByType<AudioManager>();
         actions = FindAnyObjectByType<PlayerActions>();
     }
 
     public void StartInteraction()
     {
         menuManager.SetGamePause(true);
+        audioManager.PauseAudio(false);
+        Time.timeScale = 1;
 
         polaroidMenu.SetActive(true);
         polaroidMenu.GetComponentInChildren<RawImage>().texture = textureToSet;

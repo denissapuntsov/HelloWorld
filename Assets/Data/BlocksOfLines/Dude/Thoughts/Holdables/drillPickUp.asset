@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: drillPickUp
   m_EditorClassIdentifier: 
   id: drillPickUp
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 86ba6ef541c679145961576b9c7e31de, type: 3}
   lines:
   - text: "Mom flips out when I play the guitar, but dad\u2019s garage can get as
       loud as he wants."
-    timeToDisappear: 3
+    timeToDisappear: 4.983

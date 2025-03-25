@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 3. SeeYouSoon
   m_EditorClassIdentifier: 
   id: seeYouSoon
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: df55c7980c0a05f4aa2b17f699efcd42, type: 3}
   lines:
   - text: See you soon, honey!
-    timeToDisappear: 1
+    timeToDisappear: 1.675

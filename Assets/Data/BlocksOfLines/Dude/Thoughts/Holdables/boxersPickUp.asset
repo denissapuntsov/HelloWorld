@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: boxersPickUp
   m_EditorClassIdentifier: 
   id: boxersPickUp
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 7c87c187237150a4d915225204555e37, type: 3}
   lines:
   - text: "Too big to be mine. Must be dad\u2019s? Why are they up there? "
-    timeToDisappear: 3
+    timeToDisappear: 5.177

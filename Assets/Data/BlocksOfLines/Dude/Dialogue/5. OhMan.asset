@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 5. OhMan
   m_EditorClassIdentifier: 
   id: ohMan
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: d48a5c0e308c3e447b9541d68e37988d, type: 3}
   lines:
   - text: Oh, man... If I don't clean this place up, mom will literally kill me.
-    timeToDisappear: 3
+    timeToDisappear: 6.53

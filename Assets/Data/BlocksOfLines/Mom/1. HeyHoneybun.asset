@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: 1. HeyHoneybun
   m_EditorClassIdentifier: 
   id: heyHoneybun
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 1891d2f126c87574a87579464303a054, type: 3}
   lines:
   - text: 'Hey, Honeybun! Your father and I are on our way back. '
-    timeToDisappear: 2
-  - text: "Hope you haven\u2019t forgotten we\u2019re hosting your cousin Bobby\u2019s
+    timeToDisappear: 4.3
+  - text: "I hope you haven\u2019t forgotten we\u2019re hosting your cousin Bobby\u2019s
       baby shower today! If you could just make sure the house is cleaned up, that\u2019d
       be great!"
-    timeToDisappear: 6
+    timeToDisappear: 9.619

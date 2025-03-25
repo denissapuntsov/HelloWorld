@@ -6,9 +6,9 @@ using UnityEngine;
 public class Telephone : MonoBehaviour
 {
     [SerializeField] int timePenalty;
-    [SerializeField] GameObject invisibleWallsParent;
+    [SerializeField] GameObject invisibleWallsParent, tutorialUI;
 
-    [SerializeField] string[] firstCallLineSequence;
+    [SerializeField] string[] firstCallLineSequence, secondCallSuccess, secondCallFail;
 
     public bool firstCallPlaying = true;
 
@@ -16,7 +16,7 @@ public class Telephone : MonoBehaviour
     ScoreManager scoreManager;
     MenuManager menuManager;
     ObjectiveManager objectiveManager;
-    bool secondCallStarted = false;
+    public bool firstCallEnded, secondCallStarted = false;
     //TextMeshProUGUI phoneText;
     Crosshair crosshair;
 
@@ -57,6 +57,10 @@ public class Telephone : MonoBehaviour
 
     private void EndFirstCall()
     {
+        if (firstCallEnded) { return; }
+        firstCallEnded = true;
+        Debug.Log("Ended first call");
+        tutorialUI.SetActive(true);
         menuManager.isPlayerFrozenExternally = false;
         menuManager.SetPlayerMovement(true);
         firstCallPlaying = false;
@@ -76,7 +80,7 @@ public class Telephone : MonoBehaviour
         GetComponent<Interaction>().canBeInteractedWith = false;
         crosshair.SetCrosshairMode("idle");
         if (!secondCallStarted) { return; }
-
+        dialogueManager.PlayBlocks(secondCallSuccess);
         GetComponent<Animator>().SetBool("isRingingSecondTime", false);
         GetComponent<AudioSource>().Stop();
     }
@@ -93,13 +97,15 @@ public class Telephone : MonoBehaviour
 
     public void FailSecondCall()
     {
+        GetComponent<Animator>().SetBool("isRingingSecondTime", false);
+        GetComponent<AudioSource>().Stop();
         objectiveManager.RemoveObjective(telephoneObjective);
         GetComponent<Interaction>().canBeInteractedWith = false;
         if (FindAnyObjectByType<PlayerActions>().interaction == GetComponent<Interaction>()) 
         {
             crosshair.SetCrosshairMode("idle");
         }
-
+        dialogueManager.PlayBlocks(secondCallFail);
         secondCallStarted = false;
 
         GetComponent<Animator>().SetBool("isRingingSecondTime", false);

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 5 (ParentsBed)
   m_EditorClassIdentifier: 
   id: pol5
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: ca5c4495295ea5a419fceccb935f9b0d, type: 3}
   lines:
   - text: "Okay, this was radical! But mom doesn\u2019t like dad\u2019s tools left
       around the house. "
-    timeToDisappear: 3
+    timeToDisappear: 6.337

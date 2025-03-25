@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: boxersSnap
   m_EditorClassIdentifier: 
   id: boxersSnap
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: a5aa5c2dab5bbcd40a95b30be714039c, type: 3}
   lines:
   - text: They'll never notice.
-    timeToDisappear: 2
+    timeToDisappear: 1.718

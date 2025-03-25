@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: tapPickUp
   m_EditorClassIdentifier: 
   id: tapPickUp
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 2b43e39d65f234741bcb5dd813071f81, type: 3}
   lines:
   - text: Is this the bathroom tap? Well, good thing I took shop.
-    timeToDisappear: 2
+    timeToDisappear: 4.79

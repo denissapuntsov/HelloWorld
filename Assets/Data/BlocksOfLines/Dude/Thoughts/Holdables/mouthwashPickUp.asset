@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: mouthwashPickUp
   m_EditorClassIdentifier: 
   id: mouthwashPickUp
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 922b401d7de22704d81f6fd327e152d3, type: 3}
   lines:
   - text: Mouthwash has alcohol. Anything will do, I guess.
-    timeToDisappear: 2
+    timeToDisappear: 4.511

@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
     public bool isPaused;
 
     // Menu references
-    [SerializeField] GameObject pauseUI, inventoryUI;
+    [SerializeField] GameObject pauseUI, inventoryUI, UIToHide;
 
     void Start()
     {
@@ -31,11 +31,13 @@ public class MenuManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                HideUI(true);
                 pauseUI.SetActive(true);
                 SetGamePause(true);
             }
             if (Input.GetKeyDown(KeyCode.Tab) && inventoryManager.polaroids.Count != 0)
             {
+                HideUI(true);
                 inventoryUI.SetActive(true);
                 inventoryManager.DisplayPolaroid(0);
                 SetGamePause(true);
@@ -55,6 +57,7 @@ public class MenuManager : MonoBehaviour
 
         //Freeze time
         Time.timeScale = state ? 0.0f : 1.0f;
+        FindAnyObjectByType<ScoreManager>().timerPaused = state;
 
         // Set Cursor parameters
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
@@ -65,5 +68,10 @@ public class MenuManager : MonoBehaviour
     {
         playerController.enabled = state;
         actions.canInteract = state;
+    }
+
+    public void HideUI(bool state)
+    {
+        UIToHide.SetActive(!state);
     }
 }
