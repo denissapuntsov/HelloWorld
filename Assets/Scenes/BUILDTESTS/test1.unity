@@ -5929,7 +5929,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 435209172, guid: 369bcd3cd8d663842abacc9864a84bd6, type: 3}
+  m_Sprite: {fileID: 1203048301, guid: 9df89a45687aaaa4d9cbb9f62b15bbee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10240,108 +10240,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1213726116962321412, guid: 0761b2186837e6c4f82b612cde5132d6, type: 3}
---- !u!1 &250415018
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 250415019}
-  - component: {fileID: 250415022}
-  - component: {fileID: 250415021}
-  - component: {fileID: 250415020}
-  m_Layer: 0
-  m_Name: DialogueCanvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &250415019
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250415018}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1746756801}
-  m_Father: {fileID: 652838964}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
---- !u!114 &250415020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250415018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &250415021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250415018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &250415022
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250415018}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1001 &250905196
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21598,6 +21496,8 @@ MonoBehaviour:
   polaroidMenu: {fileID: 74639435}
   textureToSet: {fileID: 2800000, guid: b2d178a259c855a43ab29bdbd03a42ce, type: 3}
   relatedHoldable: {fileID: 1525602733}
+  displayString: "Okay, this was radical! But mom doesn\u2019t like dad\u2019s tools
+    left around the house. "
 --- !u!65 &560872000
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23998,6 +23898,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1042140439}
+  - {fileID: 1454442018}
   - {fileID: 1285154341}
   - {fileID: 1487977886}
   m_Father: {fileID: 995847967}
@@ -24450,7 +24351,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -942435898, guid: c96423efdbc78d140968ed6cfc7dc278, type: 3}
+  m_Sprite: {fileID: -335260874, guid: 05d15f3f758b733409c33f388cc18ea8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25524,8 +25425,7 @@ Transform:
   m_LocalPosition: {x: 0.9907622, y: -0.9207738, z: 11.5307045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 250415019}
+  m_Children: []
   m_Father: {fileID: 1653445857}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &652838965
@@ -39794,7 +39694,7 @@ RectTransform:
   - {fileID: 74639436}
   - {fileID: 62764042}
   - {fileID: 887415664}
-  m_Father: {fileID: 1175949940}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -41449,6 +41349,8 @@ MonoBehaviour:
   polaroidMenu: {fileID: 74639435}
   textureToSet: {fileID: 2800000, guid: 19dd196c891534c4d8aae16489c2f971, type: 3}
   relatedHoldable: {fileID: 559902378}
+  displayString: "That\u2019s mom\u2019s fine china! He knows that cabinet\u2019s
+    off limits. Tyler, you jerk..."
 --- !u!65 &1029270377
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42069,7 +41971,7 @@ GameObject:
   - component: {fileID: 1042140441}
   - component: {fileID: 1042140440}
   m_Layer: 0
-  m_Name: RawImage
+  m_Name: DisplayedPolaroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42084,14 +41986,14 @@ RectTransform:
   m_GameObject: {fileID: 1042140438}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.9155098, z: 1.1415043}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.45, y: 0.68663234, z: 0.85612816}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 618451740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1042140440
@@ -42361,6 +42263,7 @@ MonoBehaviour:
   polaroidMenu: {fileID: 74639435}
   textureToSet: {fileID: 2800000, guid: d4a3bbf14075f8b4984a0ad3b5aeed5c, type: 3}
   relatedHoldable: {fileID: 1063578991}
+  displayString: "Is he crying? Didn\u2019t know he was such a sensitive soul. "
 --- !u!54 &1047541924
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -42543,7 +42446,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 435209172, guid: 369bcd3cd8d663842abacc9864a84bd6, type: 3}
+  m_Sprite: {fileID: 1203048301, guid: 9df89a45687aaaa4d9cbb9f62b15bbee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -44007,7 +43910,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: clear
+          m_StringArgument: phone
           m_BoolArgument: 0
         m_CallState: 2
   onTriggerFirstInteraction:
@@ -46061,6 +45964,7 @@ MonoBehaviour:
   polaroidMenu: {fileID: 74639435}
   textureToSet: {fileID: 2800000, guid: 0c12c9eedb2a2ab4f8ab8aa7300debb4, type: 3}
   relatedHoldable: {fileID: 1159524788}
+  displayString: Tyler, why are you drinking mouthwash dude? I should put that back.
 --- !u!114 &1133951280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47391,6 +47295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   polaroids: []
   inventoryUI: {fileID: 618451739}
+  inventoryText: {fileID: 1454442017}
   leftArrow: {fileID: 1285154340}
   rightArrow: {fileID: 1487977885}
   currentPolaroidIndex: 0
@@ -47765,8 +47670,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 995847967}
+  m_Children: []
   m_Father: {fileID: 646739075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1176241757
@@ -51191,6 +51095,7 @@ MonoBehaviour:
   polaroidMenu: {fileID: 74639435}
   textureToSet: {fileID: 2800000, guid: 8b54e05863afb274e812475b701a0cf0, type: 3}
   relatedHoldable: {fileID: 182149918}
+  displayString: Just why, dude?
 --- !u!65 &1272966118
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -53703,7 +53608,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -993456231, guid: 72cb5d823811c1c44b769c2921d7edba, type: 3}
+  m_Sprite: {fileID: 1375423669, guid: 8c2ea0aee54cf0944a2b42e1a999a83f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -55254,7 +55159,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -771671901, guid: 369bcd3cd8d663842abacc9864a84bd6, type: 3}
+  m_Sprite: {fileID: 1370027433, guid: 50b4ea30a9a99fc40bacf9bd6c53fe17, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -57842,6 +57747,144 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 22444f4b97ee8ad4992a9732b3fff3ce, type: 3}
   m_PrefabInstance: {fileID: 392371537}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1454442017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1454442018}
+  - component: {fileID: 1454442020}
+  - component: {fileID: 1454442019}
+  m_Layer: 5
+  m_Name: DisplayedText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1454442018
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454442017}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 618451740}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 100}
+  m_SizeDelta: {x: 1030, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1454442019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454442017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Polaroid Text
+
+'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1454442020
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454442017}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1454997679
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70163,17 +70206,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1746756800}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 250415019}
+  m_Father: {fileID: 1917400167}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 100}
-  m_SizeDelta: {x: 1027, y: 50}
+  m_AnchoredPosition: {x: 0, y: -329.5}
+  m_SizeDelta: {x: 1030, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1746756802
 MonoBehaviour:
@@ -76488,6 +76531,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1746756801}
   - {fileID: 1264699554}
   - {fileID: 2046589710}
   - {fileID: 1007290990}
@@ -82789,6 +82833,8 @@ MonoBehaviour:
   polaroidMenu: {fileID: 74639435}
   textureToSet: {fileID: 2800000, guid: 05b55ee35648f43448515c4d0143b3d0, type: 3}
   relatedHoldable: {fileID: 1182900455}
+  displayString: Must be the last picture I took before I passed out. I guess you
+    won, Tyler
 --- !u!65 &2057765617
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95060,6 +95106,7 @@ MonoBehaviour:
   polaroidMenu: {fileID: 74639435}
   textureToSet: {fileID: 2800000, guid: 35cd9461d19c87143a0c1b1fde0d2e58, type: 3}
   relatedHoldable: {fileID: 2131196595}
+  displayString: No way! Tyler found my stash! Gnarly, dude!
 --- !u!54 &8348643098466711036
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -95766,6 +95813,7 @@ SceneRoots:
   - {fileID: 6116018313772770311}
   - {fileID: 300685748}
   - {fileID: 766901869}
+  - {fileID: 995847967}
   - {fileID: 1731757423}
   - {fileID: 2033098778}
   - {fileID: 355368783}

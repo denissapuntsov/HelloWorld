@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Crosshair : MonoBehaviour
@@ -24,6 +25,9 @@ public class Crosshair : MonoBehaviour
                 break;
             case "pickUp":
                 crosshairAnimator.SetInteger("state", 3);
+                break;
+            case "phone":
+                crosshairAnimator.SetInteger("state", 4);
                 break;
         }
     }

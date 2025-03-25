@@ -1,13 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] public List<GameObject> polaroids;
-    [SerializeField] GameObject inventoryUI, leftArrow, rightArrow;
+    [SerializeField] GameObject inventoryUI, inventoryText, leftArrow, rightArrow;
     [SerializeField] public int currentPolaroidIndex;
 
     public void AddPolaroid(GameObject polaroidToAdd)
@@ -18,7 +17,9 @@ public class InventoryManager : MonoBehaviour
     public void DisplayPolaroid(int index)
     {
         currentPolaroidIndex = index;
-        inventoryUI.GetComponentInChildren<RawImage>().texture = polaroids[index].GetComponent<Polaroid>().textureToSet;
+        var displayedPolaroid = polaroids[index].GetComponent<Polaroid>();
+        inventoryUI.GetComponentInChildren<RawImage>().texture = displayedPolaroid.textureToSet;
+        inventoryText.GetComponent<TextMeshProUGUI>().text = $"\"{displayedPolaroid.displayString}\"";
         
         leftArrow.SetActive(true);
         rightArrow.SetActive(true);

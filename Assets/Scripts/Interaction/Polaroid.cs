@@ -6,6 +6,7 @@ public class Polaroid : MonoBehaviour
     [SerializeField] GameObject polaroidMenu;
     [SerializeField] public Texture textureToSet;
     [SerializeField] public Holdable relatedHoldable;
+    [SerializeField] public string displayString;
     MenuManager menuManager;
     ObjectiveManager objectiveManager;
     InventoryManager inventoryManager;
