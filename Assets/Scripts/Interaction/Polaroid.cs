@@ -7,6 +7,7 @@ public class Polaroid : MonoBehaviour
     [SerializeField] public Texture textureToSet;
     [SerializeField] public Holdable relatedHoldable;
     [SerializeField] public string displayString;
+    [SerializeField] private int pointValue = 2;
     MenuManager menuManager;
     ObjectiveManager objectiveManager;
     InventoryManager inventoryManager;
@@ -41,5 +42,8 @@ public class Polaroid : MonoBehaviour
             objectiveManager.AddObjective(relatedHoldable.objective);
         }
         objectiveManager.AddPolaroid();
+
+        // add points to score
+        FindAnyObjectByType<ScoreManager>().AddPoints(pointValue);
     }
 }

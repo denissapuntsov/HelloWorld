@@ -3,12 +3,14 @@ using UnityEngine;
 public class Cleanable : MonoBehaviour
 {
     [SerializeField] int pointsToAward = 0;
-    [SerializeField] GameObject particlePrefab;
+    [SerializeField] GameObject cleanupParticlePrefab, successParticlePrefab;
+    [SerializeField] AudioClip cleaningClip, finishedCleaningClip;
     [SerializeField] Transform particleParent;
+    [SerializeField] AudioSource globalSFXSource;
 
     ScoreManager scoreManager;
     bool isCleaning;
-    GameObject activeParticles;
+    GameObject cleanupParticles;
 
     private void Start()
     {
@@ -18,24 +20,30 @@ public class Cleanable : MonoBehaviour
     public void StartCleaning()
     {
         GetComponent<Animator>().SetBool("IsCleaning", true);
-        activeParticles = Instantiate(particlePrefab, particleParent);
+        globalSFXSource.clip = cleaningClip;
+        globalSFXSource.Play();
+        cleanupParticles = Instantiate(cleanupParticlePrefab, particleParent);
     }
 
     public void StopCleaning()
     {
         GetComponent<Animator>().SetBool("IsCleaning", false);
-        activeParticles.GetComponent<ParticleSystem>().Stop();
+        globalSFXSource.mute = true;
+        globalSFXSource.Stop();
+        globalSFXSource.mute = false;
+        if (cleanupParticles != null) { cleanupParticles.GetComponent<ParticleSystem>().Stop(); }
     }
 
     public void FinishCleaning()
     {
+        globalSFXSource.PlayOneShot(finishedCleaningClip);
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<Animator>().SetBool("IsCleaning", false);
         GetComponent<Interaction>().canBeInteractedWith = false;
         FindAnyObjectByType<Crosshair>().SetCrosshairMode("idle");
-        activeParticles.GetComponent<ParticleSystem>().Stop();
-
+        cleanupParticles.GetComponent<ParticleSystem>().Stop();
+        Instantiate(successParticlePrefab, particleParent);
     }
 
     public void AwardPoints()

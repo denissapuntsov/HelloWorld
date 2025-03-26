@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Hands : MonoBehaviour
 {
+    [SerializeField] AudioSource globalSFXAudioSource;
+
     public GameObject heldObject;
     public Vector3 heldOffset;
     public Transform playerCamera;
@@ -72,6 +74,10 @@ public class Hands : MonoBehaviour
 
             actions.canInteract = false;
             actions.interaction = null;
+
+            var grabSound = heldObject.GetComponent<Holdable>().grabSound;
+            globalSFXAudioSource.PlayOneShot(grabSound);
+
             StartCoroutine(DelayItemDrop());
         }
         else
