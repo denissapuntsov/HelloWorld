@@ -1,5 +1,6 @@
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(BoxCollider))]
 public class SpeedModArea : MonoBehaviour
@@ -9,6 +10,8 @@ public class SpeedModArea : MonoBehaviour
     FirstPersonController playerController;
     ScoreManager scoreManager;
     float normalSpeed;
+
+    public UnityEvent onClean;
 
     private void Start()
     {
@@ -42,6 +45,7 @@ public class SpeedModArea : MonoBehaviour
 
             if (transform.childCount == 1)
             {
+                onClean?.Invoke();
                 SetPlayerSpeed(normalSpeed);
                 Destroy(gameObject);
             }

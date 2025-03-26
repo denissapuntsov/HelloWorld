@@ -6,13 +6,29 @@ public class AudioManager : MonoBehaviour
 {
     [SerializeField] List<AudioSource> musicSources, SFXSources, dialogueSources;
     [SerializeField] Slider masterSlider, musicSlider, SFXSlider, dialogueSlider;
+    [SerializeField] Toggle subtitlesToggle;
+
+    [SerializeField] GameObject captions;
 
     Dictionary<AudioSource, float> musicDefaultVolume = new Dictionary<AudioSource, float>();
     Dictionary<AudioSource, float> SFXDefaultVolume = new Dictionary<AudioSource, float>();
     Dictionary<AudioSource, float> dialogueDefaultVolume = new Dictionary<AudioSource, float>();
 
+    private static float masterVolume = 1;
+    private static float musicVolume = 1;
+    private static float dialogueVolume = 1;
+    private static float SFXVolume = 1;
+
+    private static bool areCaptionsEnabled = true;
+
     private void Start()
     {
+        masterSlider.value = masterVolume;
+        musicSlider.value = musicVolume;
+        dialogueSlider.value = dialogueVolume;
+        SFXSlider.value = SFXVolume;
+        subtitlesToggle.isOn = areCaptionsEnabled;
+
         masterSlider.onValueChanged.AddListener(delegate { ControlVolumes("master"); });
 
         SetDefaultVolumes(musicSources, musicDefaultVolume);
@@ -23,6 +39,15 @@ public class AudioManager : MonoBehaviour
 
         SetDefaultVolumes(dialogueSources, dialogueDefaultVolume);
         dialogueSlider.onValueChanged.AddListener(delegate { ControlVolumes("dialogue"); });
+
+        subtitlesToggle.onValueChanged.AddListener(delegate { ToggleCaptions(subtitlesToggle.isOn); });
+    }
+
+    private void ToggleCaptions(bool state)
+    {
+        areCaptionsEnabled = state;
+        if (captions == null) { return; }
+        captions.SetActive(state);
     }
 
     public void PauseAudio(bool state)
@@ -44,16 +69,20 @@ public class AudioManager : MonoBehaviour
     {
         switch (audioCategory)
         {
-            case "music": 
+            case "music":
+                musicVolume = musicSlider.value;
                 SetRelativeVolume(musicSources, musicDefaultVolume, musicSlider);
                 break;
             case "sfx":
+                SFXVolume = SFXSlider.value;
                 SetRelativeVolume(SFXSources, SFXDefaultVolume, SFXSlider);
                 break;
             case "dialogue":
+                dialogueVolume = dialogueSlider.value;
                 SetRelativeVolume(dialogueSources, dialogueDefaultVolume, dialogueSlider);
                 break;
             case "master":
+                masterVolume = masterSlider.value;
                 SetRelativeVolume(musicSources, musicDefaultVolume, musicSlider);
                 SetRelativeVolume(SFXSources, SFXDefaultVolume, SFXSlider);
                 SetRelativeVolume(dialogueSources, dialogueDefaultVolume, dialogueSlider);
@@ -76,4 +105,6 @@ public class AudioManager : MonoBehaviour
             defaultVolumes.Add(source, source.volume);
         }
     }
+
+
 }
