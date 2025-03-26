@@ -38,7 +38,6 @@ public class PlayerActions : MonoBehaviour
     {
         if (other.GetComponent<Interaction>() != null)
         {
-            Debug.Log(other);
             interaction = null;
             crosshair.SetCrosshairMode("idle");
         }

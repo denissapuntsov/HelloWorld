@@ -7,11 +7,22 @@ public class SpeedModArea : MonoBehaviour
 {
     [SerializeField] float moveSpeedModifier = 0.5f;
     [SerializeField] GameObject sparkleParticles;
+    [SerializeField] AudioSource globalSFXAudioSource;
     FirstPersonController playerController;
     ScoreManager scoreManager;
     float normalSpeed;
 
     public UnityEvent onClean;
+
+    public AudioClip[] poolOfClips;
+    private AudioClip TrashRemovalAudioClip
+    {
+        get
+        {
+            AudioClip chosenClip = poolOfClips[Random.Range(0, poolOfClips.Length)];
+            return chosenClip;
+        }
+    }
 
     private void Start()
     {
@@ -40,6 +51,7 @@ public class SpeedModArea : MonoBehaviour
     {
         if (transform.childCount >= 0)
         {
+            globalSFXAudioSource.PlayOneShot(TrashRemovalAudioClip);
             Instantiate(sparkleParticles, transform.GetChild(0).position, transform.GetChild(0).rotation, transform.parent);
             Destroy(transform.GetChild(0).gameObject);
 

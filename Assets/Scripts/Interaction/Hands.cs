@@ -110,6 +110,8 @@ public class Hands : MonoBehaviour
             heldObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
             heldObject.transform.SetParent(null, true);
 
+            heldObject.GetComponent<Holdable>().firstCollisionRegistered = false;
+
             //checker.gameObject.SetActive(false);
             heldObject = null;
             HandsFull = false;
