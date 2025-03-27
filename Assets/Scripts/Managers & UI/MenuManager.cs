@@ -16,7 +16,7 @@ public class MenuManager : MonoBehaviour
     public bool isPaused;
 
     // Menu references
-    [SerializeField] GameObject pauseUI, inventoryUI, UIToHide;
+    [SerializeField] public GameObject pauseUI, inventoryUI, UIToHide;
 
     void Start()
     {

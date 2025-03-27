@@ -12,7 +12,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] bool timeStarted, timeRanOut, switchedMusic, finishedCleaning = false;
     [SerializeField] TextMeshProUGUI timerUI, scoreUI;
     [SerializeField] Slider timerSlider, trashcanSlider;
-    [SerializeField] GameObject endStateUI, endStateImage, fadeoutPanel;
+    [SerializeField] GameObject endStateUI, endStateImage, fadeoutPanel, captions;
+    [SerializeField] AudioSource globalDialogueAudioSource;
 
     [SerializeField] Animator endStateSpriteAnimator;
     public float timer;
@@ -111,6 +112,11 @@ public class ScoreManager : MonoBehaviour
         var menuManager = FindAnyObjectByType<MenuManager>();
         menuManager.HideUI(true);
         menuManager.gameHasFinished = true;
+        menuManager.pauseUI.SetActive(false);
+        menuManager.inventoryUI.SetActive(false);
+        globalDialogueAudioSource.Stop();
+        globalDialogueAudioSource.clip = null;
+        captions.GetComponent<TextMeshProUGUI>().text = "";
 
         endStateUI.SetActive(true);
         FindAnyObjectByType<MusicManager>().GraduallyEndMusic();
