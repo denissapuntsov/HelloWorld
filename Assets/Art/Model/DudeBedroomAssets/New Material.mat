@@ -21,14 +21,14 @@ Material:
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
-  m_LockedProperties: 
+  m_LockedProperties: _BaseMap
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 25, y: 125}
+        m_Offset: {x: -1, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -58,6 +58,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -99,7 +103,7 @@ Material:
     - _BandsCountOtherLights: 4
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _BumpScale: 1
+    - _BumpScale: 0.59
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -119,7 +123,7 @@ Material:
     - _NormalsSource: 0
     - _NormalsUVType: 0
     - _OcclusionStrength: 1
-    - _OutlineWidth: 0.005
+    - _OutlineWidth: 0.01
     - _OutlineZSmooth: 0
     - _Parallax: 0.005
     - _PlanarNormalsInfluence: 0.1
@@ -146,15 +150,15 @@ Material:
     - _UseRim: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - __BeginGroup_ShadowHSV: 0
+    - __BeginGroup_ShadowHSV: 1
     - __EndGroup: 0
     - __dummy__: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5283019, g: 0.32728133, b: 0.32728133, a: 1}
+    - _Color: {r: 0.57861626, g: 0.26900104, b: 0.21288703, a: 1}
     - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
+    - _HColor: {r: 0.91194963, g: 0.91194963, b: 0.91194963, a: 1}
     - _OutlineColorVertex: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.5}

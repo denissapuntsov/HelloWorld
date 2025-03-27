@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2183696805754533479}
   - component: {fileID: 6879915249245760486}
   - component: {fileID: 3085938420718545879}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ReturnedParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4903,7 +4903,7 @@ GameObject:
   - component: {fileID: 889357954768262679}
   - component: {fileID: 2469195409954024232}
   - component: {fileID: 3035874138309197260}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Burst
   m_TagString: Untagged
   m_Icon: {fileID: 0}

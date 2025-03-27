@@ -30,6 +30,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BandsCount: 3
+    - _BandsCountOtherLights: 3
+    - _RampSmoothing: 0.321
+    - _RampSmoothingOtherLights: 0.265
+    - _RampThreshold: 0.622
+    - _RampThresholdOtherLights: 0.661
     - _Shininess: 0.44247153
     m_Colors:
     - _Color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 1}

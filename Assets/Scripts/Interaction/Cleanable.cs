@@ -44,6 +44,7 @@ public class Cleanable : MonoBehaviour
         FindAnyObjectByType<Crosshair>().SetCrosshairMode("idle");
         cleanupParticles.GetComponent<ParticleSystem>().Stop();
         Instantiate(successParticlePrefab, particleParent);
+        FindAnyObjectByType<CollisionCheck>().obstacle = null;
     }
 
     public void AwardPoints()
