@@ -39,7 +39,7 @@ public class MainMenu : MonoBehaviour
     private void PlayGame()
     {
         // Load the game scene
-        SceneManager.LoadScene("HouseInteractable");
+        SceneManager.LoadScene("GameScene");
     }
 
     private void OpenSettings()
