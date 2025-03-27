@@ -528,7 +528,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312919912}
   m_CullTransparentMesh: 1
---- !u!1 &586448678
+--- !u!1 &586520486
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -536,24 +536,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 586448680}
-  - component: {fileID: 586448679}
+  - component: {fileID: 586520488}
+  - component: {fileID: 586520487}
   m_Layer: 0
-  m_Name: sTART
+  m_Name: Credits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!328 &586448679
+--- !u!328 &586520487
 VideoPlayer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586448678}
+  m_GameObject: {fileID: 586520486}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 179e7d249a833af4ebbbf289c763ec7e, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: ef000511df6f9b14d82df226897c4a02, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 665645599}
@@ -581,13 +581,13 @@ VideoPlayer:
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
---- !u!4 &586448680
+--- !u!4 &586520488
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586448678}
+  m_GameObject: {fileID: 586520486}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -1137,7 +1137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa4f3d1a6c2c46468f080d4f055bef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditsVideo: {fileID: 586448679}
+  creditsVideo: {fileID: 586520487}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1146,4 +1146,4 @@ SceneRoots:
   - {fileID: 1655480601}
   - {fileID: 2116871242}
   - {fileID: 1820608545}
-  - {fileID: 586448680}
+  - {fileID: 586520488}
