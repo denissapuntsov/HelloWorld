@@ -11,14 +11,6 @@ public class GlobalManager : MonoBehaviour
 
     public void Quit()
     {
-        Application.Quit();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SceneManager.LoadScene("test1");
-        }
+        SceneManager.LoadScene(0);
     }
 }

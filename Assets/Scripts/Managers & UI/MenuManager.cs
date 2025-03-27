@@ -18,6 +18,9 @@ public class MenuManager : MonoBehaviour
     // Menu references
     [SerializeField] public GameObject pauseUI, inventoryUI, UIToHide;
 
+    [SerializeField] AudioSource globalSFXAudioSource;
+    [SerializeField] AudioClip pauseSound, inventorySound;
+
     void Start()
     {
         actions = FindAnyObjectByType<PlayerActions>();
@@ -35,6 +38,7 @@ public class MenuManager : MonoBehaviour
                 HideUI(true);
                 pauseUI.SetActive(true);
                 SetGamePause(true);
+                globalSFXAudioSource.PlayOneShot(pauseSound);
             }
             if (Input.GetKeyDown(KeyCode.Tab) && inventoryManager.polaroids.Count != 0)
             {
@@ -42,6 +46,7 @@ public class MenuManager : MonoBehaviour
                 inventoryUI.SetActive(true);
                 inventoryManager.DisplayPolaroid(0);
                 SetGamePause(true);
+                globalSFXAudioSource.PlayOneShot(inventorySound);
             }
         }
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 7 (LivingRoom)
   m_EditorClassIdentifier: 
   id: pol7
-  clip: {fileID: 8300000, guid: d546e2ce441985640a12e5a6f11ae3d8, type: 3}
+  clip: {fileID: 8300000, guid: c60c0933f7b7bf542b7743c6b9d72112, type: 3}
   lines:
   - text: Must be the last picture I took before I passed out. I guess you won, Tyler
     timeToDisappear: 6.079

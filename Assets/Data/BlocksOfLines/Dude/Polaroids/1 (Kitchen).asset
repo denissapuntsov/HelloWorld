@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1 (Kitchen)
   m_EditorClassIdentifier: 
   id: pol1
-  clip: {fileID: 8300000, guid: cb3c95ae0c7849f438470364b1d842ca, type: 3}
+  clip: {fileID: 8300000, guid: 39fd81a09993a4d4eacf89bff6b96277, type: 3}
   lines:
   - text: Tyler, why are you drinking mouthwash dude? I should put that back.
     timeToDisappear: 6.251

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: tapSnap
   m_EditorClassIdentifier: 
   id: tapSnap
-  clip: {fileID: 8300000, guid: 944694a8319473547a236347bef85d18, type: 3}
+  clip: {fileID: 8300000, guid: 92277f8db4ee4ff4fab1c1fb4bc3d23c, type: 3}
   lines:
   - text: 'Good as new. '
     timeToDisappear: 1.675

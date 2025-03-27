@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 4 (Garage)
   m_EditorClassIdentifier: 
   id: pol4
-  clip: {fileID: 8300000, guid: 3daa4d8fe68c61741b5b6c2f7180216d, type: 3}
+  clip: {fileID: 8300000, guid: a2e8e2783fd2f8841b3c30642aa47cf0, type: 3}
   lines:
   - text: Just why, dude?
     timeToDisappear: 1.439

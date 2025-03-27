@@ -6,7 +6,7 @@ using UnityEngine;
 public class Telephone : MonoBehaviour
 {
     [SerializeField] int timePenalty;
-    [SerializeField] GameObject invisibleWallsParent, tutorialUI;
+    [SerializeField] GameObject invisibleWallsParent, tutorialUI, gameplayUIParent;
 
     [SerializeField] string[] firstCallLineSequence, secondCallSuccess, secondCallFail;
 
@@ -58,6 +58,7 @@ public class Telephone : MonoBehaviour
     private void EndFirstCall()
     {
         if (firstCallEnded) { return; }
+        FindAnyObjectByType<MusicManager>().PlayMusic();
         firstCallEnded = true;
         Debug.Log("Ended first call");
         tutorialUI.SetActive(true);
@@ -65,6 +66,7 @@ public class Telephone : MonoBehaviour
         menuManager.SetPlayerMovement(true);
         firstCallPlaying = false;
         invisibleWallsParent.gameObject.SetActive(false);
+        gameplayUIParent.SetActive(true);
         scoreManager.StartTimer();
     }
 

@@ -103,7 +103,7 @@ public class Hands : MonoBehaviour
                 child.gameObject.layer = 0;
             }
 
-            objectiveManager.RemoveObjective(heldObject.GetComponent<Holdable>().objective);
+            // objectiveManager.RemoveObjective(heldObject.GetComponent<Holdable>().objective);
 
             SetPhysics(true);
             heldObject.transform.position = checker.gameObject.transform.position;

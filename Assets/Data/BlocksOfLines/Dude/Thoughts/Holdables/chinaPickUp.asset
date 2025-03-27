@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: chinaPickUp
   m_EditorClassIdentifier: 
   id: chinaPickUp
-  clip: {fileID: 8300000, guid: fee4bbc4e4713ea4088cbba6370815cb, type: 3}
+  clip: {fileID: 8300000, guid: 1b46bd6259765a54588c37df577e2caa, type: 3}
   lines:
   - text: "This was grandma\u2019s. Mom would freak out if I lost it!"
     timeToDisappear: 4.081

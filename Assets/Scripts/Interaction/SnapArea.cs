@@ -35,7 +35,7 @@ public class SnapArea : MonoBehaviour
     private void SnapObject(GameObject obj)
     {
         if (hasSnapped) { return; }
-
+        FindAnyObjectByType<ObjectiveManager>().RemoveObjective(obj.GetComponent<Holdable>().objective);
         obj.GetComponent<Holdable>().isSnapped = true;
         hasSnapped = true;
         hands.RemoveHeldObject();

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField][Range(0, 100)] private int score = 0;
+    [SerializeField][Range(0, 100)] public int score = 0;
     [SerializeField] private int threshold;
     [SerializeField] bool timeStarted, timeRanOut, switchedMusic, finishedCleaning = false;
     [SerializeField] TextMeshProUGUI timerUI, scoreUI;
@@ -28,6 +28,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
+        endStateImage.SetActive(false);
         telephone = FindAnyObjectByType<Telephone>();
         menuManager = FindAnyObjectByType<MenuManager>();
         scoreUI.text = "Score: 0";
@@ -96,9 +97,8 @@ public class ScoreManager : MonoBehaviour
         if (score >= 100)
         {
             finishedCleaning = true;
-            menuManager.SetGamePause(true);
             endStateUI.SetActive(true);
-            EngageWinState(true);
+            EndGame();
         }
     }
 
@@ -110,6 +110,11 @@ public class ScoreManager : MonoBehaviour
     private void EndGame()
     {
         var menuManager = FindAnyObjectByType<MenuManager>();
+
+        // just in case idfk
+        menuManager.SetPlayerMovement(false);
+        FindAnyObjectByType<PlayerActions>().canInteract = false;
+
         menuManager.HideUI(true);
         menuManager.gameHasFinished = true;
         menuManager.pauseUI.SetActive(false);
@@ -128,7 +133,7 @@ public class ScoreManager : MonoBehaviour
 
     public void FinishEndStateTransition()
     {
-
+        Debug.Log("setting endStateImage as active");
         endStateImage.SetActive(true);
         // if time ran out and we haven't crossed the point threshold, lose (Ending 1)
         if (timeRanOut && score < threshold)
@@ -141,6 +146,11 @@ public class ScoreManager : MonoBehaviour
         {
             EngageWinState(false);
         }
+
+        if (score >= 100)
+        {
+            EngageWinState(true);
+        }
     }
 
     public void EngageWinState(bool isPerfectScore)
@@ -148,14 +158,14 @@ public class ScoreManager : MonoBehaviour
         if (isPerfectScore)
         {
             StartCoroutine(StartDelayedFadeout(12.1f));
-            endStateText.text = "Achieved Ending 3: Perfect Score.";
+            endStateText.text = $"Honey, we're home!\nOh! Great job, the house looks spotless!\nMaybe we'll let you invite that friend of yours after all. What's his name, Tyler?";
             Debug.Log("Achieved Ending 3: Perfect Score.");
             endStateSpriteAnimator.Play("Best_Ending");
             FindAnyObjectByType<DialogueManager>().PlayBlock("bestEnding");
             return;
         }
         StartCoroutine(StartDelayedFadeout(7.6f));
-        endStateText.text = $"Achieved Ending 2 with score {score}.";
+        endStateText.text = $"Honey, we're home!\nOh good, you cleaned up. I'll start getting everything ready for the party.\nYou'll have a great time - must have been boring here all by yourself?";
         Debug.Log($"Achieved Ending 2 with score {score}.");
         endStateSpriteAnimator.Play("Good_Ending");
         FindAnyObjectByType<DialogueManager>().PlayBlock("goodEnding");
@@ -164,7 +174,7 @@ public class ScoreManager : MonoBehaviour
     public void EngageLoseState()
     {
         StartCoroutine(StartDelayedFadeout(7.2f));
-        endStateText.text = $"Achieved Ending 1: score {score} below threshold {threshold}.";
+        endStateText.text = $"Honey, we're home!\nWhat have you done! The house is a mess!\nHow can you be so irresponsible? I'm so disappointed in you.";
         Debug.Log($"Achieved Ending 1: score {score} below threshold {threshold}.");
         endStateSpriteAnimator.Play("Fail_Ending");
         FindAnyObjectByType<DialogueManager>().PlayBlock("badEnding");

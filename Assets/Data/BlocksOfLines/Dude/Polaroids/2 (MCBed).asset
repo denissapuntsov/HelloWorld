@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2 (MCBed)
   m_EditorClassIdentifier: 
   id: pol2
-  clip: {fileID: 8300000, guid: 80e3e5e93e8593a4fac033dc119f8d76, type: 3}
+  clip: {fileID: 8300000, guid: 32e942774ba2660449688da6daded094, type: 3}
   lines:
   - text: "Is he crying? Didn\u2019t know he was such a sensitive soul. "
     timeToDisappear: 4.597

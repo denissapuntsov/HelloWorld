@@ -15,16 +15,16 @@ public class SceneLoaders : MonoBehaviour
     // Update is called once per frame
     void BacktoMenu(VideoPlayer vpo)
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(1);
     }
 
     public void PlayButton()
     {
-        SceneManager.LoadScene("test1");
+        SceneManager.LoadScene(2);
     }
 
     public void MenuButton()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(1);
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 8.BestEnding
   m_EditorClassIdentifier: 
   id: bestEnding
-  clip: {fileID: 8300000, guid: 051d9fd959e538c46806d016d62a10f8, type: 3}
+  clip: {fileID: 8300000, guid: ecb0c6073e983b341bb79c365092bca7, type: 3}
   lines:
   - text: "Honey, we're home!.. Oh! Great job, the house looks spotless! Maybe we\u2019ll
       let you invite that friend of yours after all. What\u2019s his name, Tyler?"

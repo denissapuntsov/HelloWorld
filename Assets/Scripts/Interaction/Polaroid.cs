@@ -8,6 +8,9 @@ public class Polaroid : MonoBehaviour
     [SerializeField] public Holdable relatedHoldable;
     [SerializeField] public string displayString;
     [SerializeField] private int pointValue = 2;
+    [SerializeField] AudioClip polaroidPickUp;
+    [SerializeField] AudioSource globalSFXAudioSource;
+
     MenuManager menuManager;
     ObjectiveManager objectiveManager;
     InventoryManager inventoryManager;
@@ -25,6 +28,17 @@ public class Polaroid : MonoBehaviour
 
     public void StartInteraction()
     {
+        // add points to score
+        var scoreManager = FindAnyObjectByType<ScoreManager>();
+        scoreManager.AddPoints(pointValue);
+        if (scoreManager.score == 100) 
+        {
+            polaroidMenu.SetActive(false);
+            return; 
+        }
+
+        globalSFXAudioSource.PlayOneShot(polaroidPickUp);
+
         menuManager.SetGamePause(true);
         audioManager.PauseAudio(false);
         Time.timeScale = 1;
@@ -42,8 +56,5 @@ public class Polaroid : MonoBehaviour
             objectiveManager.AddObjective(relatedHoldable.objective);
         }
         objectiveManager.AddPolaroid();
-
-        // add points to score
-        FindAnyObjectByType<ScoreManager>().AddPoints(pointValue);
     }
 }

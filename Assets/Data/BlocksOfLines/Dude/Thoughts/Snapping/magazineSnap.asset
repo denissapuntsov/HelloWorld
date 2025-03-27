@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: magazineSnap
   m_EditorClassIdentifier: 
   id: magazineSnap
-  clip: {fileID: 8300000, guid: 6b7bdc976b620b54f8488eedb0018c96, type: 3}
+  clip: {fileID: 8300000, guid: e356e7c1994bd054e924d622bf97606a, type: 3}
   lines:
   - text: There we go!
     timeToDisappear: 1.181

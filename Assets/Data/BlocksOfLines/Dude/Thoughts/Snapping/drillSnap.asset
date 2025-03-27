@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: drillSnap
   m_EditorClassIdentifier: 
   id: drillSnap
-  clip: {fileID: 8300000, guid: 941b27c0f6fba61448e7e8e5f61a4ad8, type: 3}
+  clip: {fileID: 8300000, guid: 81cd3a70777e77c468028fc66c1eac67, type: 3}
   lines:
   - text: Like it never left.
     timeToDisappear: 2.019

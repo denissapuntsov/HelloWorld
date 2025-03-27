@@ -68,7 +68,8 @@ public class SpeedModArea : MonoBehaviour
 
     void SetPlayerSpeed(float speed)
     {
-         playerController.MoveSpeed = speed;
+        playerController.MoveSpeed = speed;
+        playerController.SprintSpeed = speed;
     }
 
 }

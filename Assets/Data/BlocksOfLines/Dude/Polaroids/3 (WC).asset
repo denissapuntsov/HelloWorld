@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 3 (WC)
   m_EditorClassIdentifier: 
   id: pol3
-  clip: {fileID: 8300000, guid: 3daa4d8fe68c61741b5b6c2f7180216d, type: 3}
+  clip: {fileID: 8300000, guid: 284c123d2751e0a4490c9b6ef81e9ad8, type: 3}
   lines:
   - text: No way! Tyler found my stash! Gnarly, dude!
     timeToDisappear: 5.585

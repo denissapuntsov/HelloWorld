@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 6.GoodEnding
   m_EditorClassIdentifier: 
   id: goodEnding
-  clip: {fileID: 8300000, guid: c40cbdf5a250a7f45a23c8b8cde7c271, type: 3}
+  clip: {fileID: 8300000, guid: 00736524ea7302c4795127bb127745ca, type: 3}
   lines:
   - text: "Honey, we\u2019re home! Oh good, you cleaned up. I\u2019ll start getting
       everything ready for the party. You\u2019ll have a great time, must have been

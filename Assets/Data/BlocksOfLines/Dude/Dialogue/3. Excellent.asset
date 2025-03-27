@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 3. Excellent
   m_EditorClassIdentifier: 
   id: excellent
-  clip: {fileID: 8300000, guid: 6cce6d6b9caa40c40a5ae15d33c1d687, type: 3}
+  clip: {fileID: 8300000, guid: a51d9955073294f4090fb400c53923ba, type: 3}
   lines:
   - text: Oh, uh, excellent.
     timeToDisappear: 2.664

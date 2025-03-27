@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: magazinePickUp
   m_EditorClassIdentifier: 
   id: magazinePickUp
-  clip: {fileID: 8300000, guid: 599d565bbcec86a479e82bf6f6701d43, type: 3}
+  clip: {fileID: 8300000, guid: 47b7724cbc1eb664c82f8150c8208ab0, type: 3}
   lines:
   - text: I thought I hid that box pretty well. Why even look under my bed?
     timeToDisappear: 4.468

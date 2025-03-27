@@ -21,8 +21,7 @@ public class TutorialPanel : Menu
     public override void Close()
     {
         if (canBeClosed)
-        {
-            musicManager.PlayMusic();
+        { 
             menuManager.SetGamePause(false);
             menuManager.HideUI(false);
             gameObject.SetActive(false);

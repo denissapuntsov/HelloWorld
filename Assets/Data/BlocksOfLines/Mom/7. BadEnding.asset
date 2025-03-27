@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 7. BadEnding
   m_EditorClassIdentifier: 
   id: badEnding
-  clip: {fileID: 8300000, guid: d852e36a85d800941ae8fbc6cab9df59, type: 3}
+  clip: {fileID: 8300000, guid: 7ce38087928518445a2983600f352b74, type: 3}
   lines:
   - text: "Honey, we\u2019re home!.. What have you done! The house is a mess! How
       could you be so irresponsible!? I\u2019m so disappointed in you."
