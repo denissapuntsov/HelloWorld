@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -8,14 +9,14 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField][Range(0, 100)] private int score = 0;
     [SerializeField] private int threshold;
-    [SerializeField] bool timeStarted, timeRanOut, finishedCleaning = false;
+    [SerializeField] bool timeStarted, timeRanOut, switchedMusic, finishedCleaning = false;
     [SerializeField] TextMeshProUGUI timerUI, scoreUI;
-    [SerializeField] Slider timerSlider;
-    [SerializeField] GameObject endStateUI;
+    [SerializeField] Slider timerSlider, trashcanSlider;
+    [SerializeField] GameObject endStateUI, endStateImage, fadeoutPanel;
 
     [SerializeField] Animator endStateSpriteAnimator;
     public float timer;
-    public float timeLimit = 360;
+    public float timeLimit = 480;
     public bool timerPaused = false;
 
     Telephone telephone;
@@ -28,7 +29,7 @@ public class ScoreManager : MonoBehaviour
     {
         telephone = FindAnyObjectByType<Telephone>();
         menuManager = FindAnyObjectByType<MenuManager>();
-        scoreUI.text = "0";
+        scoreUI.text = "Score: 0";
         endStateUI.SetActive(false);
         endStateText = endStateUI.GetComponentInChildren<TextMeshProUGUI>();
         timerSlider.maxValue = timeLimit;
@@ -41,6 +42,12 @@ public class ScoreManager : MonoBehaviour
         if (timeStarted && !timerPaused)
         {
             CountTime();
+        }
+
+        if (timer > timeLimit - 60 && !switchedMusic) 
+        {
+            switchedMusic = true;
+            FindAnyObjectByType<MusicManager>().ShiftIntoHighGear();
         }
     }
 
@@ -77,7 +84,8 @@ public class ScoreManager : MonoBehaviour
     public void AddPoints(int points)
     {
         score += points;
-        scoreUI.text = score.ToString();
+        trashcanSlider.value = score;
+        scoreUI.text = $"Score: {score}";
 
         if (score >= 50 && score < 60 && !telephone.secondCallStarted)
         {
@@ -100,9 +108,22 @@ public class ScoreManager : MonoBehaviour
 
     private void EndGame()
     {
-        FindAnyObjectByType<MenuManager>().HideUI(true);
-        endStateUI.SetActive(true);
+        var menuManager = FindAnyObjectByType<MenuManager>();
+        menuManager.HideUI(true);
+        menuManager.gameHasFinished = true;
 
+        endStateUI.SetActive(true);
+        FindAnyObjectByType<MusicManager>().GraduallyEndMusic();
+
+        // Freeze player movements and camera position
+        menuManager.SetPlayerMovement(false);
+        FindAnyObjectByType<PlayerActions>().canInteract = false;
+    }
+
+    public void FinishEndStateTransition()
+    {
+
+        endStateImage.SetActive(true);
         // if time ran out and we haven't crossed the point threshold, lose (Ending 1)
         if (timeRanOut && score < threshold)
         {
@@ -114,20 +135,20 @@ public class ScoreManager : MonoBehaviour
         {
             EngageWinState(false);
         }
-
-        // Freeze player movements and camera position
-        menuManager.SetPlayerMovement(false);
     }
+
     public void EngageWinState(bool isPerfectScore)
     {
         if (isPerfectScore)
         {
+            StartCoroutine(StartDelayedFadeout(12.1f));
             endStateText.text = "Achieved Ending 3: Perfect Score.";
             Debug.Log("Achieved Ending 3: Perfect Score.");
             endStateSpriteAnimator.Play("Best_Ending");
             FindAnyObjectByType<DialogueManager>().PlayBlock("bestEnding");
             return;
         }
+        StartCoroutine(StartDelayedFadeout(7.6f));
         endStateText.text = $"Achieved Ending 2 with score {score}.";
         Debug.Log($"Achieved Ending 2 with score {score}.");
         endStateSpriteAnimator.Play("Good_Ending");
@@ -136,6 +157,7 @@ public class ScoreManager : MonoBehaviour
 
     public void EngageLoseState()
     {
+        StartCoroutine(StartDelayedFadeout(7.2f));
         endStateText.text = $"Achieved Ending 1: score {score} below threshold {threshold}.";
         Debug.Log($"Achieved Ending 1: score {score} below threshold {threshold}.");
         endStateSpriteAnimator.Play("Fail_Ending");
@@ -145,5 +167,11 @@ public class ScoreManager : MonoBehaviour
     public void StartTimer()
     {
         timeStarted = true;
+    }
+
+    IEnumerator StartDelayedFadeout(float timeToDelay)
+    {
+        yield return new WaitForSeconds(timeToDelay);
+        fadeoutPanel.GetComponent<Animator>().Play("fadeOut");
     }
 }

@@ -11,7 +11,9 @@
         "SPECIAL EFFECTS",
         "SURFACE",
         "LIGHTING",
-        "TRANSPARENCY/BLENDING"
+        "TRANSPARENCY/BLENDING",
+        "OPTIONS",
+        "SHADER STATES"
     ],
     "UseCustomFont": true,
     "CustomFont": {

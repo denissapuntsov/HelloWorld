@@ -8,6 +8,9 @@ public class SnapArea : MonoBehaviour
     [SerializeField] GameObject objectToCheckFor, objectToShow;
     [SerializeField] int scoreCount = 0;
 
+    [SerializeField] AudioSource globalSFXAudioSource;
+    [SerializeField] AudioClip successClip;
+
     public UnityEvent onSnap;
 
     Hands hands;
@@ -39,6 +42,8 @@ public class SnapArea : MonoBehaviour
         Destroy(obj);
         if (objectToShow != null) { objectToShow.SetActive(true); }
         scoreManager.AddPoints(scoreCount);
+
+        globalSFXAudioSource.PlayOneShot(successClip);
 
         onSnap?.Invoke();
     }

@@ -8,12 +8,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: bowl03
-  m_Shader: {fileID: 4800000, guid: 11d9674291655b448a5e1ec652a81d2d, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8c0d7db0a44134241b2a68b4fda4456b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - TCP2_UV_NORMALS_FULL
+  - TCP2_REFLECTIONS
+  - TCP2_RIM_LIGHTING
   m_InvalidKeywords:
+  - TCP2_UV_NORMALS_FULL
   - _NORMALMAP
   - _SPECGLOSSMAP
   m_LightmapFlags: 4
@@ -26,6 +28,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Alpha1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -46,6 +52,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emission1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -58,11 +68,19 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 2800000, guid: b9fb2c1c0ecc57b43be9a1e38c951b6d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -72,13 +90,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 1
+    - _Alpha: 0.68
     - _BandsCount: 4
     - _BandsCountOtherLights: 4
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FresnelMax: 1.16
+    - _FresnelMin: 0.52
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -89,14 +109,16 @@ Material:
     - _NormalsUVType: 0
     - _OcclusionStrength: 1
     - _OutlineWidth: 1
+    - _OutlineZSmooth: 0
     - _Parallax: 0.02
+    - _PlanarNormalsInfluence: 0.039
     - _RampSmoothing: 0.5
     - _RampSmoothingOtherLights: 0.5
     - _RampThreshold: 0.5
     - _RampThresholdOtherLights: 0.5
     - _ReceiveShadowsOff: 1
-    - _RimMax: 1
-    - _RimMin: 0.5
+    - _RimMax: 0.82
+    - _RimMin: 0.68
     - _Shadow_HSV_H: 0
     - _Shadow_HSV_S: 0
     - _Shadow_HSV_V: 0
@@ -105,17 +127,22 @@ Material:
     - _SpecularSmoothness: 0.2
     - _SrcBlend: 1
     - _UVSec: 0
+    - _UseReflections: 1
+    - _UseRim: 1
     - _ZWrite: 1
     - __BeginGroup_ShadowHSV: 0
     - __EndGroup: 0
     - __dummy__: 0
+    - _blendOperation: 0
     m_Colors:
     - _Albedo: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _Color: {r: 0, g: 0.38364768, b: 0.12912577, a: 1}
+    - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
     - _OutlineColorVertex: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.5}
+    - _ReflectionColor: {r: 0.9496855, g: 0.69755626, b: 0.2956567, a: 1}
+    - _RimColor: {r: 0.7169812, g: 0.68316126, b: 0.68316126, a: 0.5}
     - _SColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_BuildTextureStacks: []

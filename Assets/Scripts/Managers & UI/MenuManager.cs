@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour
     AudioManager audioManager;
 
     private bool isInMenu = false;
+    public bool gameHasFinished = false;
     public bool isPlayerFrozenExternally = false;
     public bool isPaused;
 
@@ -26,7 +27,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isInMenu)
+        if (!isInMenu && !gameHasFinished)
         {
 
             if (Input.GetKeyDown(KeyCode.Escape))

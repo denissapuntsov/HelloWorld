@@ -5,6 +5,7 @@ public class TutorialPanel : Menu
 {
     [SerializeField] int timeUntilCanClose = 2;
     [SerializeField] GameObject canBeClosedUIText;
+    [SerializeField] MusicManager musicManager;
     MenuManager menuManager;
     bool canBeClosed = false;
 
@@ -21,6 +22,7 @@ public class TutorialPanel : Menu
     {
         if (canBeClosed)
         {
+            musicManager.PlayMusic();
             menuManager.SetGamePause(false);
             menuManager.HideUI(false);
             gameObject.SetActive(false);

@@ -107,7 +107,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
     }
 
-    private BlockOfLines GetBlockWithId(string blockId)
+    public BlockOfLines GetBlockWithId(string blockId)
     {
         foreach (BlockOfLines block in blocks)
         {
