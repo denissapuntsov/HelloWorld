@@ -6,7 +6,8 @@ using UnityEngine;
 public class Telephone : MonoBehaviour
 {
     [SerializeField] int timePenalty;
-    [SerializeField] GameObject invisibleWallsParent, tutorialUI, gameplayUIParent;
+    [SerializeField] GameObject invisibleWallsParent, tutorialUI;
+    [SerializeField] GameObject[] gameplayUIElements;
 
     [SerializeField] string[] firstCallLineSequence, secondCallSuccess, secondCallFail;
 
@@ -66,7 +67,10 @@ public class Telephone : MonoBehaviour
         menuManager.SetPlayerMovement(true);
         firstCallPlaying = false;
         invisibleWallsParent.gameObject.SetActive(false);
-        gameplayUIParent.SetActive(true);
+        foreach (GameObject element in gameplayUIElements)
+        {
+            element.SetActive(true);
+        }
         scoreManager.StartTimer();
     }
 

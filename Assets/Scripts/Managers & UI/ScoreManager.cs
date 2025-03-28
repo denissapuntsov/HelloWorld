@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField][Range(0, 100)] public int score = 0;
     [SerializeField] private int threshold;
     [SerializeField] bool timeStarted, timeRanOut, switchedMusic, finishedCleaning = false;
-    [SerializeField] TextMeshProUGUI timerUI, scoreUI;
+    [SerializeField] TextMeshProUGUI timerUI, scoreUI, endingScoreUI;
     [SerializeField] Slider timerSlider, trashcanSlider;
     [SerializeField] GameObject endStateUI, endStateImage, fadeoutPanel, captions;
     [SerializeField] AudioSource globalDialogueAudioSource;
@@ -88,6 +88,7 @@ public class ScoreManager : MonoBehaviour
         score += points;
         trashcanSlider.value = score;
         scoreUI.text = $"Score: {score}";
+        endingScoreUI.text = score.ToString();
 
         if (score >= 50 && score < 60 && !telephone.secondCallStarted)
         {
