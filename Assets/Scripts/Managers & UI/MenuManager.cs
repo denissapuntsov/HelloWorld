@@ -26,6 +26,9 @@ public class MenuManager : MonoBehaviour
         actions = FindAnyObjectByType<PlayerActions>();
         inventoryManager = FindAnyObjectByType<InventoryManager>();
         audioManager = FindAnyObjectByType<AudioManager>();
+
+        SetGamePause(false);
+        pauseUI.SetActive(false);
     }
 
     private void Update()

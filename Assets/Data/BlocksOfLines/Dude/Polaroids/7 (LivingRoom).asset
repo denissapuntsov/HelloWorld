@@ -15,5 +15,5 @@ MonoBehaviour:
   id: pol7
   clip: {fileID: 8300000, guid: c60c0933f7b7bf542b7743c6b9d72112, type: 3}
   lines:
-  - text: Must be the last picture I took before I passed out. I guess you won, Tyler
+  - text: Must be the last picture I took before I passed out. I guess you won, Tyler.
     timeToDisappear: 6.079

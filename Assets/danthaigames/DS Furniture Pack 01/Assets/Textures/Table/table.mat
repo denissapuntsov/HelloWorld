@@ -54,7 +54,7 @@ Material:
     m_Floats:
     - _BandsCountOtherLights: 4
     - _LightWrapFactor: 0.5
-    - _OutlineWidth: 0.02
+    - _OutlineWidth: 0.01
     - _RampSmoothingOtherLights: 0.5
     - _RampThreshold: 0.5
     - _RampThresholdOtherLights: 0.5
