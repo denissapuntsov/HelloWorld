@@ -11,6 +11,6 @@ public class GlobalManager : MonoBehaviour
 
     public void Quit()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
