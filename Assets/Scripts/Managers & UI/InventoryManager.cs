@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] public List<GameObject> polaroids;
-    [SerializeField] GameObject inventoryUI, inventoryText, leftArrow, rightArrow;
+    [SerializeField] GameObject inventoryUI, inventoryText, leftArrow, rightArrow, inventoryIconUI;
     [SerializeField] public int currentPolaroidIndex;
 
     public void AddPolaroid(GameObject polaroidToAdd)
     {
+        inventoryIconUI.SetActive(true);
         polaroids.Add(polaroidToAdd);
     }
 

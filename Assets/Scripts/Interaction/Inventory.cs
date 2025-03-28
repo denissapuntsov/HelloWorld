@@ -11,17 +11,17 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        Navigate(); 
+        Navigate();
     }
 
     private void Navigate()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             if (inventoryManager.currentPolaroidIndex == inventoryManager.polaroids.Count - 1) { Debug.Log("Nowhere to scroll"); return; }
             DisplayNext();
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             if (inventoryManager.currentPolaroidIndex == 0) { Debug.Log("Nowhere to scroll"); return; }
             DisplayPrevious();

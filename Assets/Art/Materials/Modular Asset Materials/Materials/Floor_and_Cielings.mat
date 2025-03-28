@@ -52,7 +52,7 @@ Material:
     m_Floats:
     - _Alpha: 1
     - _BandsCount: 4
-    - _BandsCountOtherLights: 3
+    - _BandsCountOtherLights: 13
     - _BumpScale: 1
     - _FresnelMax: 1.5
     - _FresnelMin: 0

@@ -1965,7 +1965,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSources: []
-  SFXSources: []
+  SFXSources:
+  - {fileID: 1098471983}
   dialogueSources: []
   masterSlider: {fileID: 964454407}
   musicSlider: {fileID: 170060985}
